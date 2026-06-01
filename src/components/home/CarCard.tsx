@@ -1,16 +1,18 @@
 'use client'
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
-import { Heart } from 'lucide-react'
+import Link from 'next/link'
+import CarImage from '@/components/ui/CarImage'
+import { Gauge, Settings2, Calendar } from 'lucide-react'
 import type { Car } from '@/types'
 import { carWhatsAppLink } from '@/lib/whatsapp'
+import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
+import { TRANSMISSION_LABELS } from '@/lib/labels'
 
-const categoryBadge = {
-  novo: { label: 'NOVO', bg: '#E50914', color: '#fff' },
-  seminovo: { label: 'SEMINOVO', bg: '#ffffff', color: '#000000' },
-  repasse: { label: 'REPASSE', bg: '#FFA500', color: '#000000' },
+const CATEGORY_STYLE: Record<string, { label: string; bg: string; color: string }> = {
+  novo:     { label: 'Novo',     bg: '#0A1929',  color: '#fff' },
+  seminovo: { label: 'Seminovo', bg: '#fff',     color: '#0A1929' },
+  repasse:  { label: 'Repasse',  bg: '#B8860B',  color: '#fff' },
 }
 
 function formatPrice(price: number): string {
@@ -18,16 +20,8 @@ function formatPrice(price: number): string {
 }
 
 function formatKm(km: number): string {
-  if (km === 0) return '0km'
-  return `${km.toLocaleString('pt-BR')}km`
-}
-
-function WhatsAppIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-    </svg>
-  )
+  if (km === 0) return '0 km'
+  return `${km.toLocaleString('pt-BR')} km`
 }
 
 interface Props {
@@ -36,141 +30,119 @@ interface Props {
 }
 
 export default function CarCard({ car, index }: Props) {
-  const [liked, setLiked] = useState(false)
-  const badge = categoryBadge[car.category]
-  const isSold = car.status === 'vendido'
+  const isSold     = car.status === 'vendido'
   const isReserved = car.status === 'reservado'
-  const carName = `${car.brand} ${car.model}${car.version ? ` ${car.version}` : ''}`
-  const waLink = carWhatsAppLink(carName, car.year, car.slug)
+  const carName    = `${car.brand} ${car.model}${car.version ? ` ${car.version}` : ''}`
+  const waLink     = carWhatsAppLink(carName, car.year, car.slug)
+  const cat        = CATEGORY_STYLE[car.category] ?? CATEGORY_STYLE.seminovo
 
   return (
     <motion.div
-      className="group flex w-[240px] flex-shrink-0 flex-col overflow-hidden rounded-sm bg-bg-secondary md:w-full"
+      className="group flex flex-col overflow-hidden rounded-2xl bg-white"
+      style={{ border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(16,42,67,0.07)' }}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.4, delay: index * 0.08 }}
-      whileHover={!isSold ? { y: -3, boxShadow: '0 8px 32px rgba(74,144,226,0.2)' } : {}}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.4, delay: index * 0.07 }}
+      whileHover={!isSold ? { y: -4, boxShadow: '0 16px 36px rgba(16,42,67,0.12)' } : {}}
     >
-      {/* Image */}
-      <div className="relative h-[152px] w-full overflow-hidden bg-bg-tertiary md:h-[180px]">
-        <Image
+      {/* ── Image ───────────────────────────────── */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+        <CarImage
           src={car.coverImage}
           alt={`${carName} ${car.year}`}
           fill
-          className={`object-cover transition-transform duration-500 group-hover:scale-105 ${isSold ? 'grayscale' : ''}`}
-          sizes="(max-width: 768px) 240px, 33vw"
+          className={`object-cover transition-transform duration-500 group-hover:scale-105 ${isSold ? 'grayscale opacity-60' : ''}`}
+          sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
           loading="lazy"
         />
 
         {/* VENDIDO overlay */}
         {isSold && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/60">
-            <div
-              className="rotate-[-20deg] border-2 border-red-600 px-4 py-1"
-              style={{ color: '#E50914' }}
-            >
-              <span className="font-anton text-[22px] tracking-widest" style={{ fontFamily: 'var(--font-anton)' }}>
-                VENDIDO
-              </span>
-            </div>
+          <div className="absolute inset-0 flex items-center justify-center bg-marine-900/50">
+            <span className="rotate-[-20deg] border-2 border-white px-4 py-1 text-[18px] font-bold tracking-widest text-white">
+              VENDIDO
+            </span>
           </div>
         )}
 
-        {/* RESERVADO badge */}
+        {/* RESERVADO stripe */}
         {isReserved && (
-          <div className="absolute inset-x-0 bottom-0 bg-yellow-500/90 py-0.5 text-center">
-            <span className="text-[9px] font-bold tracking-[0.12em] text-black">RESERVADO</span>
+          <div className="absolute inset-x-0 bottom-0 bg-amber-500/90 py-1 text-center">
+            <span className="text-[9px] font-bold tracking-[0.12em] uppercase text-white">Reservado</span>
           </div>
         )}
 
         {/* Category badge */}
-        <div className="absolute left-2.5 top-2.5">
-          <span
-            className="px-2 py-0.5 text-[9px] font-bold tracking-[0.1em]"
-            style={{ background: badge.bg, color: badge.color }}
+        <span
+          className="absolute left-3 top-3 rounded-full px-2.5 py-1 text-[10px] font-bold shadow-sm"
+          style={{ background: cat.bg, color: cat.color, border: cat.bg === '#fff' ? '1px solid #E4E7EB' : 'none' }}
+        >
+          {cat.label}
+        </span>
+      </div>
+
+      {/* ── Info ────────────────────────────────── */}
+      <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
+        {/* Name + Price */}
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <h3
+              className="truncate text-[15px] font-bold leading-tight text-marine-900"
+              style={{ fontFamily: 'var(--font-jakarta)' }}
+            >
+              {car.brand} {car.model}
+            </h3>
+            {car.version && (
+              <p className="mt-0.5 truncate text-[11px] text-marine-400">{car.version}</p>
+            )}
+          </div>
+          <p
+            className="shrink-0 text-[16px] font-bold text-marine-900"
+            style={{ fontFamily: 'var(--font-fraunces)', fontFeatureSettings: "'tnum' 1" }}
           >
-            {badge.label}
+            {formatPrice(car.price)}
+          </p>
+        </div>
+
+        {/* Specs row */}
+        <div className="mt-3 flex items-center gap-4 text-[12px] text-marine-500">
+          <span className="flex items-center gap-1.5">
+            <Gauge size={14} className="text-marine-300" strokeWidth={1.8} />
+            {formatKm(car.km)}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Settings2 size={14} className="text-marine-300" strokeWidth={1.8} />
+            {TRANSMISSION_LABELS[car.transmission] ?? car.transmission}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Calendar size={14} className="text-marine-300" strokeWidth={1.8} />
+            {car.year}
           </span>
         </div>
 
-        {/* Heart */}
-        {!isSold && (
-          <button
-            aria-label={liked ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
-            onClick={() => setLiked(!liked)}
-            className="absolute right-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm transition-transform hover:scale-110"
-          >
-            <Heart
-              size={13}
-              className={liked ? 'fill-accent-red text-accent-red' : 'text-white'}
-            />
-          </button>
-        )}
-      </div>
-
-      {/* Info */}
-      <div className="flex flex-1 flex-col p-3.5">
-        <h3 className="text-[14px] font-bold leading-tight text-white">
-          {car.brand} {car.model}
-          {car.version && (
-            <span className="ml-1 text-[11px] font-medium text-text-muted">{car.version}</span>
-          )}
-        </h3>
-        <p className="mt-1 text-[10px] font-medium tracking-wide text-text-muted">
-          {car.year} &bull; {formatKm(car.km)} &bull; {car.fuel}
-        </p>
-
-        {/* Highlights */}
-        <div className="mt-2 flex flex-wrap gap-1">
-          {car.highlights.slice(0, 2).map((h) => (
-            <span
-              key={h}
-              className="border border-bg-tertiary px-1.5 py-0.5 text-[9px] font-medium text-text-muted"
-            >
-              {h}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-3 flex items-baseline gap-2">
-          <p className="font-inter text-[16px] font-extrabold text-accent-red">
-            {formatPrice(car.price)}
-          </p>
-          {car.oldPrice && (
-            <p className="text-[11px] text-text-muted line-through">
-              {formatPrice(car.oldPrice)}
-            </p>
-          )}
-        </div>
-
-        {car.negotiable && (
-          <p className="mt-0.5 text-[9px] font-medium tracking-wide text-text-muted">
-            Aceita negociação
-          </p>
-        )}
-
         {/* Buttons */}
-        <div className="mt-3 grid grid-cols-2 gap-2">
-          <a
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <Link
             href={`/carros/${car.slug}`}
-            className="flex items-center justify-center border border-bg-tertiary py-2 text-[10px] font-bold tracking-[0.08em] text-text-secondary transition-colors hover:border-white/30 hover:text-white"
+            className="flex items-center justify-center rounded-xl border border-gray-200 py-2.5 text-[12px] font-semibold text-marine-700 transition-all hover:border-marine-300 hover:bg-marine-50"
           >
-            VER
-          </a>
+            Ver detalhes
+          </Link>
+
           {isSold ? (
-            <div className="flex items-center justify-center bg-bg-tertiary py-2 text-[10px] font-bold tracking-[0.08em] text-text-muted cursor-not-allowed">
-              VENDIDO
+            <div className="flex cursor-not-allowed items-center justify-center rounded-xl bg-gray-100 py-2.5 text-[12px] font-semibold text-marine-400">
+              Vendido
             </div>
           ) : (
             <a
               href={waLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 bg-accent-red py-2 text-[10px] font-bold tracking-[0.08em] text-white transition-colors hover:bg-accent-red-dark"
+              className="flex items-center justify-center gap-1.5 rounded-xl bg-[#25D366] py-2.5 text-[12px] font-semibold text-white transition-colors hover:bg-[#1ebe5d]"
             >
-              <WhatsAppIcon className="h-3 w-3" />
-              CHAMAR
+              <WhatsAppIcon className="h-3.5 w-3.5" />
+              WhatsApp
             </a>
           )}
         </div>

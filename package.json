@@ -9,13 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.17.10",
+    "@react-three/rapier": "^1.5.0",
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.106.1",
+    "@types/three": "^0.184.1",
     "clsx": "^2.1.1",
+    "date-fns": "^4.2.1",
     "framer-motion": "^11.3.8",
     "lucide-react": "^0.400.0",
+    "meshline": "^3.3.1",
     "next": "^14.2.35",
     "react": "^18",
     "react-dom": "^18",
-    "tailwind-merge": "^2.4.0"
+    "react-dropzone": "^15.0.0",
+    "react-hook-form": "^7.76.0",
+    "simple-icons": "^16.22.0",
+    "tailwind-merge": "^3.6.0",
+    "three": "^0.184.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -24,7 +38,9 @@
     "autoprefixer": "^10.4.19",
     "eslint": "^8",
     "eslint-config-next": "^14.2.35",
+    "heic-convert": "^2.1.0",
     "postcss": "^8",
+    "sharp": "^0.34.5",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

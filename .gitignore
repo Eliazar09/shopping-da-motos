@@ -36,6 +36,13 @@ yarn-error.log*
 # claude code local config
 .claude/
 
+# dev logs
+dev-server.log
+dev-server.log.err
+
+# raw personal photos (não fazem parte do deploy)
+imagemrafel/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

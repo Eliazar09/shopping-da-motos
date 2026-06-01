@@ -10,8 +10,8 @@ export default function WhatsappFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar com Rafael no WhatsApp"
-      className="pulse-whatsapp fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp shadow-lg md:h-16 md:w-16"
-      style={{ border: '3px solid #0A1628' }}
+      className="pulse-whatsapp fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp md:h-16 md:w-16"
+      style={{ border: '4px solid #ffffff', boxShadow: '0 24px 56px rgba(16,42,67,0.14)' }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 1 }}

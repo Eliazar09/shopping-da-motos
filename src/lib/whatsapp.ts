@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = '5595999999999'
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5595999999999'
 
 export function buildWhatsAppLink(message: string): string {
   const encoded = encodeURIComponent(message)

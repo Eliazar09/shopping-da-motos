@@ -1,225 +1,411 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { motion, AnimatePresence, useMotionValue } from 'framer-motion'
+import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { defaultWhatsAppLink } from '@/lib/whatsapp'
+import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 
-type NavLink =
-  | { label: string; type: 'route'; href: string }
-  | { label: string; type: 'anchor'; href: string }
-
-const navLinks: NavLink[] = [
-  { label: 'ESTOQUE', type: 'route', href: '/estoque' },
-  { label: 'NOVOS', type: 'route', href: '/novos' },
-  { label: 'SEMINOVOS', type: 'route', href: '/seminovos' },
-  { label: 'REPASSE', type: 'route', href: '/repasse' },
-  { label: 'SOBRE', type: 'anchor', href: '#sobre' },
-  { label: 'CONTATO', type: 'anchor', href: '#contato' },
+// ── Links ──────────────────────────────────────────────────
+const stockLinks = [
+  { label: 'Estoque Completo', href: '/estoque' },
+  { label: 'Carros Novos',     href: '/novos'   },
+  { label: 'Seminovos',        href: '/seminovos'},
+  { label: 'Repasse',          href: '/repasse' },
 ]
+const anchorLinks = [
+  { label: 'Sobre',   href: '#sobre'   },
+  { label: 'Contato', href: '#contato' },
+]
+const drawerLinks = [
+  { label: 'Estoque Completo', href: '/estoque',   type: 'route'  },
+  { label: 'Carros Novos',     href: '/novos',     type: 'route'  },
+  { label: 'Seminovos',        href: '/seminovos', type: 'route'  },
+  { label: 'Repasse',          href: '/repasse',   type: 'route'  },
+  { label: 'Sobre Rafael',     href: '#sobre',     type: 'anchor' },
+  { label: 'Contato',          href: '#contato',   type: 'anchor' },
+]
+const STOCK_ROUTES = ['/estoque', '/novos', '/seminovos', '/repasse']
 
-function LogoMark() {
-  return (
-    <Image
-      src="/images/logo-rafael.png"
-      alt="Rafael Mota"
-      width={160}
-      height={52}
-      className="h-9 w-auto object-contain md:h-10"
-      priority
-    />
-  )
+function isActive(href: string, pathname: string) {
+  return pathname === href || pathname.startsWith(href + '/')
 }
 
-function WhatsAppIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5" aria-hidden>
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-    </svg>
-  )
+async function logout() {
+  if (typeof window !== 'undefined') window.location.href = '/login'
 }
+void logout // suppress unused warning
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled,   setScrolled]   = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const pathname = usePathname()
+  const [stockOpen,  setStockOpen]  = useState(false)
+  const stockTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const pathname     = usePathname()
+  const scrollY      = useMotionValue(0)
 
+  // ── Scroll detection ──────────────────────────────────────
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
+    const onScroll = () => {
+      const y = window.scrollY
+      scrollY.set(y)
+      setScrolled(y > 50)
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [scrollY])
 
-  useEffect(() => {
-    setDrawerOpen(false)
-  }, [pathname])
-
+  useEffect(() => { setDrawerOpen(false); setStockOpen(false) }, [pathname])
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [drawerOpen])
 
-  const handleAnchorClick = (href: string) => {
+  const handleAnchor = (href: string) => {
     setDrawerOpen(false)
-    if (pathname !== '/') {
-      window.location.href = `/${href}`
-      return
-    }
-    const el = document.querySelector(href)
-    if (el) {
-      setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300)
-    }
+    const id = href.replace('#', '')
+    if (pathname !== '/') { window.location.href = `/${href}`; return }
+    const el = document.getElementById(id)
+    if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300)
   }
+
+  const isStockActive = STOCK_ROUTES.some(r => pathname === r || pathname.startsWith(r + '/'))
+
+  // ── Pill glass states ─────────────────────────────────────
+  const pillBg     = scrolled ? 'rgba(10,25,41,0.96)' : 'rgba(10,25,41,0.18)'
+  const pillBlur   = scrolled ? 'blur(24px)'           : 'blur(16px)'
+  const pillShadow = scrolled
+    ? '0 8px 32px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.12)'
+    : '0 2px 20px rgba(0,0,0,0.10)'
+
+  const textColor   = 'rgba(255,255,255,0.82)'
+  const textHover   = '#ffffff'
+  const activeColor = '#ffffff'
 
   return (
     <>
+      {/* ── Floating Navbar ──────────────────────────────────── */}
       <motion.header
-        className="fixed left-0 right-0 top-0 z-40 transition-all duration-300"
-        animate={{
-          backgroundColor: scrolled ? 'rgba(10,22,40,0.98)' : 'rgba(10,22,40,0)',
-          borderBottomColor: scrolled ? 'rgba(26,43,71,1)' : 'rgba(26,43,71,0)',
-          backdropFilter: scrolled ? 'blur(12px)' : 'blur(0px)',
-          boxShadow: scrolled ? '0 1px 0 rgba(74,144,226,0.15)' : 'none',
+        className="fixed left-0 right-0 top-0 z-40 px-4 pt-4"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          y: { type: 'spring', stiffness: 280, damping: 28 },
+          opacity: { duration: 0.5, delay: 0.1, ease: 'easeOut' },
         }}
-        style={{ borderBottomWidth: 1, borderBottomStyle: 'solid' }}
       >
-        <div className="mx-auto flex h-[60px] max-w-7xl items-center justify-between px-4 md:px-8 lg:px-12">
-          <Link href="/" aria-label="Rafael Mota — Início">
-            <LogoMark />
-          </Link>
+        <motion.div
+          className="mx-auto max-w-7xl rounded-2xl"
+          animate={{ background: pillBg, backdropFilter: pillBlur, boxShadow: pillShadow }}
+          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+          style={{ border: '1px solid rgba(255,255,255,0.13)' }}
+        >
+          <div className="flex h-[60px] items-center justify-between px-5 md:px-8">
 
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-6 md:flex">
-            {navLinks.map((link) =>
-              link.type === 'route' ? (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`text-[11px] font-bold tracking-[0.12em] transition-colors hover:text-white ${
-                    pathname === link.href || pathname.startsWith(link.href + '/')
-                      ? 'text-white'
-                      : 'text-text-secondary'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ) : (
+            {/* Logo */}
+            <Link href="/" aria-label="Rafael Mota — Início" className="relative z-10 flex-shrink-0">
+              <Image
+                src="/images/RAFAEL MOTA LOGO PRETA SEM FUNDO.png"
+                alt="Rafael Mota"
+                width={150}
+                height={48}
+                className="h-8 w-auto object-contain md:h-9"
+                style={{ filter: 'brightness(0) invert(1)' }}
+                priority
+              />
+            </Link>
+
+            {/* Desktop Nav */}
+            <nav className="hidden items-center gap-1 md:flex">
+
+              {/* Dropdown Estoque */}
+              <div
+                className="relative"
+                onMouseEnter={() => {
+                  if (stockTimeout.current) clearTimeout(stockTimeout.current)
+                  setStockOpen(true)
+                }}
+                onMouseLeave={() => {
+                  stockTimeout.current = setTimeout(() => setStockOpen(false), 120)
+                }}
+              >
                 <button
-                  key={link.href}
-                  onClick={() => handleAnchorClick(link.href)}
-                  className="text-[11px] font-bold tracking-[0.12em] text-text-secondary transition-colors hover:text-white"
+                  className="relative flex items-center gap-1.5 px-4 py-2.5 rounded-xl transition-colors"
+                  style={{ color: isStockActive ? activeColor : textColor }}
+                  onMouseEnter={e => { e.currentTarget.style.color = textHover }}
+                  onMouseLeave={e => { e.currentTarget.style.color = isStockActive ? activeColor : textColor }}
                 >
-                  {link.label}
+                  <span
+                    className="text-[16px] font-bold"
+                    style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}
+                  >
+                    Estoque
+                  </span>
+                  <motion.span animate={{ rotate: stockOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                    <ChevronDown size={13} />
+                  </motion.span>
+                  {isStockActive && (
+                    <span className="absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-accent" />
+                  )}
                 </button>
-              ),
-            )}
-          </nav>
 
-          <div className="hidden items-center gap-3 md:flex">
-            <a
-              href={defaultWhatsAppLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-sm bg-accent-red px-4 py-2 text-[11px] font-bold tracking-[0.08em] text-white transition-colors hover:bg-accent-red-dark"
-            >
-              <WhatsAppIcon />
-              FALAR NO WHATSAPP
-            </a>
-          </div>
+                <AnimatePresence>
+                  {stockOpen && (
+                    <motion.div
+                      className="absolute left-0 top-full mt-2 w-52 overflow-hidden rounded-2xl py-1.5"
+                      style={{
+                        background: 'rgba(8,20,36,0.98)',
+                        backdropFilter: 'blur(24px)',
+                        border: '1px solid rgba(255,255,255,0.10)',
+                        boxShadow: '0 16px 48px rgba(0,0,0,0.45)',
+                      }}
+                      initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                      transition={{ duration: 0.18 }}
+                    >
+                      {stockLinks.map((l) => {
+                        const active = isActive(l.href, pathname)
+                        return (
+                          <Link
+                            key={l.href}
+                            href={l.href}
+                            className="flex items-center justify-between px-4 py-3 transition-colors"
+                            style={{
+                              color: active ? '#ffffff' : 'rgba(255,255,255,0.65)',
+                              fontFamily: 'var(--font-fraunces)',
+                              fontSize: '15px',
+                              fontWeight: 700,
+                              letterSpacing: '-0.02em',
+                            }}
+                            onMouseEnter={e => {
+                              (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.07)'
+                              ;(e.currentTarget as HTMLAnchorElement).style.color = '#fff'
+                            }}
+                            onMouseLeave={e => {
+                              (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'
+                              ;(e.currentTarget as HTMLAnchorElement).style.color = active ? '#ffffff' : 'rgba(255,255,255,0.65)'
+                            }}
+                          >
+                            {l.label}
+                            {active && <span className="h-1.5 w-1.5 rounded-full bg-accent" />}
+                          </Link>
+                        )
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
-          {/* Mobile actions */}
-          <div className="flex items-center gap-2 md:hidden">
-            <a
-              href={defaultWhatsAppLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-9 items-center gap-1.5 bg-accent-red px-3 text-[10px] font-bold tracking-[0.06em] text-white"
-            >
-              <WhatsAppIcon />
-              <span className="sr-only sm:not-sr-only">WHATSAPP</span>
-            </a>
-            <button
-              aria-label={drawerOpen ? 'Fechar menu' : 'Abrir menu'}
-              onClick={() => setDrawerOpen(!drawerOpen)}
-              className="flex h-9 w-9 items-center justify-center text-text-secondary transition-colors hover:text-white"
-            >
-              {drawerOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+              {/* Sobre / Contato */}
+              {anchorLinks.map((l) => (
+                <button
+                  key={l.href}
+                  onClick={() => handleAnchor(l.href)}
+                  className="relative px-4 py-2.5 rounded-xl transition-colors group"
+                  style={{
+                    color: textColor,
+                    fontFamily: 'var(--font-fraunces)',
+                    fontSize: '16px',
+                    fontWeight: 700,
+                    letterSpacing: '-0.02em',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.color = textHover }}
+                  onMouseLeave={e => { e.currentTarget.style.color = textColor }}
+                >
+                  {l.label}
+                  <span
+                    className="absolute bottom-1.5 left-4 right-4 h-[1.5px] rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-200"
+                    style={{ background: 'rgba(255,255,255,0.5)' }}
+                  />
+                </button>
+              ))}
+            </nav>
+
+            {/* WhatsApp CTA — desktop */}
+            <div className="hidden md:flex">
+              <motion.a
+                href={defaultWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-full px-5 py-2.5 text-[12px] font-bold tracking-wide text-white"
+                style={{ background: '#25D366', boxShadow: '0 4px 14px rgba(37,211,102,0.32)' }}
+                whileHover={{ scale: 1.04, boxShadow: '0 6px 22px rgba(37,211,102,0.50)' }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 320, damping: 24 }}
+              >
+                <WhatsAppIcon className="h-3.5 w-3.5" />
+                Falar no WhatsApp
+              </motion.a>
+            </div>
+
+            {/* Mobile actions */}
+            <div className="flex items-center gap-2 md:hidden">
+              <a
+                href={defaultWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full bg-[#25D366] px-4 text-[11px] font-bold text-white"
+                style={{ minHeight: '40px', boxShadow: '0 4px 12px rgba(37,211,102,0.35)' }}
+              >
+                <WhatsAppIcon className="h-3.5 w-3.5" />
+                <span>WhatsApp</span>
+              </a>
+              <motion.button
+                aria-label={drawerOpen ? 'Fechar menu' : 'Abrir menu'}
+                onClick={() => setDrawerOpen(!drawerOpen)}
+                className="flex items-center justify-center rounded-xl"
+                style={{ minHeight: '40px', minWidth: '40px', background: 'rgba(255,255,255,0.12)' }}
+                whileTap={{ scale: 0.92 }}
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  {drawerOpen ? (
+                    <motion.div key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.18 }}>
+                      <X size={18} className="text-white" />
+                    </motion.div>
+                  ) : (
+                    <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.18 }}>
+                      <Menu size={18} className="text-white" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+            </div>
+
           </div>
-        </div>
+        </motion.div>
       </motion.header>
 
-      {/* Mobile drawer */}
+      {/* ── Mobile Drawer ──────────────────────────────────── */}
       <AnimatePresence>
         {drawerOpen && (
           <>
             <motion.div
-              className="fixed inset-0 z-30 bg-black/60 md:hidden"
+              className="fixed inset-0 z-30 md:hidden"
+              style={{ background: 'rgba(5,12,22,0.72)', backdropFilter: 'blur(8px)' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
               onClick={() => setDrawerOpen(false)}
             />
+
             <motion.div
-              className="fixed bottom-0 right-0 top-0 z-40 flex w-[280px] flex-col bg-bg-secondary md:hidden"
+              className="fixed bottom-0 right-0 top-0 z-40 flex flex-col md:hidden"
+              style={{ background: '#0A1929', width: 'min(92vw, 360px)' }}
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              transition={{ type: 'spring', stiffness: 280, damping: 28 }}
             >
-              <div className="flex h-[60px] items-center justify-between border-b border-bg-tertiary px-6">
-                <span
-                  className="font-anton text-[13px] tracking-widest text-white"
-                  style={{ fontFamily: 'var(--font-anton)' }}
-                >
-                  MENU
-                </span>
+              {/* Header */}
+              <div
+                className="flex h-[68px] items-center justify-between px-5"
+                style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
+              >
+                <Image
+                  src="/images/RAFAEL MOTA LOGO PRETA SEM FUNDO.png"
+                  alt="Rafael Mota"
+                  width={130}
+                  height={44}
+                  className="h-8 w-auto object-contain"
+                  style={{ filter: 'brightness(0) invert(1)' }}
+                />
                 <button
                   onClick={() => setDrawerOpen(false)}
-                  className="text-text-muted hover:text-white"
-                  aria-label="Fechar menu"
+                  className="flex items-center justify-center rounded-lg text-white/50 hover:bg-white/10 hover:text-white transition-colors"
+                  style={{ minHeight: '40px', minWidth: '40px' }}
                 >
-                  <X size={20} />
+                  <X size={18} />
                 </button>
               </div>
 
-              <nav className="flex flex-col gap-1 p-4">
-                {navLinks.map((link) =>
-                  link.type === 'route' ? (
-                    <Link
+              {/* Avatar Rafael */}
+              <div className="flex items-center gap-3 px-5 py-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-accent/40">
+                  <Image
+                    src="/images/rafael/rafael-concessionaria.webp"
+                    alt="Rafael Mota"
+                    width={48}
+                    height={48}
+                    className="h-full w-full object-cover object-top"
+                  />
+                </div>
+                <div>
+                  <p className="text-[14px] font-bold text-white">Rafael Mota</p>
+                  <p className="text-[11px] text-white/50">Consultor Toyota · Toyolex</p>
+                </div>
+              </div>
+
+              {/* Links */}
+              <nav className="flex-1 overflow-y-auto px-3 py-4">
+                {drawerLinks.map((link, i) => {
+                  const active = link.type === 'route' && isActive(link.href, pathname)
+                  return (
+                    <motion.div
                       key={link.href}
-                      href={link.href}
-                      className={`flex items-center px-3 py-3.5 text-left text-[12px] font-bold tracking-[0.12em] transition-colors hover:text-white ${
-                        pathname === link.href ? 'text-white' : 'text-text-secondary'
-                      }`}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 + 0.08, type: 'spring', stiffness: 300, damping: 28 }}
                     >
-                      {link.label}
-                    </Link>
-                  ) : (
-                    <button
-                      key={link.href}
-                      onClick={() => handleAnchorClick(link.href)}
-                      className="flex items-center px-3 py-3.5 text-left text-[12px] font-bold tracking-[0.12em] text-text-secondary transition-colors hover:text-white"
-                    >
-                      {link.label}
-                    </button>
-                  ),
-                )}
+                      {link.type === 'route' ? (
+                        <Link
+                          href={link.href}
+                          className="flex items-center justify-between rounded-xl px-4 py-3.5 transition-all"
+                          style={{
+                            background: active ? 'rgba(255,255,255,0.10)' : 'transparent',
+                            color: active ? '#ffffff' : 'rgba(255,255,255,0.60)',
+                            fontFamily: 'var(--font-fraunces)',
+                            fontSize: '17px',
+                            fontWeight: 700,
+                            letterSpacing: '-0.02em',
+                          }}
+                        >
+                          {link.label}
+                          {active
+                            ? <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                            : <ChevronRight size={14} className="opacity-30" />
+                          }
+                        </Link>
+                      ) : (
+                        <button
+                          onClick={() => handleAnchor(link.href)}
+                          className="flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-left transition-all"
+                          style={{
+                            color: 'rgba(255,255,255,0.60)',
+                            fontFamily: 'var(--font-fraunces)',
+                            fontSize: '17px',
+                            fontWeight: 700,
+                            letterSpacing: '-0.02em',
+                          }}
+                        >
+                          {link.label}
+                          <ChevronRight size={14} className="opacity-30" />
+                        </button>
+                      )}
+                    </motion.div>
+                  )
+                })}
               </nav>
 
-              <div className="mt-auto border-t border-bg-tertiary p-6">
+              {/* Footer */}
+              <div className="p-4" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
                 <a
                   href={defaultWhatsAppLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2 rounded-sm bg-accent-red py-3.5 text-[11px] font-bold tracking-[0.08em] text-white"
+                  className="flex w-full items-center justify-center gap-2.5 rounded-2xl text-[13px] font-bold text-white"
+                  style={{ background: '#25D366', boxShadow: '0 6px 20px rgba(37,211,102,0.35)', minHeight: '52px' }}
                 >
-                  <WhatsAppIcon />
-                  FALAR NO WHATSAPP
+                  <WhatsAppIcon className="h-4 w-4" />
+                  Falar no WhatsApp
                 </a>
+                <p className="mt-4 text-center text-[10px] text-white/25">
+                  Rafael Mota · Consultor Automotivo · Toyolex Roraima
+                </p>
               </div>
             </motion.div>
           </>

@@ -1,16 +1,19 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
-import Image from 'next/image'
 import { X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react'
+import CarImage from '@/components/ui/CarImage'
 import { AnimatePresence, motion } from 'framer-motion'
+
+const PLACEHOLDER = '/images/placeholder-car.svg'
 
 interface Props {
   images: string[]
   alt: string
 }
 
-export default function CarGallery({ images, alt }: Props) {
+export default function CarGallery({ images: rawImages, alt }: Props) {
+  const images = rawImages?.length ? rawImages : [PLACEHOLDER]
   const [current, setCurrent] = useState(0)
   const [lightbox, setLightbox] = useState(false)
   const [touchStart, setTouchStart] = useState(0)
@@ -45,7 +48,7 @@ export default function CarGallery({ images, alt }: Props) {
       {/* Main gallery */}
       <div className="space-y-2">
         <div
-          className="relative h-[260px] w-full cursor-zoom-in overflow-hidden bg-bg-tertiary md:h-[460px]"
+          className="relative h-[260px] w-full cursor-zoom-in overflow-hidden rounded-2xl bg-marine-50 md:h-[460px]"
           onClick={() => setLightbox(true)}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
@@ -59,7 +62,7 @@ export default function CarGallery({ images, alt }: Props) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
             >
-              <Image
+              <CarImage
                 src={images[current]}
                 alt={`${alt} — foto ${current + 1}`}
                 fill
@@ -71,14 +74,14 @@ export default function CarGallery({ images, alt }: Props) {
           </AnimatePresence>
 
           {/* Zoom hint */}
-          <div className="absolute right-3 top-3 flex items-center gap-1.5 bg-black/50 px-2.5 py-1.5 backdrop-blur-sm">
-            <ZoomIn size={12} className="text-white/80" />
-            <span className="text-[9px] font-bold tracking-[0.1em] text-white/80">AMPLIAR</span>
+          <div className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-white/80 px-2.5 py-1.5 backdrop-blur-sm" style={{ border: '1px solid #E4E7EB' }}>
+            <ZoomIn size={12} className="text-marine-600" />
+            <span className="text-[9px] font-bold tracking-[0.1em] text-marine-600">AMPLIAR</span>
           </div>
 
           {/* Counter */}
-          <div className="absolute bottom-3 left-3 bg-black/50 px-2.5 py-1 backdrop-blur-sm">
-            <span className="text-[10px] font-bold text-white">
+          <div className="absolute bottom-3 left-3 rounded-full bg-white/80 px-2.5 py-1 backdrop-blur-sm" style={{ border: '1px solid #E4E7EB' }}>
+            <span className="text-[10px] font-bold text-marine-700">
               {current + 1} / {images.length}
             </span>
           </div>
@@ -88,14 +91,14 @@ export default function CarGallery({ images, alt }: Props) {
             <>
               <button
                 onClick={(e) => { e.stopPropagation(); prev() }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
+                className="absolute left-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-marine-700 shadow-marine-sm backdrop-blur-sm transition-all hover:bg-white hover:shadow-marine-md"
                 aria-label="Foto anterior"
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); next() }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center border border-white/20 bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
+                className="absolute right-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-marine-700 shadow-marine-sm backdrop-blur-sm transition-all hover:bg-white hover:shadow-marine-md"
                 aria-label="Próxima foto"
               >
                 <ChevronRight size={18} />
@@ -111,14 +114,14 @@ export default function CarGallery({ images, alt }: Props) {
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`relative h-14 w-20 flex-shrink-0 overflow-hidden transition-all md:h-16 md:w-24 ${
+                className={`relative h-14 w-20 flex-shrink-0 overflow-hidden rounded-xl transition-all md:h-16 md:w-24 ${
                   i === current
-                    ? 'ring-2 ring-accent-red ring-offset-1 ring-offset-bg-primary'
+                    ? 'ring-2 ring-accent ring-offset-2 ring-offset-white'
                     : 'opacity-50 hover:opacity-80'
                 }`}
                 aria-label={`Ver foto ${i + 1}`}
               >
-                <Image
+                <CarImage
                   src={img}
                   alt={`${alt} miniatura ${i + 1}`}
                   fill
@@ -142,7 +145,7 @@ export default function CarGallery({ images, alt }: Props) {
             onClick={() => setLightbox(false)}
           >
             <button
-              className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+              className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
               onClick={() => setLightbox(false)}
               aria-label="Fechar"
             >
@@ -157,14 +160,14 @@ export default function CarGallery({ images, alt }: Props) {
               <>
                 <button
                   onClick={(e) => { e.stopPropagation(); prev() }}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
                   aria-label="Foto anterior"
                 >
                   <ChevronLeft size={22} />
                 </button>
                 <button
                   onClick={(e) => { e.stopPropagation(); next() }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
                   aria-label="Próxima foto"
                 >
                   <ChevronRight size={22} />
@@ -181,7 +184,7 @@ export default function CarGallery({ images, alt }: Props) {
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <Image
+              <CarImage
                 src={images[current]}
                 alt={`${alt} — foto ${current + 1}`}
                 fill

@@ -6,10 +6,10 @@ import type { CarCategory } from '@/types'
 type Filter = CarCategory | 'todos'
 
 const filters: { id: Filter; label: string }[] = [
-  { id: 'todos', label: 'TODOS' },
-  { id: 'novo', label: 'NOVOS' },
-  { id: 'seminovo', label: 'SEMINOVOS' },
-  { id: 'repasse', label: 'REPASSE' },
+  { id: 'todos',    label: 'Todos'     },
+  { id: 'novo',     label: 'Novos'     },
+  { id: 'seminovo', label: 'Seminovos' },
+  { id: 'repasse',  label: 'Repasse'   },
 ]
 
 interface Props {
@@ -19,28 +19,57 @@ interface Props {
 
 export default function CategoryFilter({ active, onChange }: Props) {
   return (
-    <div className="sticky top-[60px] z-30 border-b border-bg-tertiary bg-bg-primary/95 backdrop-blur-sm">
-      <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-        <div className="flex items-center gap-0 overflow-x-auto scrollbar-none md:justify-center">
-          {filters.map((f) => (
-            <button
-              key={f.id}
-              onClick={() => onChange(f.id)}
-              className="relative flex-shrink-0 px-5 py-4 text-[11px] font-bold tracking-[0.12em] transition-colors md:px-7"
-              style={{ color: active === f.id ? '#ffffff' : '#666666' }}
-            >
-              {f.label}
-              {active === f.id && (
-                <motion.div
-                  layoutId="filter-underline"
-                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent-red"
-                  transition={{ type: 'spring', stiffness: 400, damping: 35 }}
-                />
-              )}
-            </button>
-          ))}
+    <motion.div
+      className="relative z-10 backdrop-blur-md"
+      style={{ background: 'rgba(255,255,255,0.94)', borderBottom: '1px solid rgba(10,25,41,0.08)' }}
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <div className="mx-auto max-w-7xl px-3 md:px-8 lg:px-12">
+        <div
+          className="flex items-center justify-center gap-1.5 md:gap-2"
+          style={{ padding: '10px 0' }}
+        >
+          {filters.map((f, i) => {
+            const isActive = active === f.id
+            return (
+              <motion.button
+                key={f.id}
+                onClick={() => onChange(f.id)}
+                className="relative flex-shrink-0 px-3 md:px-6"
+                style={{
+                  minHeight: 36,
+                  borderRadius: 999,
+                  color: isActive ? '#ffffff' : '#4A5568',
+                  fontFamily: 'var(--font-fraunces)',
+                  fontSize: 'clamp(13px, 3.5vw, 17px)',
+                  fontWeight: 700,
+                  letterSpacing: '-0.02em',
+                  border: isActive ? 'none' : '1.5px solid rgba(10,25,41,0.12)',
+                }}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="cat-pill"
+                    className="absolute inset-0 rounded-full"
+                    style={{ background: '#0A1929' }}
+                    transition={{ type: 'spring', stiffness: 380, damping: 34 }}
+                  />
+                )}
+                <span className="relative z-10 block whitespace-nowrap">
+                  {f.label}
+                </span>
+              </motion.button>
+            )
+          })}
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

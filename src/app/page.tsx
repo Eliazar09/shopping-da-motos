@@ -1,38 +1,32 @@
-'use client'
-
-import { useState } from 'react'
 import Navbar from '@/components/home/Navbar'
 import HeroCarousel from '@/components/home/HeroCarousel'
-import CategoryFilter from '@/components/home/CategoryFilter'
-import CarsShowcase from '@/components/home/CarsShowcase'
+import CarsSection from '@/components/home/CarsSection'
+import CarCarousel3D from '@/components/home/CarCarousel3D'
 import AboutSection from '@/components/home/AboutSection'
 import StatsSection from '@/components/home/StatsSection'
 import ClientsGallery from '@/components/home/ClientsGallery'
 import TestimonialsSection from '@/components/home/TestimonialsSection'
+import FaqSection from '@/components/home/FaqSection'
 import CtaSection from '@/components/home/CtaSection'
 import Footer from '@/components/home/Footer'
 import WhatsappFloat from '@/components/ui/WhatsappFloat'
-import type { CarCategory } from '@/types'
+import { getAllCars } from '@/lib/queries/cars'
 
-export default function HomePage() {
-  const [activeCategory, setActiveCategory] = useState<CarCategory | 'todos'>('todos')
+export default async function HomePage() {
+  const cars = await getAllCars()
 
   return (
     <>
       <Navbar />
       <main>
         <HeroCarousel />
-        <section id="estoque">
-          <CategoryFilter
-            active={activeCategory}
-            onChange={setActiveCategory}
-          />
-          <CarsShowcase activeCategory={activeCategory} />
-        </section>
+        <CarsSection cars={cars} />
+        <CarCarousel3D />
         <AboutSection />
         <StatsSection />
         <ClientsGallery />
         <TestimonialsSection />
+        <FaqSection />
         <CtaSection />
       </main>
       <Footer />

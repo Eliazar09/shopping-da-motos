@@ -1,7 +1,7 @@
 export type CarCategory = 'novo' | 'seminovo' | 'repasse'
 export type CarStatus = 'disponivel' | 'reservado' | 'vendido'
-export type FuelType = 'Gasolina' | 'Etanol' | 'Flex' | 'Diesel' | 'Híbrido' | 'Elétrico'
-export type TransmissionType = 'Manual' | 'Automático' | 'CVT' | 'Automatizado'
+export type FuelType = 'gasolina' | 'etanol' | 'flex' | 'diesel' | 'hibrido' | 'eletrico'
+export type TransmissionType = 'manual' | 'automatico' | 'cvt' | 'automatizado'
 export type SortBy = 'newest' | 'price-asc' | 'price-desc' | 'km-asc'
 
 export interface Car {

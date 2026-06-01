@@ -1,9 +1,10 @@
 import type { MetadataRoute } from 'next'
-import { cars } from '@/lib/mock-data'
+import { getAllCars } from '@/lib/queries/cars'
 
 const BASE_URL = 'https://rafaelmota.com.br'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const cars = await getAllCars()
   const carRoutes = cars.map((car) => ({
     url: `${BASE_URL}/carros/${car.slug}`,
     lastModified: new Date(car.createdAt),

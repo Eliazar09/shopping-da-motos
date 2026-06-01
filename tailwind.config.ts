@@ -9,30 +9,47 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: {
-          primary: '#0A1628',
-          secondary: '#122038',
-          tertiary: '#1A2B47',
+        marine: {
+          50:  '#F0F5FA',
+          100: '#E8F0FB',
+          200: '#C8D8EC',
+          300: '#A0BADC',
+          400: '#729CC4',
+          500: '#486581',
+          600: '#2A4D75',
+          700: '#1B3A57',
+          800: '#102A43',
+          900: '#0A1929',
         },
+        cream: '#FAFBFC',
         accent: {
-          red: '#E50914',
-          'red-dark': '#B00610',
-          blue: '#4A90E2',
-          gold: '#C9A961',
+          DEFAULT: '#E31E24',
+          hover:   '#B8181D',
+          light:   '#FEE5E6',
         },
-        text: {
-          primary: '#FFFFFF',
-          secondary: '#B0BEC5',
-          muted: '#607D8B',
+        whatsapp: {
+          DEFAULT: '#25D366',
+          hover:   '#1DA851',
         },
-        whatsapp: '#25D366',
+        sold:     '#94A3B8',
+        reserved: '#F59E0B',
+        gold:     '#B8860B',
       },
       fontFamily: {
-        anton: ['var(--font-anton)', 'sans-serif'],
-        inter: ['var(--font-inter)', 'sans-serif'],
+        display: ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
+        body:    ['var(--font-inter)',   'system-ui', 'sans-serif'],
+        serif:   ['var(--font-fraunces)', 'serif'],
+        jakarta: ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
+        inter:   ['var(--font-inter)',   'system-ui', 'sans-serif'],
+        fraunces: ['var(--font-fraunces)', 'serif'],
       },
-      letterSpacing: {
-        widest2: '0.15em',
+      boxShadow: {
+        'marine-xs': '0 1px 2px rgba(16,42,67,0.04)',
+        'marine-sm': '0 2px 4px rgba(16,42,67,0.06)',
+        'marine-md': '0 4px 12px rgba(16,42,67,0.08)',
+        'marine-lg': '0 12px 32px rgba(16,42,67,0.10)',
+        'marine-xl': '0 24px 56px rgba(16,42,67,0.14)',
+        'accent':    '0 12px 32px rgba(227,30,36,0.15)',
       },
       screens: {
         xs: '375px',
