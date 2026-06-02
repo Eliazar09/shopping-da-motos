@@ -109,12 +109,11 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" aria-label="Rafael Mota — Início" className="relative z-10 flex-shrink-0">
               <Image
-                src="/images/RAFAEL MOTA LOGO PRETA SEM FUNDO.png"
+                src="/images/RAFAEL MOTA LOGO BRANCA SEM FUNDO.png"
                 alt="Rafael Mota"
                 width={150}
                 height={48}
                 className="h-8 w-auto object-contain md:h-9"
-                style={{ filter: 'brightness(0) invert(1)' }}
                 priority
               />
             </Link>
@@ -289,12 +288,11 @@ export default function Navbar() {
                 style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
               >
                 <Image
-                  src="/images/RAFAEL MOTA LOGO PRETA SEM FUNDO.png"
+                  src="/images/RAFAEL MOTA LOGO BRANCA SEM FUNDO.png"
                   alt="Rafael Mota"
                   width={130}
                   height={44}
                   className="h-8 w-auto object-contain"
-                  style={{ filter: 'brightness(0) invert(1)' }}
                 />
                 <button
                   onClick={() => setDrawerOpen(false)}
