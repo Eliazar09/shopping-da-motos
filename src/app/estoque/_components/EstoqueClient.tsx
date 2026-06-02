@@ -456,18 +456,24 @@ export default function EstoqueClient({ cars, brands }: Props) {
               <div className="flex items-center gap-2 ml-auto">
                 <button
                   onClick={() => setGridView(true)}
-                  className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-colors ${
-                    gridView ? 'border-accent bg-accent-light text-accent' : 'border-gray-200 text-marine-500 hover:border-marine-300'
-                  }`}
+                  className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors
+                    border-0 md:border
+                    ${gridView
+                      ? 'text-accent md:border-accent md:bg-accent-light'
+                      : 'text-marine-400 md:border-gray-200 md:text-marine-500 md:hover:border-marine-300'
+                    }`}
                   aria-label="Grade"
                 >
                   <LayoutGrid size={14} />
                 </button>
                 <button
                   onClick={() => setGridView(false)}
-                  className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-colors ${
-                    !gridView ? 'border-accent bg-accent-light text-accent' : 'border-gray-200 text-marine-500 hover:border-marine-300'
-                  }`}
+                  className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors
+                    border-0 md:border
+                    ${!gridView
+                      ? 'text-accent md:border-accent md:bg-accent-light'
+                      : 'text-marine-400 md:border-gray-200 md:text-marine-500 md:hover:border-marine-300'
+                    }`}
                   aria-label="Lista"
                 >
                   <List size={14} />
