@@ -15,6 +15,8 @@ function generateSlug(brand: string, model: string, year: string | number): stri
 
 export async function createCar(data: Record<string, unknown>) {
   const supabase = createDynamicServerClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Não autorizado')
 
   const slug = generateSlug(
     String(data.brand ?? 'carro'),
@@ -36,6 +38,8 @@ export async function createCar(data: Record<string, unknown>) {
 
 export async function updateCar(id: string, data: Record<string, unknown>) {
   const supabase = createDynamicServerClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Não autorizado')
 
   const { error } = await supabase
     .from('cars')
@@ -51,6 +55,8 @@ export async function updateCar(id: string, data: Record<string, unknown>) {
 
 export async function deleteCar(id: string) {
   const supabase = createDynamicServerClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Não autorizado')
 
   // Remove todas as fotos do Storage
   const { data: files } = await supabase.storage.from('car-photos').list(id)

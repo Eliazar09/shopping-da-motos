@@ -2,8 +2,12 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
-  // Se Supabase não está configurado, permite acesso (dev mode)
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('xxxxxxxxxxxx')) {
+  // Bypass APENAS em desenvolvimento local sem Supabase configurado
+  if (
+    process.env.NODE_ENV === 'development' &&
+    (!process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      process.env.NEXT_PUBLIC_SUPABASE_URL.includes('xxxxxxxxxxxx'))
+  ) {
     return NextResponse.next()
   }
 
