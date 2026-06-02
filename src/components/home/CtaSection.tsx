@@ -45,8 +45,8 @@ export default function CtaSection() {
               className="relative h-[240px] w-full md:h-[340px] md:w-[55%] lg:w-[52%] flex-shrink-0"
             >
               <Image
-                src="/images/carros/s10.png"
-                alt="Chevrolet S10 2025"
+                src="/images/carros/consultoria.jpg"
+                alt="Consultoria Toyota"
                 fill
                 className="object-cover object-center"
                 sizes="(max-width: 768px) 100vw, 55vw"

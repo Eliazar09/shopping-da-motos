@@ -12,7 +12,7 @@ export default function ProfileCard({ dark = false }: ProfileCardProps) {
   return (
     <div className={`${styles.card} ${dark ? styles.dark : ''}`}>
       <img
-        src="/images/carros/sw4preta.png"
+        src="/images/carros/sw4preta.jpg"
         alt="Rafael Mota — Consultor Toyota Toyolex"
       />
       <section>

@@ -119,7 +119,7 @@ export default function FaqSection() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/carros/corolla.png"
+                src="/images/carros/faq.jpg"
                 alt="Toyota Corolla GR Sport 2025"
                 className="h-full w-full object-cover object-center"
               />
