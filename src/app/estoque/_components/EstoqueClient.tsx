@@ -354,18 +354,52 @@ export default function EstoqueClient({ cars, brands }: Props) {
     <Navbar />
     <main className="min-h-screen bg-white pt-[64px]">
       {/* Hero strip */}
-      <div className="border-b border-gray-200 py-10" style={{ background: '#FAFBFC' }}>
+      <div className="relative overflow-hidden border-b border-white/10" style={{ background: 'linear-gradient(130deg, #0A1929 0%, #1a3354 100%)' }}>
+        {/* dot grid */}
+        <div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{ backgroundImage: 'radial-gradient(rgba(200,151,58,1) 1px, transparent 1px)', backgroundSize: '26px 26px' }}
+        />
+        {/* red glow */}
+        <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full opacity-20 blur-3xl" style={{ background: '#E31E24' }} />
+        {/* gold glow */}
+        <div className="pointer-events-none absolute -bottom-10 left-1/3 h-48 w-48 rounded-full opacity-10 blur-3xl" style={{ background: '#C8973A' }} />
+
         <Container>
-          <p className="section-label mb-2">Estoque Completo</p>
-          <h1
-            className="text-[32px] font-bold text-marine-900 md:text-[48px]"
-            style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}
-          >
-            Todos os Veículos
-          </h1>
-          <p className="mt-2 text-[14px] text-marine-500">
-            {displayed.length} {displayed.length === 1 ? 'veículo encontrado' : 'veículos encontrados'}
-          </p>
+          <div className="relative z-10 py-10 md:py-14">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+              className="mb-3 text-[11px] font-bold uppercase tracking-[0.22em]"
+              style={{ color: '#C8973A' }}
+            >
+              Estoque Completo
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="font-bold text-white"
+              style={{
+                fontFamily: 'var(--font-fraunces)',
+                fontSize: 'clamp(32px, 5vw, 60px)',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.0,
+              }}
+            >
+              Todos os{' '}
+              <span style={{ color: '#E31E24' }}>Veículos</span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.18 }}
+              className="mt-3 text-[13px] text-white/50"
+            >
+              {displayed.length} {displayed.length === 1 ? 'veículo encontrado' : 'veículos encontrados'}
+            </motion.p>
+          </div>
         </Container>
       </div>
 

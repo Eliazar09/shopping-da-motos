@@ -48,7 +48,7 @@ export default function CarsShowcase({ activeCategory, cars }: Props) {
   }
 
   return (
-    <section className="bg-[#F5F0EA] pb-10 pt-6 md:bg-white md:py-24">
+    <section className="bg-white pb-10 pt-6 md:py-24">
       <Container>
         <div className="mb-10 flex items-end justify-between md:mb-14">
           {/* Title block */}

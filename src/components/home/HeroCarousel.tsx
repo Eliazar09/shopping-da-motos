@@ -153,19 +153,6 @@ export default function HeroCarousel() {
           <div className="absolute bottom-0 left-0 right-0 z-10 px-5 pb-5">
             <AnimatePresence mode="wait">
               <motion.div key={current}>
-                {/* Eyebrow */}
-                <motion.p
-                  variants={fadeUp}
-                  custom={0}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className="text-[10px] font-bold tracking-[0.22em] uppercase mb-1"
-                  style={{ color: '#F0C060' }}
-                >
-                  {slide.eyebrow}
-                </motion.p>
-
                 {/* Title — word stagger */}
                 <motion.h1
                   variants={containerVariants}
@@ -323,19 +310,6 @@ export default function HeroCarousel() {
         <div className="relative z-10 flex h-full items-center px-16 lg:px-24 max-w-7xl w-full mx-auto">
           <AnimatePresence mode="wait">
             <motion.div key={current} className="max-w-2xl">
-
-              {/* Eyebrow */}
-              <motion.p
-                variants={fadeUp}
-                custom={0}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="text-[11px] font-bold tracking-[0.24em] uppercase mb-5"
-                style={{ color: '#C8973A' }}
-              >
-                {slide.eyebrow}
-              </motion.p>
 
               {/* Title — word-by-word stagger */}
               <motion.h1
