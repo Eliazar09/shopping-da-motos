@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { defaultWhatsAppLink } from '@/lib/whatsapp'
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 import Container from '@/components/ui/Container'
-import PearlButton from '@/components/ui/PearlButton'
+import { FrameButton } from '@/components/ui/frame-button'
 
 export default function CtaSection() {
   return (
@@ -96,22 +96,11 @@ export default function CtaSection() {
                 em qualquer lugar de Roraima.
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <motion.a
-                  href={defaultWhatsAppLink()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 rounded-full bg-[#25D366] px-7 py-3.5 text-[13px] font-bold text-white transition-all hover:bg-[#1ebe5d]"
-                  style={{ boxShadow: '0 8px 24px rgba(37,211,102,0.30)' }}
-                  whileHover={{ scale: 1.03, y: -2 }}
-                  whileTap={{ scale: 0.97 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                >
-                  <WhatsAppIcon className="h-4 w-4" />
-                  Falar com Rafael
-                </motion.a>
-
-                <PearlButton href="/estoque" variant="gold">Ver estoque</PearlButton>
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <FrameButton as="link" href={defaultWhatsAppLink()} target="_blank" rel="noopener noreferrer" variant="green">
+                  <WhatsAppIcon className="h-4 w-4 mr-2" />Falar com Rafael
+                </FrameButton>
+                <FrameButton as="link" href="/estoque" variant="outline">Ver estoque</FrameButton>
               </div>
 
               {/* Trust badges */}

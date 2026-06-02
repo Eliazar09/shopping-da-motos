@@ -4,9 +4,9 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { defaultWhatsAppLink } from '@/lib/whatsapp'
-import PearlButton from '@/components/ui/PearlButton'
+import { FrameButton } from '@/components/ui/frame-button'
+import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 
 const AUTOPLAY_MS = 6000
 
@@ -206,22 +206,10 @@ export default function HeroCarousel() {
                   exit="exit"
                   className="mt-3 flex flex-row gap-2"
                 >
-                  <PearlButton href="/estoque">Ver estoque</PearlButton>
-                  <a
-                    href={waLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-full font-semibold text-[13px] transition-all duration-300"
-                    style={{
-                      minHeight: 42,
-                      background: '#25D366',
-                      color: '#ffffff',
-                      paddingLeft: 22,
-                      paddingRight: 22,
-                    }}
-                  >
-                    Falar com Rafael
-                  </a>
+                  <FrameButton as="link" href="/estoque" variant="outline" size={15} offset={6} hoverOffset={5}>Ver estoque</FrameButton>
+                  <FrameButton as="link" href={waLink} target="_blank" rel="noopener noreferrer" variant="green" size={15} offset={6} hoverOffset={5}>
+                    <WhatsAppIcon className="h-3.5 w-3.5 mr-1.5" />Falar com Rafael
+                  </FrameButton>
                 </motion.div>
 
                 {/* Dots */}
@@ -349,22 +337,10 @@ export default function HeroCarousel() {
                 exit="exit"
                 className="mt-9 flex flex-row gap-4 flex-wrap"
               >
-                <PearlButton href="/estoque">Ver estoque</PearlButton>
-                <a
-                  href={waLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full font-semibold text-[14px] transition-all duration-300 hover:opacity-90"
-                  style={{
-                    minHeight: 52,
-                    background: '#25D366',
-                    color: '#ffffff',
-                    paddingLeft: 36,
-                    paddingRight: 36,
-                  }}
-                >
-                  Falar com Rafael
-                </a>
+                <FrameButton as="link" href="/estoque" variant="outline">Ver estoque</FrameButton>
+                <FrameButton as="link" href={waLink} target="_blank" rel="noopener noreferrer" variant="green">
+                  <WhatsAppIcon className="h-4 w-4 mr-2" />Falar com Rafael
+                </FrameButton>
               </motion.div>
             </motion.div>
           </AnimatePresence>

@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { defaultWhatsAppLink } from '@/lib/whatsapp'
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
+import { FrameButton } from '@/components/ui/frame-button'
 
 // ── Links ──────────────────────────────────────────────────
 const stockLinks = [
@@ -227,19 +228,10 @@ export default function Navbar() {
 
             {/* WhatsApp CTA — desktop */}
             <div className="hidden md:flex">
-              <motion.a
-                href={defaultWhatsAppLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full px-5 py-2.5 text-[12px] font-bold tracking-wide text-white"
-                style={{ background: '#25D366', boxShadow: '0 4px 14px rgba(37,211,102,0.32)' }}
-                whileHover={{ scale: 1.04, boxShadow: '0 6px 22px rgba(37,211,102,0.50)' }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: 'spring', stiffness: 320, damping: 24 }}
-              >
-                <WhatsAppIcon className="h-3.5 w-3.5" />
+              <FrameButton as="link" href={defaultWhatsAppLink()} target="_blank" rel="noopener noreferrer" variant="green" size={16} offset={6} hoverOffset={5}>
+                <WhatsAppIcon className="h-3.5 w-3.5 mr-2" />
                 Falar no WhatsApp
-              </motion.a>
+              </FrameButton>
             </div>
 
             {/* Mobile actions */}

@@ -5,9 +5,10 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Eye, EyeOff, Loader2, AlertCircle, ArrowRight, Shield } from 'lucide-react'
+import { Eye, EyeOff, Loader2, AlertCircle, Shield } from 'lucide-react'
 import Image from 'next/image'
 import { createDynamicClient, isSupabaseConfigured } from '@/lib/supabase/client'
+import { FrameButton } from '@/components/ui/frame-button'
 
 const schema = z.object({
   email: z.string().email('Email inválido'),
@@ -413,23 +414,18 @@ export default function LoginPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
             >
-              <motion.button
+              <FrameButton
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={{ scale: 1.02, boxShadow: '0 16px 40px rgba(10,25,41,0.30)' }}
-                whileTap={{ scale: 0.97 }}
-                className="flex w-full items-center justify-center gap-2.5 rounded-xl py-4 text-[14px] font-bold text-white transition-all disabled:opacity-60"
-                style={{
-                  background: 'linear-gradient(135deg, #0d2035 0%, #1a3354 100%)',
-                  boxShadow: '0 8px 28px rgba(10,25,41,0.22)',
-                }}
+                variant="default"
+                className="w-full justify-center disabled:opacity-60"
               >
                 {isSubmitting ? (
-                  <><Loader2 size={15} className="animate-spin" /> Entrando…</>
+                  <><Loader2 size={15} className="animate-spin mr-2" /> Entrando…</>
                 ) : (
-                  <>Entrar <ArrowRight size={15} /></>
+                  <>Entrar</>
                 )}
-              </motion.button>
+              </FrameButton>
             </motion.div>
           </form>
 

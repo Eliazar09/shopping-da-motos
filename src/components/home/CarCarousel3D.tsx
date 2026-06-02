@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { defaultWhatsAppLink } from '@/lib/whatsapp'
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 import { CardStack, CardStackItem } from '@/components/ui/card-stack'
-import PearlButton from '@/components/ui/PearlButton'
+import { FrameButton } from '@/components/ui/frame-button'
 
 const CAR_ITEMS: CardStackItem[] = [
   {
@@ -151,19 +151,10 @@ export default function CarCarousel3D() {
           transition={{ duration: 0.5, delay: 0.35 }}
           className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
-          <PearlButton href="/estoque" variant="red">Ver estoque completo</PearlButton>
-
-          <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
-            <a
-              href={defaultWhatsAppLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border-2 border-[#25D366] px-8 py-[14px] text-[13px] font-bold text-[#1a9e4e] transition-all hover:bg-[#25D366] hover:text-white"
-            >
-              <WhatsAppIcon className="h-4 w-4" />
-              Falar com Rafael
-            </a>
-          </motion.div>
+          <FrameButton as="link" href="/estoque" variant="default">Ver estoque completo</FrameButton>
+          <FrameButton as="link" href={defaultWhatsAppLink()} target="_blank" rel="noopener noreferrer" variant="green">
+            <WhatsAppIcon className="h-4 w-4 mr-2" />Falar com Rafael
+          </FrameButton>
         </motion.div>
 
       </div>
