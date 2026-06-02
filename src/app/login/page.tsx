@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Eye, EyeOff, Loader2, AlertCircle, ArrowRight } from 'lucide-react'
+import { Eye, EyeOff, Loader2, AlertCircle, ArrowRight, Shield } from 'lucide-react'
 import Image from 'next/image'
 import { createDynamicClient, isSupabaseConfigured } from '@/lib/supabase/client'
 
@@ -14,6 +14,19 @@ const schema = z.object({
   password: z.string().min(6, 'Mínimo 6 caracteres'),
 })
 type FormData = z.infer<typeof schema>
+
+const PARTICLES = [
+  { x: 12, y: 18, delay: 0,   size: 3, dur: 4.2 },
+  { x: 78, y: 12, delay: 0.6, size: 2, dur: 3.5 },
+  { x: 42, y: 32, delay: 1.1, size: 4, dur: 5.0 },
+  { x: 68, y: 58, delay: 1.7, size: 2, dur: 3.8 },
+  { x: 22, y: 72, delay: 0.9, size: 3, dur: 4.5 },
+  { x: 55, y: 82, delay: 0.3, size: 2, dur: 3.2 },
+  { x: 88, y: 38, delay: 1.4, size: 3, dur: 4.8 },
+  { x: 8,  y: 48, delay: 0.7, size: 2, dur: 3.6 },
+  { x: 33, y: 90, delay: 1.9, size: 2, dur: 4.1 },
+  { x: 92, y: 70, delay: 0.4, size: 3, dur: 5.2 },
+]
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -50,43 +63,86 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen">
+    <main className="flex min-h-screen overflow-hidden">
 
-      {/* ── LEFT PANEL — Car image ─────────────────────────────── */}
+      {/* ── LEFT PANEL ─────────────────────────────────────────── */}
       <div className="relative hidden w-[52%] flex-shrink-0 overflow-hidden lg:flex">
-        {/* Car photo */}
-        <Image
-          src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=90&auto=format&fit=crop"
-          alt="Carro de luxo"
-          fill
-          className="object-cover object-center"
-          priority
-        />
 
-        {/* Dark overlay */}
+        {/* Car photo — zoom-out entrance */}
+        <motion.div
+          className="absolute inset-0"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Image
+            src="/images/carros/yaris.png"
+            alt="Toyota Yaris"
+            fill
+            className="object-cover object-center"
+            priority
+          />
+        </motion.div>
+
+        {/* Dark gradient overlay */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(135deg, rgba(10,25,41,0.92) 0%, rgba(10,25,41,0.55) 50%, rgba(10,25,41,0.75) 100%)',
+            background: 'linear-gradient(145deg, rgba(10,25,41,0.96) 0%, rgba(10,25,41,0.65) 55%, rgba(10,25,41,0.88) 100%)',
           }}
         />
 
-        {/* Red glow */}
-        <div
-          className="pointer-events-none absolute -bottom-32 -left-32 h-96 w-96 rounded-full opacity-30 blur-3xl"
+        {/* Pulsing red glow — bottom left */}
+        <motion.div
+          className="pointer-events-none absolute -bottom-48 -left-48 h-[560px] w-[560px] rounded-full blur-3xl"
           style={{ background: '#E31E24' }}
+          animate={{ scale: [1, 1.18, 1], opacity: [0.18, 0.32, 0.18] }}
+          transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
         />
+
+        {/* Pulsing gold glow — top right */}
+        <motion.div
+          className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full blur-3xl"
+          style={{ background: '#C8973A' }}
+          animate={{ scale: [1, 1.25, 1], opacity: [0.08, 0.18, 0.08] }}
+          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
+        />
+
+        {/* Subtle grid */}
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
+            backgroundSize: '64px 64px',
+          }}
+        />
+
+        {/* Floating particles */}
+        {PARTICLES.map((p, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-white"
+            style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size }}
+            animate={{ y: [0, -22, 0], opacity: [0.15, 0.55, 0.15] }}
+            transition={{ duration: p.dur, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
+          />
+        ))}
 
         {/* Content */}
         <div className="relative z-10 flex h-full w-full flex-col justify-between p-12">
-          {/* Logo top */}
+
+          {/* Logo */}
           <motion.div
-            initial={{ opacity: 0, y: -16 }}
+            initial={{ opacity: 0, y: -24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="flex items-center gap-3"
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 p-2 backdrop-blur-sm">
+            <motion.div
+              className="flex h-11 w-11 items-center justify-center rounded-xl backdrop-blur-sm"
+              style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.15)' }}
+              whileHover={{ background: 'rgba(255,255,255,0.2)' }}
+            >
               <Image
                 src="/images/RAFAEL MOTA LOGO PRETA SEM FUNDO copy.png"
                 alt="Rafael Mota"
@@ -95,7 +151,7 @@ export default function LoginPage() {
                 className="object-contain"
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
-            </div>
+            </motion.div>
             <div>
               <p className="text-[14px] font-bold text-white" style={{ fontFamily: 'var(--font-jakarta)' }}>
                 Rafael Mota
@@ -104,49 +160,100 @@ export default function LoginPage() {
             </div>
           </motion.div>
 
-          {/* Bottom quote */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-          >
-            <div className="mb-4 h-0.5 w-10 rounded-full bg-accent" />
-            <h2
-              className="text-[32px] font-bold leading-tight text-white"
-              style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}
+          {/* Bottom text */}
+          <div>
+            {/* Animated accent line */}
+            <motion.div
+              className="mb-5 h-[3px] rounded-full bg-accent"
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 44, opacity: 1 }}
+              transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            />
+
+            <motion.h2
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="text-[38px] font-bold leading-[1.08] text-white"
+              style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.025em' }}
             >
               Gerencie seu<br />
               catálogo com<br />
-              <span className="text-accent">facilidade.</span>
-            </h2>
-            <p className="mt-4 max-w-xs text-[14px] leading-relaxed text-white/50">
-              Adicione carros, acompanhe vendas e atenda clientes — tudo em um só lugar.
-            </p>
+              <motion.span
+                className="inline-block text-accent"
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
+              >
+                facilidade.
+              </motion.span>
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-4 max-w-xs text-[14px] leading-relaxed text-white/50"
+            >
+              Adicione carros, acompanhe vendas e atenda clientes em um só lugar.
+            </motion.p>
 
             {/* Stats */}
-            <div className="mt-8 flex gap-6">
+            <div className="mt-8 flex gap-8">
               {[
                 { n: '100%', label: 'Online' },
                 { n: '24/7', label: 'Disponível' },
                 { n: '∞',   label: 'Carros' },
-              ].map(({ n, label }) => (
-                <div key={label}>
-                  <p className="text-[20px] font-bold text-white" style={{ fontFamily: 'var(--font-fraunces)' }}>{n}</p>
+              ].map(({ n, label }, i) => (
+                <motion.div
+                  key={label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.75 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <p
+                    className="text-[22px] font-bold text-white"
+                    style={{ fontFamily: 'var(--font-fraunces)' }}
+                  >
+                    {n}
+                  </p>
                   <p className="text-[11px] text-white/40">{label}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* ── RIGHT PANEL — Form ────────────────────────────────── */}
-      <div
-        className="flex flex-1 flex-col items-center justify-center px-6 py-12 md:px-12"
-        style={{ background: '#FAFBFC' }}
+      {/* ── RIGHT PANEL — Form ─────────────────────────────────── */}
+      <motion.div
+        className="relative flex flex-1 flex-col items-center justify-center overflow-hidden px-6 py-12 md:px-12"
+        style={{ background: '#F8F9FB' }}
+        initial={{ opacity: 0, x: 40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
+        {/* Background orbs */}
+        <motion.div
+          className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full blur-3xl"
+          style={{ background: 'rgba(227,30,36,0.06)' }}
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="pointer-events-none absolute -bottom-32 -left-32 h-80 w-80 rounded-full blur-3xl"
+          style={{ background: 'rgba(200,151,58,0.05)' }}
+          animate={{ scale: [1, 1.15, 1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        />
+
         {/* Mobile logo */}
-        <div className="mb-8 flex items-center gap-2.5 lg:hidden">
+        <motion.div
+          className="mb-8 flex items-center gap-2.5 lg:hidden"
+          initial={{ opacity: 0, y: -14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55 }}
+        >
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-marine-900 p-2">
             <Image
               src="/images/RAFAEL MOTA LOGO PRETA SEM FUNDO copy.png"
@@ -160,23 +267,28 @@ export default function LoginPage() {
           <span className="text-[15px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-jakarta)' }}>
             Rafael Mota
           </span>
-        </div>
+        </motion.div>
 
         <motion.div
           key={shakeKey}
           animate={shakeKey > 0 ? { x: [0, -10, 10, -10, 10, -5, 5, 0] } : {}}
           transition={{ duration: 0.45 }}
-          className="w-full max-w-[400px]"
+          className="relative z-10 w-full max-w-[400px]"
         >
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="mb-8"
           >
-            {/* RM logo badge — desktop */}
-            <div className="mb-6 hidden lg:flex h-14 w-14 items-center justify-center rounded-2xl bg-marine-900 p-3 shadow-lg">
+            <motion.div
+              className="mb-6 hidden h-14 w-14 items-center justify-center rounded-2xl bg-marine-900 shadow-lg lg:flex"
+              initial={{ opacity: 0, scale: 0.75, rotate: -6 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              style={{ padding: '10px' }}
+            >
               <Image
                 src="/images/RAFAEL MOTA LOGO PRETA SEM FUNDO copy.png"
                 alt="RM"
@@ -185,7 +297,7 @@ export default function LoginPage() {
                 className="object-contain"
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
-            </div>
+            </motion.div>
 
             <h1
               className="text-[28px] font-bold text-marine-900"
@@ -199,16 +311,15 @@ export default function LoginPage() {
           </motion.div>
 
           {/* Form */}
-          <motion.form
-            onSubmit={handleSubmit(onSubmit)}
-            className="space-y-4"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.1 }}
-          >
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+
             {/* Email */}
-            <div>
-              <label className="mb-1.5 block text-[12px] font-semibold text-marine-600 uppercase tracking-[0.08em]">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-[0.1em] text-marine-500">
                 Email
               </label>
               <input
@@ -216,10 +327,10 @@ export default function LoginPage() {
                 type="email"
                 autoComplete="email"
                 placeholder="seu@email.com"
-                className="w-full rounded-xl border bg-white px-4 py-3.5 text-[14px] text-marine-900 outline-none transition-all placeholder:text-marine-300 focus:border-marine-400 focus:ring-2 focus:ring-marine-900/10"
+                className="w-full rounded-xl border bg-white px-4 py-3.5 text-[14px] text-marine-900 outline-none transition-all placeholder:text-marine-300 focus:border-marine-400 focus:ring-2 focus:ring-marine-900/8"
                 style={{
                   borderColor: errors.email ? '#E31E24' : '#E4E7EB',
-                  boxShadow: '0 1px 3px rgba(10,25,41,0.05)',
+                  boxShadow: '0 1px 4px rgba(10,25,41,0.06)',
                 }}
               />
               <AnimatePresence>
@@ -234,11 +345,15 @@ export default function LoginPage() {
                   </motion.p>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
 
             {/* Senha */}
-            <div>
-              <label className="mb-1.5 block text-[12px] font-semibold text-marine-600 uppercase tracking-[0.08em]">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-[0.1em] text-marine-500">
                 Senha
               </label>
               <div className="relative">
@@ -247,10 +362,10 @@ export default function LoginPage() {
                   type={showPassword ? 'text' : 'password'}
                   autoComplete="current-password"
                   placeholder="••••••••"
-                  className="w-full rounded-xl border bg-white px-4 py-3.5 pr-12 text-[14px] text-marine-900 outline-none transition-all placeholder:text-marine-300 focus:border-marine-400 focus:ring-2 focus:ring-marine-900/10"
+                  className="w-full rounded-xl border bg-white px-4 py-3.5 pr-12 text-[14px] text-marine-900 outline-none transition-all placeholder:text-marine-300 focus:border-marine-400 focus:ring-2 focus:ring-marine-900/8"
                   style={{
                     borderColor: errors.password ? '#E31E24' : '#E4E7EB',
-                    boxShadow: '0 1px 3px rgba(10,25,41,0.05)',
+                    boxShadow: '0 1px 4px rgba(10,25,41,0.06)',
                   }}
                 />
                 <button
@@ -274,16 +389,16 @@ export default function LoginPage() {
                   </motion.p>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
 
             {/* Server error */}
             <AnimatePresence>
               {serverError && (
                 <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="flex items-center gap-2.5 rounded-xl bg-red-50 px-4 py-3"
+                  initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                  animate={{ opacity: 1, height: 'auto', marginTop: 8 }}
+                  exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                  className="flex items-center gap-2.5 overflow-hidden rounded-xl bg-red-50 px-4 py-3"
                   style={{ border: '1px solid #fecaca' }}
                 >
                   <AlertCircle size={14} className="flex-shrink-0 text-accent" />
@@ -293,32 +408,43 @@ export default function LoginPage() {
             </AnimatePresence>
 
             {/* Submit */}
-            <motion.button
-              type="submit"
-              disabled={isSubmitting}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex w-full items-center justify-center gap-2 rounded-xl py-4 text-[14px] font-bold text-white transition-all disabled:opacity-60"
-              style={{
-                background: isSubmitting ? '#0A1929' : '#0A1929',
-                boxShadow: '0 8px 24px rgba(10,25,41,0.20)',
-              }}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
             >
-              {isSubmitting ? (
-                <><Loader2 size={15} className="animate-spin" /> Entrando…</>
-              ) : (
-                <>Entrar <ArrowRight size={15} /></>
-              )}
-            </motion.button>
-          </motion.form>
+              <motion.button
+                type="submit"
+                disabled={isSubmitting}
+                whileHover={{ scale: 1.02, boxShadow: '0 16px 40px rgba(10,25,41,0.30)' }}
+                whileTap={{ scale: 0.97 }}
+                className="flex w-full items-center justify-center gap-2.5 rounded-xl py-4 text-[14px] font-bold text-white transition-all disabled:opacity-60"
+                style={{
+                  background: 'linear-gradient(135deg, #0d2035 0%, #1a3354 100%)',
+                  boxShadow: '0 8px 28px rgba(10,25,41,0.22)',
+                }}
+              >
+                {isSubmitting ? (
+                  <><Loader2 size={15} className="animate-spin" /> Entrando…</>
+                ) : (
+                  <>Entrar <ArrowRight size={15} /></>
+                )}
+              </motion.button>
+            </motion.div>
+          </form>
 
           {/* Footer */}
-          <p className="mt-10 text-center text-[11px] text-marine-400">
-            Acesso restrito &bull; Desenvolvido por{' '}
-            <span className="font-semibold text-marine-500">Arvex Agency</span>
-          </p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.65 }}
+            className="mt-10 flex items-center justify-center gap-1.5 text-[11px] text-marine-400"
+          >
+            <Shield size={11} />
+            <span>Acesso restrito</span>
+          </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
     </main>
   )
 }
