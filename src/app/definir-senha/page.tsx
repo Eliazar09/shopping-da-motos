@@ -184,6 +184,21 @@ export default function DefinirSenhaPage() {
 
   useEffect(() => {
     const supabase = createDynamicClient()
+
+    // Supabase implicit flow: token vem no hash da URL (#access_token=...&refresh_token=...)
+    const hash = window.location.hash
+    if (hash && hash.includes('access_token')) {
+      const params = new URLSearchParams(hash.substring(1))
+      const accessToken  = params.get('access_token')
+      const refreshToken = params.get('refresh_token')
+      if (accessToken && refreshToken) {
+        supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken })
+          .then(({ error }) => setSessionReady(!error))
+        return
+      }
+    }
+
+    // PKCE flow ou sessão já existente
     supabase.auth.getSession().then(({ data }) => {
       setSessionReady(!!data.session)
     })
