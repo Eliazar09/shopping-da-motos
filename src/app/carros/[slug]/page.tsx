@@ -1,12 +1,12 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ChevronRight, Gauge, Calendar, Fuel, Settings, Palette, DoorOpen, Check, ArrowRight } from 'lucide-react'
+import Image from 'next/image'
+import { ChevronRight, Gauge, Calendar, Fuel, Settings, Palette, DoorOpen, Check, ArrowRight, MapPin } from 'lucide-react'
 import type { Metadata } from 'next'
 import { getCarBySlug, getSimilarCars } from '@/lib/queries/cars'
 import type { Car } from '@/types'
 import CarGallery from '@/components/car/CarGallery'
 import SellerCard from '@/components/car/SellerCard'
-import CarCard from '@/components/home/CarCard'
 import Container from '@/components/ui/Container'
 import Navbar from '@/components/home/Navbar'
 import { FUEL_LABELS, TRANSMISSION_LABELS } from '@/lib/labels'
@@ -207,61 +207,106 @@ export default async function CarPage({ params }: { params: { slug: string } }) 
           </div>
         </Container>
 
-        {/* ── Similar cars ─────────────────────────────────────────── */}
+        {/* ── Similar cars — estilo Webmotors ─────────────────────── */}
         {similar.length > 0 && (
-          <section style={{ background: '#F4F6F9' }}>
-            <div className="py-14 md:py-16">
-              <Container>
-                {/* Heading */}
-                <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
-                  <div>
-                    <p className="section-label mb-2">Você também pode gostar</p>
-                    <h2
-                      className="text-[26px] font-bold leading-none text-marine-900 md:text-[34px]"
-                      style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.03em' }}
-                    >
-                      Carros <span style={{ color: '#E31E24' }}>similares</span>
-                    </h2>
-                  </div>
-                  <Link
-                    href="/estoque"
-                    className="flex items-center gap-1.5 text-[12px] font-bold text-accent transition-colors hover:text-accent-hover"
-                  >
-                    Ver estoque completo
-                    <ArrowRight size={13} />
-                  </Link>
-                </div>
-              </Container>
-
-              {/* Mobile: horizontal scroll */}
-              <div
-                className="flex gap-4 overflow-x-auto px-4 pb-2 lg:hidden"
-                style={{ scrollSnapType: 'x mandatory', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
-              >
-                {similar.map((s, i) => (
-                  <div
-                    key={s.id}
-                    className="w-[72vw] max-w-[280px] flex-shrink-0"
-                    style={{ scrollSnapAlign: 'start' }}
-                  >
-                    <CarCard car={s} index={i} />
-                  </div>
-                ))}
+          <section style={{ background: '#F2F4F7' }} className="py-12 md:py-16">
+            {/* Heading */}
+            <Container>
+              <div className="mb-7 flex flex-wrap items-center justify-between gap-3">
+                <h2
+                  className="text-[20px] font-bold text-marine-900 md:text-[24px]"
+                  style={{ fontFamily: 'var(--font-jakarta)', letterSpacing: '-0.01em' }}
+                >
+                  Você também pode gostar
+                </h2>
+                <Link
+                  href="/estoque"
+                  className="flex items-center gap-1 text-[12px] font-semibold text-accent transition-colors hover:text-accent-hover"
+                >
+                  Ver todos
+                  <ArrowRight size={13} />
+                </Link>
               </div>
+            </Container>
 
-              {/* Desktop: grid */}
-              <Container>
-                <div className="hidden grid-cols-3 gap-5 lg:grid xl:grid-cols-4">
-                  {similar.slice(0, 4).map((s, i) => (
-                    <CarCard key={s.id} car={s} index={i} />
-                  ))}
-                </div>
-              </Container>
+            {/* Cards — scroll horizontal em mobile, linha no desktop */}
+            <div
+              className="flex gap-4 overflow-x-auto px-4 md:px-6 pb-2"
+              style={{ scrollSnapType: 'x mandatory', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
+            >
+              {similar.map((s) => (
+                <SimilarCarCard key={s.id} car={s} />
+              ))}
             </div>
           </section>
         )}
       </main>
     </>
+  )
+}
+
+function SimilarCarCard({ car }: { car: Car }) {
+  const name = buildCarName(car)
+
+  return (
+    <Link
+      href={`/carros/${car.slug}`}
+      className="group flex-shrink-0 overflow-hidden rounded-xl bg-white transition-shadow hover:shadow-lg"
+      style={{
+        width: 'clamp(220px, 55vw, 280px)',
+        scrollSnapAlign: 'start',
+        border: '1px solid #E4E9F0',
+        boxShadow: '0 1px 4px rgba(16,42,67,0.06)',
+      }}
+    >
+      {/* Image */}
+      <div className="relative w-full overflow-hidden" style={{ aspectRatio: '4/3' }}>
+        <Image
+          src={car.coverImage}
+          alt={name}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="280px"
+        />
+        {car.status === 'vendido' && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+            <span className="rotate-[-18deg] border-2 border-white px-3 py-0.5 text-[14px] font-bold tracking-widest text-white">
+              VENDIDO
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Info */}
+      <div className="px-4 pb-4 pt-3">
+        <p
+          className="text-[13px] font-bold uppercase leading-snug text-marine-900"
+          style={{ fontFamily: 'var(--font-jakarta)', letterSpacing: '0.01em' }}
+        >
+          {car.brand} {car.model}
+        </p>
+        {car.version && (
+          <p className="mt-0.5 truncate text-[11px] text-marine-400">{car.version}</p>
+        )}
+
+        <p
+          className="mt-3 text-[20px] font-bold text-marine-900"
+          style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em', fontFeatureSettings: "'tnum' 1" }}
+        >
+          {car.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })}
+        </p>
+
+        <div className="mt-2 flex items-center justify-between text-[11px] text-marine-400">
+          <span>{car.year}/{car.modelYear}</span>
+          <span>{car.km === 0 ? '0 km' : `${car.km.toLocaleString('pt-BR')} km`}</span>
+        </div>
+
+        <div className="mt-1.5 flex items-center gap-1 text-[11px] text-marine-300">
+          <MapPin size={10} />
+          <span>Roraima</span>
+        </div>
+      </div>
+    </Link>
   )
 }
 
