@@ -129,7 +129,7 @@ export default function CarCarousel3D() {
             items={CAR_ITEMS}
             initialIndex={2}
             autoAdvance
-            intervalMs={3000}
+            intervalMs={isMobile ? 1800 : 3000}
             pauseOnHover
             showDots
             cardWidth={cardWidth}
@@ -139,6 +139,8 @@ export default function CarCarousel3D() {
             activeLiftPx={isMobile ? 18 : 28}
             activeScale={1.04}
             inactiveScale={isMobile ? 0.88 : 0.92}
+            springStiffness={isMobile ? 420 : 280}
+            springDamping={isMobile ? 34 : 28}
           />
         </motion.div>
 

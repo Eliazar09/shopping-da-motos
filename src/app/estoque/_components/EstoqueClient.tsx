@@ -6,6 +6,7 @@ import { SlidersHorizontal, X, ChevronDown, LayoutGrid, List, Search } from 'luc
 import { motion, AnimatePresence } from 'framer-motion'
 import Container from '@/components/ui/Container'
 import CarCard from '@/components/home/CarCard'
+import Navbar from '@/components/home/Navbar'
 import { sortCars, filtersToURL, parseFiltersFromURL, countActiveFilters } from '@/lib/filters'
 import { defaultFilters } from '@/types'
 import type { FilterState, FuelType, TransmissionType, CarCategory, SortBy, Car } from '@/types'
@@ -336,7 +337,21 @@ export default function EstoqueClient({ cars, brands }: Props) {
     return () => { document.body.style.overflow = '' }
   }, [mobileFilterOpen])
 
+  const CAT_TABS: { label: string; value: CarCategory[] }[] = [
+    { label: 'Todos',     value: [] },
+    { label: 'Novos',     value: ['novo'] },
+    { label: 'Seminovos', value: ['seminovo'] },
+    { label: 'Repasse',   value: ['repasse'] },
+  ]
+
+  function isCatActive(value: CarCategory[]) {
+    if (value.length === 0) return filters.categories.length === 0
+    return filters.categories.length === value.length && value.every((v) => filters.categories.includes(v))
+  }
+
   return (
+    <>
+    <Navbar />
     <main className="min-h-screen bg-white pt-[64px]">
       {/* Hero strip */}
       <div className="border-b border-gray-200 py-10" style={{ background: '#FAFBFC' }}>
@@ -352,6 +367,30 @@ export default function EstoqueClient({ cars, brands }: Props) {
             {displayed.length} {displayed.length === 1 ? 'veículo encontrado' : 'veículos encontrados'}
           </p>
         </Container>
+      </div>
+
+      {/* Mobile category tabs */}
+      <div
+        className="flex gap-2 overflow-x-auto border-b border-gray-100 px-4 py-3 lg:hidden"
+        style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
+      >
+        {CAT_TABS.map((tab) => {
+          const active = isCatActive(tab.value)
+          return (
+            <button
+              key={tab.label}
+              onClick={() => updateFilters({ categories: tab.value })}
+              className="flex-shrink-0 rounded-full px-4 py-1.5 text-[12px] font-bold transition-colors"
+              style={
+                active
+                  ? { background: '#E31E24', color: '#fff' }
+                  : { background: '#F1F3F5', color: '#374151' }
+              }
+            >
+              {tab.label}
+            </button>
+          )
+        })}
       </div>
 
       <Container>
@@ -489,5 +528,6 @@ export default function EstoqueClient({ cars, brands }: Props) {
         )}
       </AnimatePresence>
     </main>
+    </>
   )
 }

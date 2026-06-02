@@ -149,24 +149,6 @@ export default function HeroCarousel() {
             style={{ height: '75%', background: 'linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%)' }}
           />
 
-          {/* Mobile arrows */}
-          <button
-            onClick={() => { setPaused(true); prev() }}
-            aria-label="Slide anterior"
-            className="absolute left-3 top-1/3 -translate-y-1/2 z-10 flex items-center justify-center rounded-full transition-all active:scale-90"
-            style={{ width: 40, height: 40, background: 'rgba(255,255,255,0.92)', boxShadow: '0 2px 12px rgba(0,0,0,0.25)' }}
-          >
-            <ChevronLeft size={20} style={{ color: '#0A1929' }} strokeWidth={2.5} />
-          </button>
-          <button
-            onClick={() => { setPaused(true); next() }}
-            aria-label="Próximo slide"
-            className="absolute right-3 top-1/3 -translate-y-1/2 z-10 flex items-center justify-center rounded-full transition-all active:scale-90"
-            style={{ width: 40, height: 40, background: 'rgba(255,255,255,0.92)', boxShadow: '0 2px 12px rgba(0,0,0,0.25)' }}
-          >
-            <ChevronRight size={20} style={{ color: '#0A1929' }} strokeWidth={2.5} />
-          </button>
-
           {/* Text + CTAs + dots — absolute bottom-left over image */}
           <div className="absolute bottom-0 left-0 right-0 z-10 px-5 pb-5">
             <AnimatePresence mode="wait">

@@ -244,16 +244,6 @@ export default function Navbar() {
 
             {/* Mobile actions */}
             <div className="flex items-center gap-2 md:hidden">
-              <a
-                href={defaultWhatsAppLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 rounded-full bg-[#25D366] px-4 text-[11px] font-bold text-white"
-                style={{ minHeight: '40px', boxShadow: '0 4px 12px rgba(37,211,102,0.35)' }}
-              >
-                <WhatsAppIcon className="h-3.5 w-3.5" />
-                <span>WhatsApp</span>
-              </a>
               <motion.button
                 aria-label={drawerOpen ? 'Fechar menu' : 'Abrir menu'}
                 onClick={() => setDrawerOpen(!drawerOpen)}
