@@ -206,9 +206,9 @@ export default function HeroCarousel() {
                   exit="exit"
                   className="mt-3 flex flex-row gap-2"
                 >
-                  <FrameButton as="link" href="/estoque" variant="outline" size={15} offset={6} hoverOffset={5}>Ver estoque</FrameButton>
-                  <FrameButton as="link" href={waLink} target="_blank" rel="noopener noreferrer" variant="green" size={15} offset={6} hoverOffset={5}>
-                    <WhatsAppIcon className="h-3.5 w-3.5 mr-1.5" />Falar com Rafael
+                  <FrameButton as="link" href="/estoque" variant="outline" size={12} offset={5} hoverOffset={4} className="px-4 py-2 text-[10px] tracking-[0.14em]">Ver estoque</FrameButton>
+                  <FrameButton as="link" href={waLink} target="_blank" rel="noopener noreferrer" variant="green" size={12} offset={5} hoverOffset={4} className="px-4 py-2 text-[10px] tracking-[0.14em]">
+                    <WhatsAppIcon className="h-3 w-3 mr-1.5" />Falar com Rafael
                   </FrameButton>
                 </motion.div>
 
