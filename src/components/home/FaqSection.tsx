@@ -103,7 +103,7 @@ export default function FaqSection() {
       style={{ background: '#F5F4F0' }}
     >
       <Container>
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-start">
+        <div className="grid gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-16 lg:items-start">
 
           {/* ── LEFT: imagem + floating card ── */}
           <motion.div
@@ -113,31 +113,38 @@ export default function FaqSection() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6 }}
           >
-            <div className="relative overflow-hidden rounded-3xl" style={{ height: '520px' }}>
+            <div
+              className="relative overflow-hidden rounded-3xl"
+              style={{ height: 'clamp(260px, 48vw, 520px)' }}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/carros/sw4.png"
-                alt="Toyota SW4 2025"
+                src="/images/carros/corolla.png"
+                alt="Toyota Corolla GR Sport 2025"
                 className="h-full w-full object-cover object-center"
               />
-              {/* subtle overlay */}
+              {/* Bottom gradient */}
               <div
                 className="absolute inset-0"
-                style={{ background: 'linear-gradient(180deg, transparent 55%, rgba(10,25,41,0.45) 100%)' }}
+                style={{ background: 'linear-gradient(180deg, transparent 45%, rgba(10,25,41,0.55) 100%)' }}
+              />
+              {/* Top-left red accent */}
+              <div
+                className="absolute left-0 top-0 h-1 w-20 rounded-br-full"
+                style={{ background: '#E31E24' }}
               />
             </div>
 
             {/* Floating social proof card */}
             <motion.div
-              className="absolute bottom-5 left-5 right-5 flex items-center gap-4 rounded-2xl bg-white px-5 py-4"
-              style={{ boxShadow: '0 16px 48px rgba(10,25,41,0.14)' }}
+              className="absolute bottom-4 left-4 right-4 flex items-center gap-4 rounded-2xl bg-white px-4 py-3.5 sm:bottom-5 sm:left-5 sm:right-5 sm:px-5 sm:py-4"
+              style={{ boxShadow: '0 16px 48px rgba(10,25,41,0.16)' }}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              {/* Avatar stack */}
-              <div className="flex -space-x-2 flex-shrink-0">
+              <div className="flex flex-shrink-0 -space-x-2">
                 {[
                   'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&q=80&auto=format',
                   'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&q=80&auto=format',
@@ -147,15 +154,15 @@ export default function FaqSection() {
                     key={i}
                     src={src}
                     alt="cliente"
-                    className="h-9 w-9 rounded-full object-cover ring-2 ring-white"
+                    className="h-8 w-8 rounded-full object-cover ring-2 ring-white sm:h-9 sm:w-9"
                   />
                 ))}
               </div>
               <div>
-                <p className="text-[14px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-jakarta)' }}>
+                <p className="text-[13px] font-bold text-marine-900 sm:text-[14px]" style={{ fontFamily: 'var(--font-jakarta)' }}>
                   +2.000 famílias atendidas
                 </p>
-                <p className="text-[12px] text-marine-400">Em Roraima e região</p>
+                <p className="text-[11px] text-marine-400 sm:text-[12px]">Em Roraima e região</p>
               </div>
             </motion.div>
           </motion.div>
