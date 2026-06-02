@@ -352,9 +352,9 @@ export default function EstoqueClient({ cars, brands }: Props) {
   return (
     <>
     <Navbar />
-    <main className="min-h-screen bg-white pt-[64px]">
+    <main className="min-h-screen bg-white">
       {/* Hero strip */}
-      <div className="relative overflow-hidden border-b border-white/10" style={{ background: 'linear-gradient(130deg, #0A1929 0%, #1a3354 100%)' }}>
+      <div className="relative overflow-hidden border-b border-white/10 pt-[64px]" style={{ background: 'linear-gradient(130deg, #0A1929 0%, #1a3354 100%)' }}>
         {/* dot grid */}
         <div
           className="absolute inset-0 opacity-[0.07]"

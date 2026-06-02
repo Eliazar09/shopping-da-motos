@@ -1,12 +1,11 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
 import { defaultWhatsAppLink } from '@/lib/whatsapp'
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 import { CardStack, CardStackItem } from '@/components/ui/card-stack'
+import PearlButton from '@/components/ui/PearlButton'
 
 const CAR_ITEMS: CardStackItem[] = [
   {
@@ -152,16 +151,7 @@ export default function CarCarousel3D() {
           transition={{ duration: 0.5, delay: 0.35 }}
           className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
-          <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
-            <Link
-              href="/estoque"
-              className="inline-flex items-center gap-2 rounded-full bg-marine-900 px-8 py-4 text-[13px] font-bold text-white transition-colors hover:bg-marine-800"
-              style={{ boxShadow: '0 8px 24px rgba(10,25,41,0.22)' }}
-            >
-              Ver estoque completo
-              <ArrowRight size={15} />
-            </Link>
-          </motion.div>
+          <PearlButton href="/estoque" variant="red">Ver estoque completo</PearlButton>
 
           <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
             <a

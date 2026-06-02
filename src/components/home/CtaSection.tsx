@@ -2,10 +2,10 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
 import { defaultWhatsAppLink } from '@/lib/whatsapp'
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 import Container from '@/components/ui/Container'
+import PearlButton from '@/components/ui/PearlButton'
 
 export default function CtaSection() {
   return (
@@ -111,16 +111,7 @@ export default function CtaSection() {
                   Falar com Rafael
                 </motion.a>
 
-                <motion.a
-                  href="/estoque"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-[13px] font-bold text-white transition-all hover:border-white/50 hover:bg-white/10"
-                  whileHover={{ scale: 1.03, y: -2 }}
-                  whileTap={{ scale: 0.97 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                >
-                  Ver estoque
-                  <ArrowRight size={14} />
-                </motion.a>
+                <PearlButton href="/estoque" variant="gold">Ver estoque</PearlButton>
               </div>
 
               {/* Trust badges */}

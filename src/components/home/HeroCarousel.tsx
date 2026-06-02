@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { defaultWhatsAppLink } from '@/lib/whatsapp'
+import PearlButton from '@/components/ui/PearlButton'
 
 const AUTOPLAY_MS = 6000
 
@@ -205,21 +206,7 @@ export default function HeroCarousel() {
                   exit="exit"
                   className="mt-3 flex flex-row gap-2"
                 >
-                  <Link
-                    href="/estoque"
-                    className="inline-flex items-center justify-center rounded-full font-semibold text-[13px] transition-all duration-300"
-                    style={{
-                      minHeight: 42,
-                      background: 'rgba(255,255,255,0.15)',
-                      border: '1.5px solid rgba(255,255,255,0.55)',
-                      color: '#ffffff',
-                      paddingLeft: 22,
-                      paddingRight: 22,
-                      backdropFilter: 'blur(6px)',
-                    }}
-                  >
-                    Ver estoque
-                  </Link>
+                  <PearlButton href="/estoque">Ver estoque</PearlButton>
                   <a
                     href={waLink}
                     target="_blank"
@@ -362,19 +349,7 @@ export default function HeroCarousel() {
                 exit="exit"
                 className="mt-9 flex flex-row gap-4 flex-wrap"
               >
-                <Link
-                  href="/estoque"
-                  className="inline-flex items-center justify-center rounded-full font-semibold text-[14px] transition-all duration-300 hover:bg-white hover:text-marine-900"
-                  style={{
-                    minHeight: 52,
-                    border: '2px solid rgba(255,255,255,0.9)',
-                    color: '#ffffff',
-                    paddingLeft: 36,
-                    paddingRight: 36,
-                  }}
-                >
-                  Ver estoque
-                </Link>
+                <PearlButton href="/estoque">Ver estoque</PearlButton>
                 <a
                   href={waLink}
                   target="_blank"
