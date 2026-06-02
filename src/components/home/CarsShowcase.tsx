@@ -7,6 +7,7 @@ import { ArrowRight } from 'lucide-react'
 import CarCard from './CarCard'
 import type { Car, CarCategory } from '@/types'
 import Container from '@/components/ui/Container'
+import { FlipReveal, FlipRevealItem } from '@/components/ui/flip-reveal'
 
 type Filter = CarCategory | 'todos'
 
@@ -158,25 +159,21 @@ export default function CarsShowcase({ activeCategory, cars }: Props) {
           )}
         </div>
 
-        {/* Desktop: grid */}
-        <div className="hidden md:grid md:grid-cols-3 md:gap-6">
-          <AnimatePresence>
-            {filtered.map((car, i) => (
-              <motion.div
-                key={car.id}
-                layout
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
-              >
-                <CarCard car={car} index={i} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+        {/* Desktop: grid com Flip animation */}
+        <FlipReveal
+          keys={activeCategory === 'todos' ? ['all'] : [activeCategory]}
+          showClass="block"
+          hideClass="hidden"
+          className="hidden md:grid md:grid-cols-3 md:gap-6"
+        >
+          {cars.filter(c => c.status !== 'vendido').map((car) => (
+            <FlipRevealItem key={car.id} flipKey={car.category}>
+              <CarCard car={car} index={0} />
+            </FlipRevealItem>
+          ))}
+        </FlipReveal>
 
-        {filtered.length === 0 && (
+        {cars.filter(c => c.status !== 'vendido' && (activeCategory === 'todos' || c.category === activeCategory)).length === 0 && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
