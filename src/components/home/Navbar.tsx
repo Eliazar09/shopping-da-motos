@@ -13,26 +13,27 @@ import { FrameButton } from '@/components/ui/frame-button'
 // ── Links ──────────────────────────────────────────────────
 const stockLinks = [
   { label: 'Estoque Completo', href: '/estoque' },
-  { label: 'Carros Novos',     href: '/novos'   },
-  { label: 'Seminovos',        href: '/seminovos'},
-  { label: 'Repasse',          href: '/repasse' },
+  { label: 'Carros Novos',     href: '/estoque?categoria=novo'      },
+  { label: 'Seminovos',        href: '/estoque?categoria=seminovo'  },
+  { label: 'Repasse',          href: '/estoque?categoria=repasse'   },
 ]
 const anchorLinks = [
   { label: 'Sobre',   href: '#sobre'   },
   { label: 'Contato', href: '#contato' },
 ]
 const drawerLinks = [
-  { label: 'Estoque Completo', href: '/estoque',   type: 'route'  },
-  { label: 'Carros Novos',     href: '/novos',     type: 'route'  },
-  { label: 'Seminovos',        href: '/seminovos', type: 'route'  },
-  { label: 'Repasse',          href: '/repasse',   type: 'route'  },
-  { label: 'Sobre Rafael',     href: '#sobre',     type: 'anchor' },
-  { label: 'Contato',          href: '#contato',   type: 'anchor' },
+  { label: 'Estoque Completo', href: '/estoque',                       type: 'route'  },
+  { label: 'Carros Novos',     href: '/estoque?categoria=novo',        type: 'route'  },
+  { label: 'Seminovos',        href: '/estoque?categoria=seminovo',    type: 'route'  },
+  { label: 'Repasse',          href: '/estoque?categoria=repasse',     type: 'route'  },
+  { label: 'Sobre Rafael',     href: '#sobre',                         type: 'anchor' },
+  { label: 'Contato',          href: '#contato',                       type: 'anchor' },
 ]
-const STOCK_ROUTES = ['/estoque', '/novos', '/seminovos', '/repasse']
+const STOCK_ROUTES = ['/estoque']
 
 function isActive(href: string, pathname: string) {
-  return pathname === href || pathname.startsWith(href + '/')
+  const path = href.split('?')[0]
+  return pathname === path || pathname.startsWith(path + '/')
 }
 
 async function logout() {

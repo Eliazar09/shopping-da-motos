@@ -72,7 +72,7 @@ export default async function NovosPage() {
                 Falar com Rafael
               </a>
               <Link
-                href="/estoque"
+                href="/estoque?categoria=novo"
                 className="inline-flex items-center gap-2 rounded-full border border-marine-200 bg-marine-50 px-7 py-3.5 text-[13px] font-bold text-marine-700 transition-all hover:border-marine-500"
               >
                 Ver estoque completo
@@ -132,7 +132,7 @@ export default async function NovosPage() {
               </a>
             </p>
           ) : (
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {novos.map((car, i) => (
                 <CarCard key={car.id} car={car} index={i} />
               ))}

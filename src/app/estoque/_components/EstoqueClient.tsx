@@ -332,6 +332,12 @@ export default function EstoqueClient({ cars, brands }: Props) {
     router.replace('/estoque', { scroll: false })
   }, [router])
 
+  // Sync filters when URL changes (e.g. navbar navigation)
+  useEffect(() => {
+    const parsed = parseFiltersFromURL(new URLSearchParams(searchParams.toString()))
+    setFilters(prev => ({ ...prev, ...parsed }))
+  }, [searchParams])
+
   useEffect(() => {
     document.body.style.overflow = mobileFilterOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
@@ -403,28 +409,28 @@ export default function EstoqueClient({ cars, brands }: Props) {
         </Container>
       </div>
 
-      {/* Mobile category tabs */}
-      <div
-        className="flex gap-2 overflow-x-auto border-b border-gray-100 px-4 py-3 lg:hidden"
-        style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
-      >
-        {CAT_TABS.map((tab) => {
-          const active = isCatActive(tab.value)
-          return (
-            <button
-              key={tab.label}
-              onClick={() => updateFilters({ categories: tab.value })}
-              className="flex-shrink-0 rounded-full px-4 py-1.5 text-[12px] font-bold transition-colors"
-              style={
-                active
-                  ? { background: '#E31E24', color: '#fff' }
-                  : { background: '#F1F3F5', color: '#374151' }
-              }
-            >
-              {tab.label}
-            </button>
-          )
-        })}
+      {/* Category tabs — mobile & desktop */}
+      <div className="border-b border-gray-100 bg-white py-5 md:py-7">
+        <div className="flex justify-center px-4">
+          <div className="flex gap-2 overflow-x-auto pb-1 md:gap-3" style={{ scrollbarWidth: 'none' }}>
+            {CAT_TABS.map((tab) => {
+              const active = isCatActive(tab.value)
+              return (
+                <button
+                  key={tab.label}
+                  onClick={() => updateFilters({ categories: tab.value })}
+                  className="flex-shrink-0 rounded-full px-6 py-2.5 text-[13px] font-bold transition-all md:px-8 md:py-3 md:text-[15px]"
+                  style={active
+                    ? { fontFamily: 'var(--font-jakarta)', background: '#E31E24', color: '#fff', boxShadow: '0 6px 20px rgba(227,30,36,0.25)' }
+                    : { fontFamily: 'var(--font-jakarta)', background: '#F1F3F5', color: '#374151' }
+                  }
+                >
+                  {tab.label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
       </div>
 
       <Container>
@@ -517,7 +523,7 @@ export default function EstoqueClient({ cars, brands }: Props) {
               <EmptyResults onReset={resetFilters} />
             ) : (
               <motion.div
-                className={`grid gap-5 ${gridView ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-1'}`}
+                className={`grid gap-5 ${gridView ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3' : 'grid-cols-1'}`}
                 layout
               >
                 {displayed.map((car, i) => (
