@@ -413,26 +413,35 @@ export default function EstoqueClient({ cars, brands }: Props) {
       </div>
 
       {/* Category tabs — mobile & desktop */}
-      <div className="border-b border-gray-100 bg-white py-5 md:py-7">
-        <div className="flex justify-center px-4">
-          <div className="flex gap-2 overflow-x-auto pb-1 md:gap-3" style={{ scrollbarWidth: 'none' }}>
-            {CAT_TABS.map((tab) => {
-              const active = isCatActive(tab.value)
-              return (
-                <button
-                  key={tab.label}
-                  onClick={() => updateFilters({ categories: tab.value })}
-                  className="flex-shrink-0 rounded-full px-6 py-2.5 text-[13px] font-bold transition-all md:px-8 md:py-3 md:text-[15px]"
-                  style={active
+      <div className="border-b border-gray-100 bg-white py-5 md:py-7 overflow-hidden">
+        <div
+          className="flex gap-2 overflow-x-auto md:gap-3 md:justify-center"
+          style={{
+            scrollbarWidth: 'none',
+            WebkitOverflowScrolling: 'touch',
+            paddingLeft: '1rem',
+            paddingRight: '1rem',
+            paddingBottom: '2px',
+          }}
+        >
+          {CAT_TABS.map((tab) => {
+            const active = isCatActive(tab.value)
+            return (
+              <button
+                key={tab.label}
+                onClick={() => updateFilters({ categories: tab.value })}
+                className="flex-shrink-0 rounded-full px-6 py-2.5 text-[13px] font-bold transition-all md:px-8 md:py-3 md:text-[15px]"
+                style={{
+                  whiteSpace: 'nowrap',
+                  ...(active
                     ? { fontFamily: 'var(--font-jakarta)', background: '#E31E24', color: '#fff', boxShadow: '0 6px 20px rgba(227,30,36,0.25)' }
-                    : { fontFamily: 'var(--font-jakarta)', background: '#F1F3F5', color: '#374151' }
-                  }
-                >
-                  {tab.label}
-                </button>
-              )
-            })}
-          </div>
+                    : { fontFamily: 'var(--font-jakarta)', background: '#F1F3F5', color: '#374151' })
+                }}
+              >
+                {tab.label}
+              </button>
+            )
+          })}
         </div>
       </div>
 
