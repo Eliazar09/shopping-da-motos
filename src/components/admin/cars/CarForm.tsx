@@ -229,9 +229,12 @@ export default function CarForm({ mode, car, carId, initialTab = 'basico' }: Pro
                     value={category}
                     onChange={setCategory}
                     options={[
-                      { value: 'novo',     label: 'Novo' },
-                      { value: 'seminovo', label: 'Seminovo' },
-                      { value: 'repasse',  label: 'Repasse' },
+                      { value: 'novo',         label: 'Novo' },
+                      { value: 'seminovo',     label: 'Seminovo' },
+                      { value: 'venda-direta', label: 'Venda Direta' },
+                      { value: 'consorcio',    label: 'Consórcio' },
+                      { value: 'repasse',      label: 'Repasse' },
+                      { value: 'entregas',     label: 'Entregas' },
                     ]}
                   />
                   <SelectField
