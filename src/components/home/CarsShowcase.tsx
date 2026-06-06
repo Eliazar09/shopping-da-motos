@@ -17,10 +17,13 @@ interface Props {
 }
 
 const titles: Record<Filter, string> = {
-  todos:    'Todos os carros',
-  novo:     'Carros novos',
-  seminovo: 'Seminovos',
-  repasse:  'Repasse',
+  todos:          'Todos os carros',
+  novo:           'Carros novos',
+  seminovo:       'Seminovos',
+  'venda-direta': 'Venda Direta',
+  consorcio:      'Consórcio',
+  repasse:        'Repasse',
+  entregas:       'Entregas',
 }
 
 export default function CarsShowcase({ activeCategory, cars }: Props) {

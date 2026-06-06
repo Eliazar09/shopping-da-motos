@@ -1,4 +1,4 @@
-export type CarCategory     = 'novo' | 'seminovo' | 'repasse'
+export type CarCategory     = 'novo' | 'seminovo' | 'venda-direta' | 'consorcio' | 'repasse' | 'entregas'
 export type CarStatus       = 'disponivel' | 'reservado' | 'vendido'
 export type FuelType        = 'gasolina' | 'etanol' | 'flex' | 'diesel' | 'hibrido' | 'eletrico'
 export type TransmissionType = 'manual' | 'automatico' | 'cvt' | 'automatizado'

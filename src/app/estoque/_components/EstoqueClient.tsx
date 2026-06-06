@@ -344,10 +344,13 @@ export default function EstoqueClient({ cars, brands }: Props) {
   }, [mobileFilterOpen])
 
   const CAT_TABS: { label: string; value: CarCategory[] }[] = [
-    { label: 'Todos',     value: [] },
-    { label: 'Novos',     value: ['novo'] },
-    { label: 'Seminovos', value: ['seminovo'] },
-    { label: 'Repasse',   value: ['repasse'] },
+    { label: 'Todos',        value: [] },
+    { label: 'Novos',        value: ['novo'] },
+    { label: 'Seminovos',    value: ['seminovo'] },
+    { label: 'Venda Direta', value: ['venda-direta'] },
+    { label: 'Consórcio',    value: ['consorcio'] },
+    { label: 'Repasse',      value: ['repasse'] },
+    { label: 'Entregas',     value: ['entregas'] },
   ]
 
   function isCatActive(value: CarCategory[]) {
