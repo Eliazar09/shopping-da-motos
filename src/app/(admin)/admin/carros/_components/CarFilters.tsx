@@ -71,7 +71,10 @@ export default function CarFilters({ searchParams }: { searchParams: Record<stri
         <option value="todos">Todos os tipos</option>
         <option value="novo">Novo</option>
         <option value="seminovo">Seminovo</option>
+        <option value="venda-direta">Venda Direta</option>
+        <option value="consorcio">Consórcio</option>
         <option value="repasse">Repasse</option>
+        <option value="entregas">Entregas</option>
       </select>
 
       {/* Sort */}

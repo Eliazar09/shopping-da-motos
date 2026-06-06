@@ -6,10 +6,13 @@ import type { CarCategory } from '@/types'
 type Filter = CarCategory | 'todos'
 
 const filters: { id: Filter; label: string }[] = [
-  { id: 'todos',    label: 'Todos'     },
-  { id: 'novo',     label: 'Novos'     },
-  { id: 'seminovo', label: 'Seminovos' },
-  { id: 'repasse',  label: 'Repasse'   },
+  { id: 'todos',        label: 'Todos'        },
+  { id: 'novo',         label: 'Novos'        },
+  { id: 'seminovo',     label: 'Seminovos'    },
+  { id: 'venda-direta', label: 'Venda Direta' },
+  { id: 'consorcio',    label: 'Consórcio'    },
+  { id: 'repasse',      label: 'Repasse'      },
+  { id: 'entregas',     label: 'Entregas'     },
 ]
 
 interface Props {
