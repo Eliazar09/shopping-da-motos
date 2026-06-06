@@ -29,10 +29,14 @@ export default function CategoryFilter({ active, onChange }: Props) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="mx-auto max-w-7xl px-3 md:px-8 lg:px-12">
+      <div className="overflow-hidden">
         <div
-          className="flex items-center justify-center gap-1.5 md:gap-2"
-          style={{ padding: '10px 0' }}
+          className="flex items-center gap-1.5 overflow-x-auto md:justify-center md:gap-2"
+          style={{
+            padding: '10px 1rem',
+            scrollbarWidth: 'none',
+            WebkitOverflowScrolling: 'touch',
+          }}
         >
           {filters.map((f, i) => {
             const isActive = active === f.id
