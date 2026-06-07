@@ -15,9 +15,12 @@ export const TRANSMISSION_LABELS: Record<string, string> = {
 }
 
 export const CATEGORY_LABELS: Record<string, string> = {
-  novo:     'Novo',
-  seminovo: 'Seminovo',
-  repasse:  'Repasse',
+  novo:           'Novo',
+  seminovo:       'Seminovo',
+  'venda-direta': 'Venda Direta',
+  consorcio:      'Consórcio',
+  repasse:        'Repasse',
+  entregas:       'Entregas',
 }
 
 export const STATUS_LABELS: Record<string, string> = {

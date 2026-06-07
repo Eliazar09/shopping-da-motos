@@ -9,7 +9,8 @@ import CarGallery from '@/components/car/CarGallery'
 import SellerCard from '@/components/car/SellerCard'
 import Container from '@/components/ui/Container'
 import Navbar from '@/components/home/Navbar'
-import { FUEL_LABELS, TRANSMISSION_LABELS } from '@/lib/labels'
+import { FUEL_LABELS, TRANSMISSION_LABELS, CATEGORY_LABELS } from '@/lib/labels'
+import type React from 'react'
 
 export async function generateMetadata({
   params,
@@ -49,15 +50,21 @@ function formatKm(n: number) {
 }
 
 const categoryLabel: Record<string, string> = {
-  novo:     'Novos',
-  seminovo: 'Seminovos',
-  repasse:  'Repasse',
+  novo:           'Novos',
+  seminovo:       'Seminovos',
+  'venda-direta': 'Venda Direta',
+  consorcio:      'Consórcio',
+  repasse:        'Repasse',
+  entregas:       'Entregas',
 }
 
 const categoryHref: Record<string, string> = {
-  novo:     '/novos',
-  seminovo: '/seminovos',
-  repasse:  '/repasse',
+  novo:           '/estoque?categoria=novo',
+  seminovo:       '/estoque?categoria=seminovo',
+  'venda-direta': '/estoque?categoria=venda-direta',
+  consorcio:      '/estoque?categoria=consorcio',
+  repasse:        '/estoque?categoria=repasse',
+  entregas:       '/estoque?categoria=entregas',
 }
 
 const specIcons = {
@@ -69,16 +76,21 @@ const specIcons = {
   doors:        DoorOpen,
 }
 
-function getBadgeStyle(category: string) {
-  if (category === 'novo')     return { background: '#0A1929', color: '#fff' }
-  if (category === 'seminovo') return { background: '#ffffff', color: '#0A1929', border: '1px solid #E4E7EB' }
-  return                              { background: '#B8860B', color: '#fff' }
+const BADGE_STYLES: Record<string, React.CSSProperties> = {
+  novo:           { background: '#0A1929', color: '#fff' },
+  seminovo:       { background: '#ffffff', color: '#0A1929', border: '1px solid #E4E7EB' },
+  'venda-direta': { background: '#1a6b3c', color: '#fff' },
+  consorcio:      { background: '#1a4d8f', color: '#fff' },
+  repasse:        { background: '#B8860B', color: '#fff' },
+  entregas:       { background: '#6C3FF5', color: '#fff' },
+}
+
+function getBadgeStyle(category: string): React.CSSProperties {
+  return BADGE_STYLES[category] ?? { background: '#6B7280', color: '#fff' }
 }
 
 function getBadgeLabel(category: string) {
-  if (category === 'novo')     return 'Novo'
-  if (category === 'seminovo') return 'Seminovo'
-  return 'Repasse'
+  return CATEGORY_LABELS[category] ?? category
 }
 
 export default async function CarPage({ params }: { params: { slug: string } }) {
