@@ -124,7 +124,14 @@ function FilterSidebar({
       <div>
         <label className="mb-2 block text-[10px] font-bold tracking-[0.1em] uppercase text-marine-500">Categoria</label>
         <div className="space-y-2">
-          {(['novo', 'seminovo', 'repasse'] as CarCategory[]).map((cat) => (
+          {([
+            ['novo',         'Novos'],
+            ['seminovo',     'Seminovos'],
+            ['venda-direta', 'Venda Direta'],
+            ['consorcio',    'Consórcio'],
+            ['repasse',      'Repasse'],
+            ['entregas',     'Entregas'],
+          ] as [CarCategory, string][]).map(([cat, label]) => (
             <label key={cat} className="flex cursor-pointer items-center gap-2.5">
               <input
                 type="checkbox"
@@ -132,9 +139,7 @@ function FilterSidebar({
                 onChange={() => onChange({ categories: toggleArray(filters.categories, cat) })}
                 className="h-4 w-4 rounded accent-red-600"
               />
-              <span className="text-[13px] text-marine-700">
-                {cat === 'novo' ? 'Novos' : cat === 'seminovo' ? 'Seminovos' : 'Repasse'}
-              </span>
+              <span className="text-[13px] text-marine-700">{label}</span>
             </label>
           ))}
         </div>

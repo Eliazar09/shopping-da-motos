@@ -23,16 +23,22 @@ const STATUS_STYLE: Record<string, { label: string; bg: string; color: string }>
 export default async function CarrosPage({ searchParams }: { searchParams: SP }) {
   const supabase = createDynamicServerClient()
 
-  const { data: allCars } = await supabase.from('cars').select('status')
-  const totalCars     = allCars?.length ?? 0
-  const availableCars = allCars?.filter(c => c.status === 'disponivel').length ?? 0
-  const soldCars      = allCars?.filter(c => c.status === 'vendido').length ?? 0
-  const reservedCars  = allCars?.filter(c => c.status === 'reservado').length ?? 0
+  const [
+    { count: totalCars },
+    { count: availableCars },
+    { count: soldCars },
+    { count: reservedCars },
+  ] = await Promise.all([
+    supabase.from('cars').select('*', { count: 'exact', head: true }),
+    supabase.from('cars').select('*', { count: 'exact', head: true }).eq('status', 'disponivel'),
+    supabase.from('cars').select('*', { count: 'exact', head: true }).eq('status', 'vendido'),
+    supabase.from('cars').select('*', { count: 'exact', head: true }).eq('status', 'reservado'),
+  ])
 
   // eslint-disable-next-line prefer-const
   let query = supabase
     .from('cars')
-    .select('id,brand,model,version,year,category,status,price,km,transmission,cover_image,images,created_at')
+    .select('id,brand,model,version,year,category,status,price,km,transmission,cover_image,images,created_at,consorcio_valor_parcela,entrega_cliente_nome,entrega_data')
 
   if (searchParams.status && searchParams.status !== 'todos')
     query = query.eq('status', searchParams.status)
@@ -84,10 +90,10 @@ export default async function CarrosPage({ searchParams }: { searchParams: SP })
       {/* ── Mini stats ──────────────────────────────── */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 20 }}>
         {[
-          { label: `${totalCars} total`,           icon: Car,         color: '#0A1929' },
-          { label: `${availableCars} disponíveis`, icon: CheckCircle, color: '#059669' },
-          { label: `${reservedCars} reservados`,   icon: Calendar,    color: '#B45309' },
-          { label: `${soldCars} vendidos`,          icon: Gauge,       color: '#64748B' },
+          { label: `${totalCars ?? 0} total`,           icon: Car,         color: '#0A1929' },
+          { label: `${availableCars ?? 0} disponíveis`, icon: CheckCircle, color: '#059669' },
+          { label: `${reservedCars ?? 0} reservados`,   icon: Calendar,    color: '#B45309' },
+          { label: `${soldCars ?? 0} vendidos`,          icon: Gauge,       color: '#64748B' },
         ].map(s => (
           <span
             key={s.label}
@@ -188,37 +194,65 @@ export default async function CarrosPage({ searchParams }: { searchParams: SP })
                 {/* ── Info ── */}
                 <div style={{ display: 'flex', flexDirection: 'column', flex: 1, padding: '14px 16px 16px' }}>
 
-                  {/* Nome + Preço */}
+                  {/* Nome + Preço — adaptado por categoria */}
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
                     <div style={{ minWidth: 0, flex: 1 }}>
                       <p style={{ fontSize: 14, fontWeight: 700, color: '#0A1929', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', lineHeight: 1.3 }}>
                         {String(car.brand)} {String(car.model)}
                       </p>
-                      {!!car.version && (
-                        <p style={{ marginTop: 2, fontSize: 11, color: '#A0BADC', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          {String(car.version)}
-                        </p>
+                      {car.category === 'entregas' ? (
+                        !!car.entrega_cliente_nome && (
+                          <p style={{ marginTop: 2, fontSize: 11, color: '#A0BADC', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            Cliente: {String(car.entrega_cliente_nome)}
+                          </p>
+                        )
+                      ) : (
+                        !!car.version && (
+                          <p style={{ marginTop: 2, fontSize: 11, color: '#A0BADC', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {String(car.version)}
+                          </p>
+                        )
                       )}
                     </div>
-                    <p style={{ flexShrink: 0, fontSize: 14, fontWeight: 700, color: '#0A1929', fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.01em' }}>
-                      {formatPrice(Number(car.price))}
-                    </p>
+                    {car.category !== 'entregas' && (
+                      <p style={{ flexShrink: 0, fontSize: 14, fontWeight: 700, color: '#0A1929', fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.01em' }}>
+                        {car.category === 'consorcio' && car.consorcio_valor_parcela
+                          ? `${formatPrice(Number(car.consorcio_valor_parcela))}/mês`
+                          : formatPrice(Number(car.price))}
+                      </p>
+                    )}
                   </div>
 
-                  {/* Specs — cada item separado com gap */}
+                  {/* Specs — adaptado por categoria */}
                   <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
-                      <Gauge size={12} color="#A0BADC" strokeWidth={1.8} />
-                      {formatKm(Number(car.km))}
-                    </span>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
-                      <Settings2 size={12} color="#A0BADC" strokeWidth={1.8} />
-                      {TRANSMISSION_LABELS[String(car.transmission)] ?? String(car.transmission)}
-                    </span>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
-                      <Calendar size={12} color="#A0BADC" strokeWidth={1.8} />
-                      {String(car.year)}
-                    </span>
+                    {car.category === 'consorcio' ? (
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
+                        <Calendar size={12} color="#A0BADC" strokeWidth={1.8} />
+                        {String(car.year)}
+                      </span>
+                    ) : car.category === 'entregas' ? (
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
+                        <Calendar size={12} color="#A0BADC" strokeWidth={1.8} />
+                        {car.entrega_data
+                          ? new Date(String(car.entrega_data)).toLocaleDateString('pt-BR')
+                          : 'Data não definida'}
+                      </span>
+                    ) : (
+                      <>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
+                          <Gauge size={12} color="#A0BADC" strokeWidth={1.8} />
+                          {formatKm(Number(car.km))}
+                        </span>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
+                          <Settings2 size={12} color="#A0BADC" strokeWidth={1.8} />
+                          {car.transmission ? (TRANSMISSION_LABELS[String(car.transmission)] ?? '—') : '—'}
+                        </span>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
+                          <Calendar size={12} color="#A0BADC" strokeWidth={1.8} />
+                          {String(car.year)}
+                        </span>
+                      </>
+                    )}
                   </div>
 
                   {/* Ações */}

@@ -307,7 +307,7 @@ export default function CarForm({ mode, car, carId, initialTab = 'basico' }: Pro
                   key={v}
                   type="button"
                   onClick={() => setCategory(v)}
-                  className="flex flex-col items-start gap-1.5 rounded-xl p-4 text-left transition-all"
+                  className="flex flex-col items-start gap-2 rounded-xl p-3 text-left transition-all sm:gap-1.5 sm:p-4"
                   style={{
                     border: isActive ? '2px solid #0A1929' : '1.5px solid #E4E7EB',
                     background: isActive ? '#0A1929' : '#FAFBFC',
@@ -315,7 +315,7 @@ export default function CarForm({ mode, car, carId, initialTab = 'basico' }: Pro
                 >
                   <Icon size={18} style={{ color: isActive ? '#fff' : '#486581' }} />
                   <span className="text-[13px] font-bold leading-tight" style={{ color: isActive ? '#fff' : '#0A1929' }}>{label}</span>
-                  <span className="text-[11px] leading-snug" style={{ color: isActive ? 'rgba(255,255,255,0.55)' : '#829AB1' }}>{desc}</span>
+                  <span className="hidden text-[11px] leading-snug sm:block" style={{ color: isActive ? 'rgba(255,255,255,0.55)' : '#829AB1' }}>{desc}</span>
                 </button>
               )
             })}
@@ -325,7 +325,7 @@ export default function CarForm({ mode, car, carId, initialTab = 'basico' }: Pro
             <button
               type="button"
               onClick={() => {
-                handleCategoryChange(category)
+                setTab(getFormType(category) === 'car' ? 'basico' : 'info')
                 setPhase('form')
               }}
               className="flex items-center gap-2 rounded-xl bg-marine-900 px-7 py-3 text-[14px] font-bold text-white transition-all hover:bg-marine-800 active:scale-[0.98]"

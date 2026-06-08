@@ -6,7 +6,7 @@ import Image from 'next/image'
 import CarImage from '@/components/ui/CarImage'
 import { Gauge, Settings2, Calendar, CreditCard, CheckCircle2 } from 'lucide-react'
 import type { Car } from '@/types'
-import { carWhatsAppLink, consorcioWhatsAppLinkDynamic } from '@/lib/whatsapp'
+import { carWhatsAppLink, consorcioWhatsAppLinkDynamic, entregaWhatsAppLinkDynamic } from '@/lib/whatsapp'
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 import { TRANSMISSION_LABELS } from '@/lib/labels'
 
@@ -241,6 +241,7 @@ function EntregaCard({ car, index }: Props) {
   const veiculo = car.entregaVeiculo ?? car.model
   const cliente = car.entregaClienteNome ?? ''
   const data    = car.entregaData ? formatDate(car.entregaData) : ''
+  const waLink  = entregaWhatsAppLinkDynamic()
 
   return (
     <motion.div
@@ -280,13 +281,22 @@ function EntregaCard({ car, index }: Props) {
         {cliente && <p className="mt-0.5 truncate text-[12px] font-medium text-marine-600">{cliente}</p>}
         {data    && <p className="mt-0.5 text-[11px] text-marine-400">{data}</p>}
 
-        <div className="mt-auto pt-4">
+        <div className="mt-4 grid grid-cols-2 gap-2">
           <Link
             href={`/carros/${car.slug}`}
-            className="flex w-full items-center justify-center rounded-xl bg-[#6C3FF5] py-2.5 text-[12px] font-bold text-white transition-all hover:bg-[#5a32d0]"
+            className="flex items-center justify-center rounded-xl border border-gray-200 py-2.5 text-[12px] font-semibold text-marine-700 transition-all hover:border-marine-300 hover:bg-marine-50"
           >
             Ver entrega
           </Link>
+          <a
+            href={waLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-1.5 rounded-xl bg-[#6C3FF5] py-2.5 text-[12px] font-bold text-white transition-all hover:bg-[#5a32d0]"
+          >
+            <WhatsAppIcon className="h-3.5 w-3.5" />
+            WhatsApp
+          </a>
         </div>
       </div>
     </motion.div>

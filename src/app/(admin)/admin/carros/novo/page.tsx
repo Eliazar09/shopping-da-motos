@@ -15,7 +15,7 @@ export default function NovoCarro() {
             className="mt-0.5 text-[24px] font-bold text-marine-900"
             style={{ fontFamily: 'var(--font-fraunces)' }}
           >
-            Novo Carro
+            Novo Cadastro
           </h1>
         </div>
       </div>

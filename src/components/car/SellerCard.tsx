@@ -64,7 +64,15 @@ export default function SellerCard({ car }: Props) {
       {/* Availability */}
       <div className="my-4 flex items-center justify-between">
         <span className="text-[12px] font-medium text-marine-600">Disponibilidade</span>
-        {car.status === 'disponivel' ? (
+        {car.category === 'entregas' ? (
+          <span className="rounded-full px-3 py-1 text-[10px] font-bold tracking-wide text-white" style={{ background: '#6C3FF5', border: '1px solid #5a32d0' }}>
+            CONCLUÍDA
+          </span>
+        ) : car.category === 'consorcio' ? (
+          <span className="rounded-full px-3 py-1 text-[10px] font-bold tracking-wide text-white" style={{ background: '#1a4d8f', border: '1px solid #1a3a6e' }}>
+            OFERTA ATIVA
+          </span>
+        ) : car.status === 'disponivel' ? (
           <span className="rounded-full bg-green-50 px-3 py-1 text-[10px] font-bold tracking-wide text-green-600" style={{ border: '1px solid #bbf7d0' }}>
             DISPONÍVEL
           </span>
