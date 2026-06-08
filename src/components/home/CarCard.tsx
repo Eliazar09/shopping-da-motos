@@ -10,9 +10,12 @@ import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 import { TRANSMISSION_LABELS } from '@/lib/labels'
 
 const CATEGORY_STYLE: Record<string, { label: string; bg: string; color: string }> = {
-  novo:     { label: 'Novo',     bg: '#0A1929',  color: '#fff' },
-  seminovo: { label: 'Seminovo', bg: '#fff',     color: '#0A1929' },
-  repasse:  { label: 'Repasse',  bg: '#B8860B',  color: '#fff' },
+  novo:           { label: 'Novo',         bg: '#0A1929', color: '#fff' },
+  seminovo:       { label: 'Seminovo',     bg: '#fff',    color: '#0A1929' },
+  repasse:        { label: 'Repasse',      bg: '#B8860B', color: '#fff' },
+  'venda-direta': { label: 'Venda Direta', bg: '#1a6b3c', color: '#fff' },
+  consorcio:      { label: 'Consórcio',   bg: '#1a4d8f', color: '#fff' },
+  entregas:       { label: 'Entregas',    bg: '#6C3FF5', color: '#fff' },
 }
 
 function formatPrice(price: number): string {
@@ -47,7 +50,7 @@ export default function CarCard({ car, index }: Props) {
       whileHover={!isSold ? { y: -4, boxShadow: '0 16px 36px rgba(16,42,67,0.12)' } : {}}
     >
       {/* ── Image ───────────────────────────────── */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+      <Link href={`/carros/${car.slug}`} className="relative block aspect-[4/3] w-full overflow-hidden bg-gray-100">
         <CarImage
           src={car.coverImage}
           alt={`${carName} ${car.year}`}
@@ -80,7 +83,7 @@ export default function CarCard({ car, index }: Props) {
         >
           {cat.label}
         </span>
-      </div>
+      </Link>
 
       {/* ── Info ────────────────────────────────── */}
       <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
