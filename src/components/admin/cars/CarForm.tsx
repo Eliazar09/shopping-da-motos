@@ -128,6 +128,7 @@ export default function CarForm({ mode, car, carId, initialTab = 'basico' }: Pro
   )
 
   // ── UI state ──────────────────────────────────────────────────────────
+  const [phase, setPhase] = useState<'select' | 'form'>(mode === 'edit' ? 'form' : 'select')
   const [tab, setTab] = useState<AnyTab>(() => {
     if (initialTab === 'fotos') return 'fotos'
     const ft = getFormType(String(car?.category ?? 'seminovo'))
@@ -289,10 +290,74 @@ export default function CarForm({ mode, car, carId, initialTab = 'basico' }: Pro
     if (prev) setTab(prev.id)
   }
 
+  // ── FASE 1: Seleção de categoria (create mode only) ───────────────
+  if (phase === 'select') {
+    return (
+      <div className="w-full max-w-2xl">
+        <div className="rounded-2xl bg-white p-6 sm:p-8" style={{ border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(10,25,41,0.06)' }}>
+          <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.14em] text-marine-400">Passo 1 de 1</p>
+          <h2 className="mb-6 text-[20px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-fraunces)' }}>
+            O que você quer cadastrar?
+          </h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {CAT_OPTIONS.map(({ value: v, label, icon: Icon, desc }) => {
+              const isActive = category === v
+              return (
+                <button
+                  key={v}
+                  type="button"
+                  onClick={() => setCategory(v)}
+                  className="flex flex-col items-start gap-1.5 rounded-xl p-4 text-left transition-all"
+                  style={{
+                    border: isActive ? '2px solid #0A1929' : '1.5px solid #E4E7EB',
+                    background: isActive ? '#0A1929' : '#FAFBFC',
+                  }}
+                >
+                  <Icon size={18} style={{ color: isActive ? '#fff' : '#486581' }} />
+                  <span className="text-[13px] font-bold leading-tight" style={{ color: isActive ? '#fff' : '#0A1929' }}>{label}</span>
+                  <span className="text-[11px] leading-snug" style={{ color: isActive ? 'rgba(255,255,255,0.55)' : '#829AB1' }}>{desc}</span>
+                </button>
+              )
+            })}
+          </div>
+
+          <div className="mt-6 flex justify-end">
+            <button
+              type="button"
+              onClick={() => {
+                handleCategoryChange(category)
+                setPhase('form')
+              }}
+              className="flex items-center gap-2 rounded-xl bg-marine-900 px-7 py-3 text-[14px] font-bold text-white transition-all hover:bg-marine-800 active:scale-[0.98]"
+              style={{ boxShadow: '0 4px 16px rgba(10,25,41,0.2)' }}
+            >
+              Avançar <ArrowRight size={16} />
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // ── FASE 2: Formulário ─────────────────────────────────────────────
   return (
     <div className="w-full max-w-2xl">
-      {/* ── Category selector ─────────────────────────────────── */}
-      <CategorySelector value={category} onChange={handleCategoryChange} />
+      {/* Indicador de categoria selecionada */}
+      {mode === 'create' && (
+        <div className="mb-5 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setPhase('select')}
+            className="flex items-center gap-1.5 text-[12px] font-semibold text-marine-400 transition-colors hover:text-marine-700"
+          >
+            <ArrowLeft size={14} /> Trocar tipo
+          </button>
+          <span className="text-marine-200">·</span>
+          <span className="rounded-full bg-marine-900 px-3 py-1 text-[11px] font-bold text-white">
+            {CAT_OPTIONS.find(o => o.value === category)?.label ?? category}
+          </span>
+        </div>
+      )}
 
       {/* ── Step indicator ─────────────────────────────────────── */}
       <div className="mb-6 flex items-center gap-0">
@@ -496,36 +561,6 @@ export default function CarForm({ mode, car, carId, initialTab = 'basico' }: Pro
           </div>
         )}
       </form>
-    </div>
-  )
-}
-
-// ── Category selector ──────────────────────────────────────────────────────
-function CategorySelector({ value, onChange }: { value: string; onChange: (v: string) => void }) {
-  return (
-    <div className="mb-6 rounded-2xl bg-white p-5" style={{ border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(10,25,41,0.06)' }}>
-      <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.1em] text-marine-500">Tipo de cadastro</p>
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-        {CAT_OPTIONS.map(({ value: v, label, icon: Icon, desc }) => {
-          const isActive = value === v
-          return (
-            <button
-              key={v}
-              type="button"
-              onClick={() => onChange(v)}
-              className="flex flex-col items-start gap-1 rounded-xl p-3 text-left transition-all"
-              style={{
-                border: isActive ? '2px solid #0A1929' : '1.5px solid #E4E7EB',
-                background: isActive ? '#0A1929' : '#FAFBFC',
-              }}
-            >
-              <Icon size={16} style={{ color: isActive ? '#fff' : '#486581' }} />
-              <span className="text-[12px] font-bold" style={{ color: isActive ? '#fff' : '#0A1929' }}>{label}</span>
-              <span className="text-[10px]" style={{ color: isActive ? 'rgba(255,255,255,0.6)' : '#829AB1' }}>{desc}</span>
-            </button>
-          )
-        })}
-      </div>
     </div>
   )
 }
