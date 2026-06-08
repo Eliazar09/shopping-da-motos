@@ -44,7 +44,7 @@ export default async function EditCarPage({
         mode="edit"
         car={car as Record<string, unknown>}
         carId={params.id}
-        initialTab={(searchParams.tab as 'basico' | 'tecnico' | 'descricao' | 'extras' | 'fotos') ?? 'basico'}
+        initialTab={searchParams.tab ?? 'basico'}
       />
     </div>
   )

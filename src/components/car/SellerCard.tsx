@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Share2, Check } from 'lucide-react'
 import type { Car } from '@/types'
-import { carWhatsAppLinkDynamic } from '@/lib/whatsapp'
+import { carWhatsAppLinkDynamic, consorcioWhatsAppLinkDynamic, entregaWhatsAppLinkDynamic } from '@/lib/whatsapp'
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 
 interface Props {
@@ -13,7 +13,11 @@ interface Props {
 export default function SellerCard({ car }: Props) {
   const [copied, setCopied] = useState(false)
   const carName = `${car.brand} ${car.model}${car.version ? ` ${car.version}` : ''}`
-  const waLink  = carWhatsAppLinkDynamic(carName, car.year, car.slug)
+  const waLink  = car.category === 'consorcio'
+    ? consorcioWhatsAppLinkDynamic(car.consorcioTipoGrupo ?? carName, car.slug)
+    : car.category === 'entregas'
+    ? entregaWhatsAppLinkDynamic()
+    : carWhatsAppLinkDynamic(carName, car.year, car.slug)
 
   const handleShare = async () => {
     const url = window.location.href

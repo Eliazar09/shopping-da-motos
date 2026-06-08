@@ -31,10 +31,10 @@ export interface DbCar {
   year:              number
   model_year:        number
   km:                number
-  fuel:              FuelType
-  transmission:      TransmissionType
-  color:             string
-  doors:             number
+  fuel:              FuelType | null
+  transmission:      TransmissionType | null
+  color:             string | null
+  doors:             number | null
   price:             number
   old_price:         number | null
   negotiable:        boolean
@@ -51,6 +51,22 @@ export interface DbCar {
   sold_at:           string | null
   meta_title:        string | null
   meta_description:  string | null
+
+  // Consórcio
+  consorcio_tipo_grupo:     string | null
+  consorcio_valor_carta:    number | null
+  consorcio_valor_parcela:  number | null
+  consorcio_prazo:          number | null
+  consorcio_taxa_admin:     string | null
+  consorcio_fundo_reserva:  string | null
+  consorcio_assembleia:     string | null
+  consorcio_dia_vencimento: string | null
+  consorcio_cashback:       number | null
+
+  // Entrega
+  entrega_data:         string | null
+  entrega_cliente_nome: string | null
+  entrega_veiculo:      string | null
 }
 
 export interface DbClient {

@@ -8,7 +8,7 @@ export function filterCars(cars: Car[], filters: FilterState): Car[] {
         car.brand.toLowerCase().includes(q) ||
         car.model.toLowerCase().includes(q) ||
         (car.version?.toLowerCase().includes(q) ?? false) ||
-        car.color.toLowerCase().includes(q) ||
+        (car.color?.toLowerCase().includes(q) ?? false) ||
         String(car.year).includes(q)
       if (!match) return false
     }
@@ -24,8 +24,8 @@ export function filterCars(cars: Car[], filters: FilterState): Car[] {
 
     if (filters.kmMax !== '' && car.km > filters.kmMax) return false
 
-    if (filters.fuels.length > 0 && !filters.fuels.includes(car.fuel)) return false
-    if (filters.transmissions.length > 0 && !filters.transmissions.includes(car.transmission)) return false
+    if (filters.fuels.length > 0 && (!car.fuel || !filters.fuels.includes(car.fuel))) return false
+    if (filters.transmissions.length > 0 && (!car.transmission || !filters.transmissions.includes(car.transmission))) return false
 
     if (!filters.showSold && car.status === 'vendido') return false
 

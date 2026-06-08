@@ -27,3 +27,15 @@ export function carWhatsAppLinkDynamic(carName: string, carYear: number, carSlug
   const message = `Olá Rafael! Tenho interesse no ${carName} ${carYear}\nLink: ${origin}/carros/${carSlug}`
   return buildWhatsAppLink(message)
 }
+
+export function consorcioWhatsAppLinkDynamic(tipoGrupo: string, slug: string): string {
+  const origin =
+    typeof window !== 'undefined' ? window.location.origin : 'https://rafaelmota.com.br'
+  const message = `Olá Rafael! Tenho interesse no consórcio ${tipoGrupo}\nLink: ${origin}/carros/${slug}`
+  return buildWhatsAppLink(message)
+}
+
+export function entregaWhatsAppLinkDynamic(): string {
+  const message = 'Olá Rafael! Quero conhecer as condições para adquirir um veículo Toyota.'
+  return buildWhatsAppLink(message)
+}

@@ -13,10 +13,10 @@ export function dbCarToCar(db: DbCar): Car {
     year:             db.year,
     modelYear:        db.model_year,
     km:               db.km,
-    fuel:             db.fuel,
-    transmission:     db.transmission,
-    color:            db.color,
-    doors:            db.doors,
+    fuel:             db.fuel ?? undefined,
+    transmission:     db.transmission ?? undefined,
+    color:            db.color ?? undefined,
+    doors:            db.doors ?? undefined,
     price:            db.price,
     oldPrice:         db.old_price ?? undefined,
     negotiable:       db.negotiable,
@@ -32,6 +32,22 @@ export function dbCarToCar(db: DbCar): Car {
     soldAt:           db.sold_at ?? undefined,
     metaTitle:        db.meta_title ?? undefined,
     metaDescription:  db.meta_description ?? undefined,
+
+    // Consórcio
+    consorcioTipoGrupo:     db.consorcio_tipo_grupo    ?? undefined,
+    consorcioValorCarta:    db.consorcio_valor_carta   ?? undefined,
+    consorcioValorParcela:  db.consorcio_valor_parcela ?? undefined,
+    consorcioPrazo:         db.consorcio_prazo         ?? undefined,
+    consorcioTaxaAdmin:     db.consorcio_taxa_admin    ?? undefined,
+    consorcioFundoReserva:  db.consorcio_fundo_reserva ?? undefined,
+    consorcioAssembleia:    db.consorcio_assembleia    ?? undefined,
+    consorcioDiaVencimento: db.consorcio_dia_vencimento ?? undefined,
+    consorcioCashback:      db.consorcio_cashback      ?? undefined,
+
+    // Entrega
+    entregaData:        db.entrega_data         ?? undefined,
+    entregaClienteNome: db.entrega_cliente_nome ?? undefined,
+    entregaVeiculo:     db.entrega_veiculo      ?? undefined,
   }
 }
 

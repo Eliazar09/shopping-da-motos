@@ -17,10 +17,10 @@ export interface Car {
   modelYear: number
 
   km: number
-  fuel: FuelType
-  transmission: TransmissionType
-  color: string
-  doors: number
+  fuel?: FuelType
+  transmission?: TransmissionType
+  color?: string
+  doors?: number
 
   price: number
   oldPrice?: number
@@ -41,6 +41,22 @@ export interface Car {
 
   metaTitle?: string
   metaDescription?: string
+
+  // Consórcio
+  consorcioTipoGrupo?: string
+  consorcioValorCarta?: number
+  consorcioValorParcela?: number
+  consorcioPrazo?: number
+  consorcioTaxaAdmin?: string
+  consorcioFundoReserva?: string
+  consorcioAssembleia?: string
+  consorcioDiaVencimento?: string
+  consorcioCashback?: number
+
+  // Entrega
+  entregaData?: string
+  entregaClienteNome?: string
+  entregaVeiculo?: string
 }
 
 export interface FilterState {
