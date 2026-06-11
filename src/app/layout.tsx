@@ -1,50 +1,49 @@
 import type { Metadata } from 'next'
-import { jakarta, inter, fraunces } from './fonts'
+import { jakarta, inter, oswald } from './fonts'
 import './globals.css'
 
-const BASE_URL = 'https://rafaelmota.com.br'
+const BASE_URL = 'https://shoppingdasmotos.com.br'
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Rafael Mota | Comprar Toyota em Boa Vista Roraima — Novos, Seminovos e Repasse',
-    template: '%s | Rafael Mota — Toyota Roraima',
+    default: 'Shopping das Motos | Motos em Boa Vista, Roraima — Novas e Seminovas',
+    template: '%s | Shopping das Motos — Boa Vista RR',
   },
   description:
-    'Compre Toyota em Boa Vista, Roraima com Rafael Mota — Gerente de Negócios da Toyolex. Hilux, SW4, Corolla, RAV4 e mais. Carros 0km, seminovos e repasse com financiamento, entrega e atendimento pelo WhatsApp. Mais de 15 anos de experiência. Mais de 2.000 famílias atendidas.',
+    'Compre sua moto em Boa Vista, Roraima no Shopping das Motos. Motos novas e seminovas com financiamento sem entrada. Aprovação na hora! Atendimento pelo WhatsApp. Av. Gen. Ataíde Teive, 4063 — Asa Branca.',
   keywords: [
-    'Toyota Boa Vista', 'comprar Toyota Roraima', 'Hilux 0km Roraima', 'SW4 Roraima',
-    'Corolla Boa Vista', 'RAV4 Roraima', 'Yaris Boa Vista', 'carros novos Boa Vista',
-    'seminovos Roraima', 'repasse carro Roraima', 'Toyolex Roraima', 'Rafael Mota consultor',
-    'financiamento Toyota Roraima', 'concessionária Toyota Boa Vista', 'carro 0km Roraima',
-    'comprar carro Roraima', 'consultor automotivo Boa Vista', 'Toyota Ranger Roraima',
+    'motos Boa Vista', 'comprar moto Roraima', 'motos novas Boa Vista', 'motos seminovas Roraima',
+    'financiamento moto Boa Vista', 'moto barata Roraima',
+    'shopping das motos', 'moto usada Boa Vista', 'moto parcelada Roraima',
+    'financiamento sem entrada moto', 'moto 0km Boa Vista', 'Honda Boa Vista', 'Yamaha Roraima',
   ],
-  authors: [{ name: 'Rafael Mota', url: BASE_URL }],
-  creator: 'Rafael Mota — Toyolex Roraima',
-  publisher: 'Rafael Mota Consultoria Automotiva',
+  authors: [{ name: 'Shopping das Motos', url: BASE_URL }],
+  creator: 'Shopping das Motos — Boa Vista RR',
+  publisher: 'Shopping das Motos',
   alternates: { canonical: BASE_URL },
   openGraph: {
-    title: 'Rafael Mota | Comprar Toyota em Boa Vista, Roraima',
+    title: 'Shopping das Motos | Motos em Boa Vista, Roraima',
     description:
-      'Hilux, SW4, Corolla, RAV4 e mais — 0km, seminovos e repasse. Atendimento pelo WhatsApp. 15 anos vendendo confiança em Roraima.',
+      'Motos novas e seminovas com financiamento sem entrada. Aprovação na hora! Boa Vista — RR.',
     type: 'website',
     locale: 'pt_BR',
     url: BASE_URL,
-    siteName: 'Rafael Mota — Consultor Toyota Roraima',
+    siteName: 'Shopping das Motos',
     images: [
       {
-        url: '/images/rafael/rafael-hero-1.jpg',
+        url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Rafael Mota — Consultor Toyota Toyolex Roraima',
+        alt: 'Shopping das Motos — Boa Vista, Roraima',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Rafael Mota | Toyota em Boa Vista, Roraima',
-    description: 'Hilux, SW4, Corolla — 0km, seminovos e repasse. Fale pelo WhatsApp. 15 anos de confiança.',
-    images: ['/images/rafael/rafael-hero-1.jpg'],
+    title: 'Shopping das Motos | Boa Vista, Roraima',
+    description: 'Motos novas e seminovas. Financiamento sem entrada. Fale pelo WhatsApp.',
+    images: ['/images/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -56,45 +55,35 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'AutoDealer',
-  name: 'Rafael Mota — Consultor Toyota Roraima',
-  description: 'Consultor Toyota na Toyolex em Boa Vista, Roraima. Carros novos, seminovos e repasse com atendimento personalizado pelo WhatsApp.',
+  '@type': 'MotorcycleDealer',
+  name: 'Shopping das Motos',
+  description: 'Compre sua moto em Boa Vista, Roraima. Motos novas e seminovas com financiamento sem entrada. Aprovação na hora!',
   url: BASE_URL,
-  telephone: '+55-95-98116-8956',
-  image: `${BASE_URL}/images/rafael/rafael-hero-1.jpg`,
+  telephone: '+55-95-98410-2562',
+  image: `${BASE_URL}/images/og-image.jpg`,
   priceRange: '$$',
   address: {
     '@type': 'PostalAddress',
+    streetAddress: 'Av. Gen. Ataíde Teive, 4063',
     addressLocality: 'Boa Vista',
     addressRegion: 'RR',
+    postalCode: '69312-242',
     addressCountry: 'BR',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 2.8235,
-    longitude: -60.6758,
   },
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       opens: '08:00',
       closes: '18:00',
     },
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Saturday'],
-      opens: '08:00',
-      closes: '13:00',
-    },
   ],
-  sameAs: [`https://wa.me/5595981168956`],
+  sameAs: ['https://www.instagram.com/shopping.dasmotos', `https://wa.me/5595984102562`],
   makesOffer: [
-    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Toyota Hilux 0km' } },
-    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Toyota SW4 0km' } },
-    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Toyota Corolla 0km' } },
-    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Carros Seminovos Roraima' } },
-    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Repasse de Veículos' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Motos Novas' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Motos Seminovas' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Motos Seminovas' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'Financiamento sem entrada' } },
   ],
 }
 
@@ -106,7 +95,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${jakarta.variable} ${inter.variable} ${fraunces.variable}`}
+      className={`${jakarta.variable} ${inter.variable} ${oswald.variable}`}
     >
       <head>
         <script
@@ -114,7 +103,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-white text-marine-900 font-body antialiased overflow-x-hidden">
+      <body className="bg-cream text-marine-900 font-body antialiased overflow-x-hidden">
         {children}
       </body>
     </html>

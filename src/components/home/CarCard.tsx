@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -11,8 +11,8 @@ import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 import { TRANSMISSION_LABELS } from '@/lib/labels'
 
 const CATEGORY_STYLE: Record<string, { label: string; bg: string; color: string }> = {
-  novo:           { label: 'Novo',         bg: '#0A1929', color: '#fff' },
-  seminovo:       { label: 'Seminovo',     bg: '#fff',    color: '#0A1929' },
+  novo:           { label: 'Novo',         bg: '#0D0D0F', color: '#fff' },
+  seminovo:       { label: 'Seminovo',     bg: '#fff',    color: '#0D0D0F' },
   repasse:        { label: 'Repasse',      bg: '#B8860B', color: '#fff' },
   'venda-direta': { label: 'Venda Direta', bg: '#1a6b3c', color: '#fff' },
   consorcio:      { label: 'Consórcio',   bg: '#1a4d8f', color: '#fff' },
@@ -32,8 +32,8 @@ function formatDate(date: string): string {
   return new Date(date + 'T00:00:00').toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
 
-const cardBase = 'group flex flex-col overflow-hidden rounded-2xl bg-white'
-const cardStyle = { border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(16,42,67,0.07)' }
+const cardBase = 'group flex flex-col overflow-hidden rounded-2xl'
+const cardStyle = { background: '#fff', border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(13,13,15,0.06)' }
 
 interface Props {
   car: Car
@@ -62,7 +62,7 @@ function DefaultCarCard({ car, index }: Props) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.4, delay: index * 0.07 }}
-      whileHover={!isSold ? { y: -4, boxShadow: '0 16px 36px rgba(16,42,67,0.12)' } : {}}
+      whileHover={!isSold ? { y: -4, boxShadow: '0 16px 36px rgba(13,13,15,0.12)' } : {}}
     >
       {/* Image */}
       <Link href={`/carros/${car.slug}`} className="relative block aspect-[4/3] w-full overflow-hidden bg-gray-100">
@@ -101,9 +101,9 @@ function DefaultCarCard({ car, index }: Props) {
             <h3 className="truncate text-[15px] font-bold leading-tight text-marine-900" style={{ fontFamily: 'var(--font-jakarta)' }}>
               {car.brand} {car.model}
             </h3>
-            {car.version && <p className="mt-0.5 truncate text-[11px] text-marine-400">{car.version}</p>}
+            {car.version && <p className="mt-0.5 truncate text-[11px] text-marine-500">{car.version}</p>}
           </div>
-          <p className="shrink-0 text-[16px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-fraunces)', fontFeatureSettings: "'tnum' 1" }}>
+          <p className="shrink-0 text-[16px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-oswald)', fontFeatureSettings: "'tnum' 1" }}>
             {formatPrice(car.price)}
           </p>
         </div>
@@ -128,7 +128,8 @@ function DefaultCarCard({ car, index }: Props) {
         <div className="mt-4 grid grid-cols-2 gap-2">
           <Link
             href={`/carros/${car.slug}`}
-            className="flex items-center justify-center rounded-xl border border-gray-200 py-2.5 text-[12px] font-semibold text-marine-700 transition-all hover:border-marine-300 hover:bg-marine-50"
+            className="flex items-center justify-center rounded-xl border py-2.5 text-[12px] font-semibold text-marine-700 transition-all"
+            style={{ borderColor: '#E4E7EB', background: 'transparent' }}
           >
             Ver detalhes
           </Link>
@@ -193,12 +194,12 @@ function ConsorcioCard({ car, index }: Props) {
         <h3 className="truncate text-[15px] font-bold leading-tight text-marine-900" style={{ fontFamily: 'var(--font-jakarta)' }}>
           {title}
         </h3>
-        <p className="mt-0.5 text-[11px] text-marine-400">Toyota · Consórcio</p>
+        <p className="mt-0.5 text-[11px] text-marine-400">Consórcio de moto</p>
 
         <div className="mt-3 space-y-1.5">
           {car.consorcioValorParcela && (
             <div className="flex items-baseline gap-1">
-              <span className="text-[20px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-fraunces)', fontFeatureSettings: "'tnum' 1" }}>
+              <span className="text-[20px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-oswald)', fontFeatureSettings: "'tnum' 1" }}>
                 {formatPrice(car.consorcioValorParcela)}
               </span>
               <span className="text-[11px] text-marine-400">/mês</span>
@@ -217,7 +218,8 @@ function ConsorcioCard({ car, index }: Props) {
         <div className="mt-4 grid grid-cols-2 gap-2">
           <Link
             href={`/carros/${car.slug}`}
-            className="flex items-center justify-center rounded-xl border border-gray-200 py-2.5 text-[12px] font-semibold text-marine-700 transition-all hover:border-marine-300 hover:bg-marine-50"
+            className="flex items-center justify-center rounded-xl border py-2.5 text-[12px] font-semibold text-marine-700 transition-all"
+            style={{ borderColor: '#E4E7EB', background: 'transparent' }}
           >
             Ver detalhes
           </Link>
@@ -284,7 +286,8 @@ function EntregaCard({ car, index }: Props) {
         <div className="mt-4 grid grid-cols-2 gap-2">
           <Link
             href={`/carros/${car.slug}`}
-            className="flex items-center justify-center rounded-xl border border-gray-200 py-2.5 text-[12px] font-semibold text-marine-700 transition-all hover:border-marine-300 hover:bg-marine-50"
+            className="flex items-center justify-center rounded-xl border py-2.5 text-[12px] font-semibold text-marine-700 transition-all"
+            style={{ borderColor: 'rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.04)' }}
           >
             Ver entrega
           </Link>

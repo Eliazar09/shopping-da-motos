@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -80,10 +80,10 @@ export default function CalendarioPage() {
 
       {/* ── Header ──────────────────────────────────────── */}
       <div style={{ marginBottom: 24 }}>
-        <p style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#A0BADC' }}>
+        <p style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#A1A1AA' }}>
           Negócios
         </p>
-        <h1 style={{ marginTop: 4, fontSize: 28, fontWeight: 700, color: '#0A1929', fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}>
+        <h1 style={{ marginTop: 4, fontSize: 28, fontWeight: 700, color: '#0D0D0F', fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}>
           Calendário
         </h1>
       </div>
@@ -91,7 +91,7 @@ export default function CalendarioPage() {
       {/* ── Calendar card ───────────────────────────────── */}
       <div style={{
         background: '#fff', borderRadius: 20,
-        border: '1px solid #E8ECF0', boxShadow: '0 2px 8px rgba(10,25,41,0.05)',
+        border: '1px solid #E8ECF0', boxShadow: '0 2px 8px rgba(13,13,15,0.05)',
         padding: 16, marginBottom: 16,
       }}>
 
@@ -105,12 +105,12 @@ export default function CalendarioPage() {
               cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}
           >
-            <ChevronLeft size={16} color="#486581" />
+            <ChevronLeft size={16} color="#6B6B70" />
           </button>
 
           <p style={{
-            fontSize: 16, fontWeight: 700, color: '#0A1929',
-            fontFamily: 'var(--font-fraunces)', textTransform: 'capitalize',
+            fontSize: 16, fontWeight: 700, color: '#0D0D0F',
+            fontFamily: 'var(--font-oswald)', textTransform: 'capitalize',
           }}>
             {format(currentMonth, 'MMMM yyyy', { locale: ptBR })}
           </p>
@@ -123,7 +123,7 @@ export default function CalendarioPage() {
               cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}
           >
-            <ChevronRight size={16} color="#486581" />
+            <ChevronRight size={16} color="#6B6B70" />
           </button>
         </div>
 
@@ -134,9 +134,9 @@ export default function CalendarioPage() {
               display: 'flex', alignItems: 'center', gap: 6,
               borderRadius: 10, padding: '4px 10px',
               fontSize: 11, fontWeight: 600,
-              background: '#F1F5F9', color: '#0A1929', border: '1px solid #E8ECF0',
+              background: '#F1F5F9', color: '#0D0D0F', border: '1px solid #E8ECF0',
             }}>
-              <ShoppingBag size={12} color="#A0BADC" />
+              <ShoppingBag size={12} color="#A1A1AA" />
               {monthSales.length} {monthSales.length === 1 ? 'venda' : 'vendas'}
             </span>
             {monthVolume > 0 && (
@@ -169,7 +169,7 @@ export default function CalendarioPage() {
           {WEEKDAYS.map(d => (
             <p key={d} style={{
               textAlign: 'center', fontSize: 9, fontWeight: 700,
-              color: '#A0BADC', textTransform: 'uppercase', letterSpacing: '0.04em',
+              color: '#A1A1AA', textTransform: 'uppercase', letterSpacing: '0.04em',
               padding: '3px 0',
             }}>
               {d}
@@ -179,7 +179,7 @@ export default function CalendarioPage() {
 
         {/* Days grid */}
         {loading ? (
-          <div style={{ padding: '32px 0', textAlign: 'center', fontSize: 13, color: '#A0BADC' }}>
+          <div style={{ padding: '32px 0', textAlign: 'center', fontSize: 13, color: '#A1A1AA' }}>
             Carregando…
           </div>
         ) : (
@@ -211,9 +211,9 @@ export default function CalendarioPage() {
                     border: isTodayDay && !isSelected
                       ? '2px solid #E31E24'
                       : isSelected
-                        ? '2px solid #0A1929'
+                        ? '2px solid #0D0D0F'
                         : '2px solid transparent',
-                    background: isSelected ? '#0A1929' : hasSales ? '#F0F7FF' : 'transparent',
+                    background: isSelected ? '#0D0D0F' : hasSales ? '#F0F7FF' : 'transparent',
                     cursor: hasSales ? 'pointer' : 'default',
                     transition: 'all 0.12s',
                     padding: 1,
@@ -223,7 +223,7 @@ export default function CalendarioPage() {
                   <span style={{
                     fontSize: 11,
                     fontWeight: isTodayDay || isSelected || hasSales ? 700 : 400,
-                    color: isSelected ? '#fff' : isTodayDay ? '#E31E24' : hasSales ? '#0A1929' : '#94A3B8',
+                    color: isSelected ? '#fff' : isTodayDay ? '#E31E24' : hasSales ? '#0D0D0F' : '#94A3B8',
                     lineHeight: 1,
                   }}>
                     {format(day, 'd')}
@@ -256,17 +256,17 @@ export default function CalendarioPage() {
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
             style={{
               background: '#fff', borderRadius: 20,
-              border: '1px solid #E8ECF0', boxShadow: '0 2px 8px rgba(10,25,41,0.05)',
+              border: '1px solid #E8ECF0', boxShadow: '0 2px 8px rgba(13,13,15,0.05)',
               padding: 20,
             }}
           >
             <p style={{
-              fontSize: 14, fontWeight: 700, color: '#0A1929',
-              marginBottom: 14, fontFamily: 'var(--font-fraunces)',
+              fontSize: 14, fontWeight: 700, color: '#0D0D0F',
+              marginBottom: 14, fontFamily: 'var(--font-oswald)',
               textTransform: 'capitalize',
             }}>
               {format(parseISO(selectedDate), "EEEE, d 'de' MMMM", { locale: ptBR })}
-              <span style={{ marginLeft: 8, fontSize: 12, fontWeight: 500, color: '#A0BADC', textTransform: 'none' }}>
+              <span style={{ marginLeft: 8, fontSize: 12, fontWeight: 500, color: '#A1A1AA', textTransform: 'none' }}>
                 — {selectedSales.length} {selectedSales.length === 1 ? 'venda' : 'vendas'}
               </span>
             </p>
@@ -291,7 +291,7 @@ export default function CalendarioPage() {
 
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p style={{
-                      fontSize: 13, fontWeight: 600, color: '#0A1929',
+                      fontSize: 13, fontWeight: 600, color: '#0D0D0F',
                       overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                     }}>
                       {sale.car_name ?? 'Carro não informado'}
@@ -299,7 +299,7 @@ export default function CalendarioPage() {
                     {sale.client_name && (
                       <p style={{
                         display: 'flex', alignItems: 'center', gap: 4,
-                        fontSize: 11, color: '#729CC4', marginTop: 2,
+                        fontSize: 11, color: '#9CA3AF', marginTop: 2,
                       }}>
                         <User size={10} />
                         {sale.client_name}
@@ -310,8 +310,8 @@ export default function CalendarioPage() {
                   <div style={{ textAlign: 'right', flexShrink: 0 }}>
                     {sale.sale_price > 0 && (
                       <p style={{
-                        fontSize: 13, fontWeight: 700, color: '#0A1929',
-                        fontFamily: 'var(--font-fraunces)',
+                        fontSize: 13, fontWeight: 700, color: '#0D0D0F',
+                        fontFamily: 'var(--font-oswald)',
                       }}>
                         {fmtBRL(sale.sale_price)}
                       </p>

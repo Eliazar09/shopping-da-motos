@@ -8,31 +8,31 @@ import CarCard from '@/components/home/CarCard'
 import { getCarsByCategory } from '@/lib/queries/cars'
 
 export const metadata: Metadata = {
-  title: 'Carros Novos Toyota | Rafael Mota - Toyolex Roraima',
+  title: 'Motos Novas 0 km | Shopping das Motos — Boa Vista, Roraima',
   description:
-    'Carros novos Toyota 0km em Roraima. Hilux, SW4, Corolla, Corolla Cross, Yaris e muito mais. Fale com Rafael Mota, seu consultor Toyota de confiança.',
+    'Motos novas 0 km em Boa Vista, Roraima. Honda, Yamaha, Suzuki, Kawasaki e muito mais. Financiamento sem entrada. Fale com a gente!',
 }
 
 const benefits = [
   {
     icon: Shield,
-    title: 'Garantia Toyota',
-    desc: '3 anos ou 100.000km de garantia de fábrica com suporte técnico oficial.',
+    title: 'Garantia de Fábrica',
+    desc: 'Todas as motos novas com garantia oficial do fabricante e suporte técnico.',
   },
   {
     icon: Star,
-    title: 'Tecnologia de Ponta',
-    desc: 'Últimas versões com Toyota Safety Sense, conectividade e eficiência superiores.',
+    title: 'Modelos Atuais',
+    desc: 'Últimas versões das principais marcas com tecnologia e desempenho superiores.',
   },
   {
     icon: Wrench,
     title: 'Revisões Programadas',
-    desc: 'Revisões periódicas com preço fixo garantindo desempenho e segurança.',
+    desc: 'Revisões periódicas garantindo desempenho máximo e segurança na pista.',
   },
   {
     icon: Gift,
-    title: 'Brindes e Benefícios',
-    desc: 'Condições especiais, primeiro emplacamento e assessoria no financiamento.',
+    title: 'Condições Especiais',
+    desc: 'Financiamento facilitado, primeiro emplacamento e assessoria completa.',
   },
 ]
 
@@ -44,21 +44,21 @@ export default async function NovosPage() {
       <section className="border-b border-gray-200 py-16 md:py-24" style={{ background: '#FAFBFC' }}>
         <Container>
           <div className="max-w-2xl">
-            <p className="section-label mb-4">Toyota Roraima</p>
+            <p className="section-label mb-4">Motos Novas</p>
             <h1
               className="font-bold leading-none text-marine-900"
               style={{
-                fontFamily: 'var(--font-fraunces)',
+                fontFamily: 'var(--font-oswald)',
                 fontSize: 'clamp(40px, 6vw, 68px)',
-                letterSpacing: '-0.03em',
+                letterSpacing: '0.01em',
                 lineHeight: 1.05,
               }}
             >
-              Carros Novos.
+              Motos Novas.
             </h1>
             <p className="mt-5 text-[15px] leading-relaxed text-marine-600 md:text-[17px]">
-              A linha completa Toyota 0km disponível em Roraima. Do compacto urbano ao SUV mais
-              imponente, todos com garantia de fábrica e assessoria personalizada.
+              As melhores marcas 0 km disponíveis em Boa Vista, Roraima. Da urbana compacta à
+              esportiva mais potente, todas com garantia de fábrica e assessoria personalizada.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
@@ -69,7 +69,7 @@ export default async function NovosPage() {
                 style={{ boxShadow: '0 12px 32px rgba(227,30,36,0.15)' }}
               >
                 <WhatsAppIcon className="h-4 w-4" />
-                Falar com Rafael
+                Falar no WhatsApp
               </a>
               <Link
                 href="/estoque?categoria=novo"
@@ -106,29 +106,29 @@ export default async function NovosPage() {
         </Container>
       </section>
 
-      {/* Cars grid */}
+      {/* Motos grid */}
       <section className="py-14 md:py-20">
         <Container>
           <div className="mb-8">
-            <p className="section-label mb-2">Toyota Zero Quilômetro</p>
+            <p className="section-label mb-2">Zero Quilômetro</p>
             <h2
               className="text-[28px] font-bold text-marine-900 md:text-[40px]"
-              style={{ fontFamily: 'var(--font-jakarta)', letterSpacing: '-0.02em' }}
+              style={{ fontFamily: 'var(--font-jakarta)', letterSpacing: '0.01em' }}
             >
-              {novos.length} {novos.length === 1 ? 'Modelo Disponível' : 'Modelos Disponíveis'}
+              {novos.length} {novos.length === 1 ? 'Moto Disponível' : 'Motos Disponíveis'}
             </h2>
           </div>
 
           {novos.length === 0 ? (
             <p className="text-[15px] text-marine-500">
-              Nenhum veículo disponível no momento.{' '}
+              Nenhuma moto disponível no momento.{' '}
               <a
                 href={defaultWhatsAppLink()}
                 className="font-semibold text-accent hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Consulte o Rafael no WhatsApp.
+                Consulte-nos no WhatsApp.
               </a>
             </p>
           ) : (

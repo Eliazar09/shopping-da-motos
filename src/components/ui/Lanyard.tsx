@@ -38,7 +38,7 @@ export default function Lanyard({
   gravity = [0, -40, 0],
   fov = 20,
   transparent = true,
-  cardTextureSrc = '/images/rafael/rafael-sobre.jpg',
+  cardTextureSrc = '/images/image/image.png',
 }: LanyardProps) {
   const [isMobile, setIsMobile] = useState<boolean>(
     () => typeof window !== 'undefined' && window.innerWidth < 768
@@ -79,7 +79,7 @@ function Band({
   maxSpeed = 50,
   minSpeed = 0,
   isMobile = false,
-  cardTextureSrc = '/images/rafael/rafael-sobre.jpg',
+  cardTextureSrc = '/images/image/image.png',
 }: {
   maxSpeed?: number
   minSpeed?: number

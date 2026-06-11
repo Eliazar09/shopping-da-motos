@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
@@ -9,7 +9,7 @@ import { FrameButton } from '@/components/ui/frame-button'
 
 export default function CtaSection() {
   return (
-    <section id="contato" className="py-16 md:py-24" style={{ background: '#F8F9FB' }}>
+    <section id="contato" className="py-16 md:py-24" style={{ background: '#F5F5F6' }}>
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -45,10 +45,10 @@ export default function CtaSection() {
               className="relative h-[240px] w-full md:h-[340px] md:w-[55%] lg:w-[52%] flex-shrink-0"
             >
               <Image
-                src="/images/carros/consultoria.jpg"
-                alt="Consultoria Toyota"
+                src="/images/motos/moto-9.png"
+                alt="Shopping das Motos — Boa Vista, Roraima"
                 fill
-                className="object-cover object-center"
+                className="object-contain object-center p-6"
                 sizes="(max-width: 768px) 100vw, 55vw"
                 priority
               />
@@ -79,33 +79,33 @@ export default function CtaSection() {
               className="relative z-10 flex flex-col px-8 pb-12 pt-6 md:px-10 md:py-14 lg:px-12"
             >
               <span className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-accent">
-                Consultoria especializada
+                Financiamento sem entrada
               </span>
 
               <h2
                 className="text-[32px] font-bold leading-tight text-white md:text-[42px] lg:text-[48px]"
-                style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}
+                style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}
               >
-                Pronto para{' '}
-                <span className="text-accent">realizar</span>
-                <br />o seu sonho?
+                Saia de moto{' '}
+                <span className="text-accent">hoje mesmo,</span>
+                <br />sem complicação.
               </h2>
 
               <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-gray-400">
-                Fale agora com Rafael e encontre o carro ideal pra você: novo, seminovo ou repasse,
-                em qualquer lugar de Roraima.
+                Aprovamos seu crédito na hora. Motos novas e seminovas com as
+                melhores condições de Boa Vista, Roraima. Mande uma mensagem agora!
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <FrameButton as="link" href={defaultWhatsAppLink()} target="_blank" rel="noopener noreferrer" variant="green">
-                  <WhatsAppIcon className="h-4 w-4 mr-2" />Falar com Rafael
+                  <WhatsAppIcon className="h-4 w-4 mr-2" />Falar pelo WhatsApp
                 </FrameButton>
                 <FrameButton as="link" href="/estoque" variant="outline">Ver estoque</FrameButton>
               </div>
 
               {/* Trust badges */}
               <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-                {['Atendimento personalizado', 'Entrega em Roraima', 'Resposta rápida'].map((t) => (
+                {['Aprovação na hora', 'Sem entrada', 'Boa Vista — RR'].map((t) => (
                   <span key={t} className="flex items-center gap-1.5 text-[12px] text-gray-500">
                     <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                     {t}

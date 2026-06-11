@@ -3,7 +3,7 @@ import Sidebar from '@/components/admin/layout/Sidebar'
 import Topbar from '@/components/admin/layout/Topbar'
 
 export const metadata: Metadata = {
-  title: { default: 'Admin — Rafael Mota', template: '%s | Admin' },
+  title: { default: 'Admin — Shopping das Motos', template: '%s | Admin' },
   robots: { index: false, follow: false },
 }
 

@@ -1,4 +1,4 @@
-.card {
+﻿.card {
   --bg: #fff;
   --title-color: #fff;
   --title-color-hover: #000;
@@ -79,8 +79,8 @@
   translate: 0 -200%;
   color: var(--title-color);
   transition: color 0.5s, margin-block-end 0.25s, opacity 1s, translate 0.25s;
-  font-family: var(--font-fraunces);
-  letter-spacing: -0.02em;
+  font-family: var(--font-oswald);
+  letter-spacing: 0.01em;
   font-weight: 700;
 }
 

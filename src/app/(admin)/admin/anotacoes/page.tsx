@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -136,7 +136,7 @@ export default function AnotacoesPage() {
     return (
       <div className="flex min-h-full flex-col items-center justify-center p-8 text-center">
         <StickyNote size={48} className="mb-4 text-amber-400" />
-        <h2 className="text-[20px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-fraunces)' }}>
+        <h2 className="text-[20px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-oswald)' }}>
           Tabela não encontrada
         </h2>
         <p className="mt-2 max-w-sm text-[13px] text-marine-500">
@@ -172,7 +172,7 @@ CREATE TRIGGER update_notes_updated_at
           <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-marine-500">Ferramentas</p>
           <h1
             className="mt-1 text-[26px] font-bold text-marine-900"
-            style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}
+            style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}
           >
             Anotações
           </h1>
@@ -248,11 +248,11 @@ CREATE TRIGGER update_notes_updated_at
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: Math.min(i * 0.04, 0.28), ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -2, boxShadow: '0 8px 24px rgba(10,25,41,0.09)' }}
+              whileHover={{ y: -2, boxShadow: '0 8px 24px rgba(13,13,15,0.09)' }}
               className={`group relative flex flex-col rounded-2xl bg-white p-5 transition-shadow ${
                 note.is_pinned ? 'ring-1 ring-accent/25' : ''
               }`}
-              style={{ border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(10,25,41,0.06)' }}
+              style={{ border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(13,13,15,0.06)' }}
             >
               {/* Pin indicator */}
               {note.is_pinned && (
@@ -351,7 +351,7 @@ CREATE TRIGGER update_notes_updated_at
               style={{ boxShadow: '0 24px 64px rgba(0,0,0,0.2)' }}
             >
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-[18px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-fraunces)' }}>
+                <h2 className="text-[18px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-oswald)' }}>
                   {editing.id ? 'Editar Anotação' : 'Nova Anotação'}
                 </h2>
                 <button onClick={() => setModal(false)} className="text-marine-400 hover:text-marine-700">

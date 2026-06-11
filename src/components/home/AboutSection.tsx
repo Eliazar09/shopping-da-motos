@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { motion } from 'framer-motion'
 import Container from '@/components/ui/Container'
@@ -7,10 +7,10 @@ import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 import ProfileCard from './ProfileCard'
 
 const differentials = [
-  'Atendimento exclusivo e personalizado',
-  'Avaliação justa de seu carro usado',
-  'Financiamento facilitado em até 60x',
-  'Entrega em Boa Vista e interior de Roraima',
+  'Financiamento sem entrada — aprovação na hora',
+  'Maior estoque de motos de Roraima',
+  'Atendimento em Boa Vista e interior do estado',
+  'Motos novas e seminovas com procedência garantida',
 ]
 
 export default function AboutSection() {
@@ -18,13 +18,13 @@ export default function AboutSection() {
     <section
       id="sobre"
       className="relative overflow-hidden py-20 md:py-32"
-      style={{ background: '#0A1929' }}
+      style={{ background: '#0D0D0F' }}
     >
       {/* Decorative large number background */}
       <div
         aria-hidden
         className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 select-none text-[280px] font-bold leading-none opacity-[0.03] md:text-[380px]"
-        style={{ fontFamily: 'var(--font-fraunces)', color: '#fff', lineHeight: 1 }}
+        style={{ fontFamily: 'var(--font-oswald)', color: '#fff', lineHeight: 1 }}
       >
         15
       </div>
@@ -59,28 +59,29 @@ export default function AboutSection() {
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="mb-5 text-[13px] font-extrabold uppercase tracking-[0.18em] text-marine-500" style={{ fontFamily: 'var(--font-jakarta)' }}>
-              Sobre Rafael
+              Sobre nós
             </p>
 
             <h2
               style={{
-                fontFamily: 'var(--font-fraunces)',
+                fontFamily: 'var(--font-oswald)',
                 fontSize: 'clamp(34px, 5vw, 60px)',
                 fontWeight: 800,
                 lineHeight: 1.06,
-                letterSpacing: '-0.03em',
+                letterSpacing: '0.01em',
                 color: '#ffffff',
               }}
             >
-              Não vendo carro.{' '}
-              <span style={{ color: 'var(--accent)' }}>Realizo o sonho</span>{' '}
-              da sua família.
+              Aqui você encontra{' '}
+              <span style={{ color: 'var(--accent)' }}>as melhores motos</span>{' '}
+              do mercado.
             </h2>
 
             <p className="mt-6 text-[15px] leading-[1.75] text-marine-400">
-              Há mais de 15 anos em Roraima, já ajudei mais de 2 mil famílias a encontrarem o
-              carro perfeito. Como Gerente de Negócios na Toyolex, meu trabalho é fazer o processo
-              ser transparente, simples e focado em você.
+              O Shopping das Motos é referência em Boa Vista, Roraima. Trabalhamos com
+              motos novas, seminovas e repasse, com financiamento sem entrada e aprovação
+              facilitada. Nosso compromisso é colocar você na sua moto hoje — com segurança
+              e transparência do início ao fim.
             </p>
 
             {/* Differentials */}
@@ -97,7 +98,7 @@ export default function AboutSection() {
                 >
                   <span
                     className="flex-shrink-0 text-[11px] font-bold tabular-nums"
-                    style={{ color: 'var(--accent)', fontFamily: 'var(--font-fraunces)', minWidth: '20px' }}
+                    style={{ color: 'var(--accent)', fontFamily: 'var(--font-oswald)', minWidth: '20px' }}
                   >
                     0{i + 1}
                   </span>
@@ -116,7 +117,7 @@ export default function AboutSection() {
                 style={{ boxShadow: '0 12px 40px rgba(37,211,102,0.25)' }}
               >
                 <WhatsAppIcon className="h-4 w-4" />
-                Falar com Rafael
+                Falar pelo WhatsApp
               </a>
             </div>
           </motion.div>

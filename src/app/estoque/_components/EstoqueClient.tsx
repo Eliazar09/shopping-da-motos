@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useCallback, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -129,7 +129,6 @@ function FilterSidebar({
             ['seminovo',     'Seminovos'],
             ['venda-direta', 'Venda Direta'],
             ['consorcio',    'Consórcio'],
-            ['repasse',      'Repasse'],
             ['entregas',     'Entregas'],
           ] as [CarCategory, string][]).map(([cat, label]) => (
             <label key={cat} className="flex cursor-pointer items-center gap-2.5">
@@ -354,7 +353,6 @@ export default function EstoqueClient({ cars, brands }: Props) {
     { label: 'Seminovos',    value: ['seminovo'] },
     { label: 'Venda Direta', value: ['venda-direta'] },
     { label: 'Consórcio',    value: ['consorcio'] },
-    { label: 'Repasse',      value: ['repasse'] },
     { label: 'Entregas',     value: ['entregas'] },
   ]
 
@@ -368,7 +366,7 @@ export default function EstoqueClient({ cars, brands }: Props) {
     <Navbar />
     <main className="min-h-screen bg-white">
       {/* Hero strip */}
-      <div className="relative overflow-hidden border-b border-white/10 pt-[64px]" style={{ background: 'linear-gradient(130deg, #0A1929 0%, #1a3354 100%)' }}>
+      <div className="relative overflow-hidden border-b border-white/10 pt-[64px]" style={{ background: 'linear-gradient(130deg, #0D0D0F 0%, #1a3354 100%)' }}>
         {/* dot grid */}
         <div
           className="absolute inset-0 opacity-[0.07]"
@@ -396,9 +394,9 @@ export default function EstoqueClient({ cars, brands }: Props) {
               transition={{ duration: 0.55, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               className="font-bold text-white"
               style={{
-                fontFamily: 'var(--font-fraunces)',
+                fontFamily: 'var(--font-oswald)',
                 fontSize: 'clamp(32px, 5vw, 60px)',
-                letterSpacing: '-0.03em',
+                letterSpacing: '0.01em',
                 lineHeight: 1.0,
               }}
             >

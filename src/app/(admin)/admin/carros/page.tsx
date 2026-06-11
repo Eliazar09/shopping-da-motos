@@ -1,4 +1,4 @@
-import { createDynamicServerClient } from '@/lib/supabase/server'
+﻿import { createDynamicServerClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { Plus, Car, Pencil, Gauge, Settings2, Calendar, CheckCircle } from 'lucide-react'
 import CarFilters from './_components/CarFilters'
@@ -65,11 +65,11 @@ export default async function CarrosPage({ searchParams }: { searchParams: SP })
       {/* ── Header ──────────────────────────────────── */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, marginBottom: 20 }}>
         <div>
-          <p style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#A0BADC' }}>
+          <p style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#A1A1AA' }}>
             Catálogo
           </p>
-          <h1 style={{ marginTop: 4, fontSize: 28, fontWeight: 700, color: '#0A1929', fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}>
-            Carros{cars && <span style={{ marginLeft: 8, fontSize: 16, fontWeight: 400, color: '#A0BADC' }}>({cars.length})</span>}
+          <h1 style={{ marginTop: 4, fontSize: 28, fontWeight: 700, color: '#0D0D0F', fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}>
+            Motos{cars && <span style={{ marginLeft: 8, fontSize: 16, fontWeight: 400, color: '#A1A1AA' }}>({cars.length})</span>}
           </h1>
         </div>
         <Link
@@ -82,15 +82,15 @@ export default async function CarrosPage({ searchParams }: { searchParams: SP })
           }}
         >
           <Plus size={15} />
-          <span className="hidden sm:inline">Novo Carro</span>
-          <span className="sm:hidden">Novo</span>
+          <span className="hidden sm:inline">Nova Moto</span>
+          <span className="sm:hidden">Nova</span>
         </Link>
       </div>
 
       {/* ── Mini stats ──────────────────────────────── */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 20 }}>
         {[
-          { label: `${totalCars ?? 0} total`,           icon: Car,         color: '#0A1929' },
+          { label: `${totalCars ?? 0} total`,           icon: Car,         color: '#0D0D0F' },
           { label: `${availableCars ?? 0} disponíveis`, icon: CheckCircle, color: '#059669' },
           { label: `${reservedCars ?? 0} reservados`,   icon: Calendar,    color: '#B45309' },
           { label: `${soldCars ?? 0} vendidos`,          icon: Gauge,       color: '#64748B' },
@@ -119,11 +119,11 @@ export default async function CarrosPage({ searchParams }: { searchParams: SP })
       {!error && (!cars || cars.length === 0) && (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: 80, paddingBottom: 80, textAlign: 'center' }}>
           <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 64, height: 64, borderRadius: 20, background: '#F1F5F9' }}>
-            <Car size={28} color="#A0BADC" />
+            <Car size={28} color="#A1A1AA" />
           </div>
-          <p style={{ fontSize: 15, fontWeight: 600, color: '#1B3A57' }}>Nenhum carro encontrado</p>
-          <p style={{ marginTop: 4, fontSize: 13, color: '#A0BADC' }}>
-            {searchParams.q ? 'Tente outros termos de busca.' : 'Clique em + Novo Carro para começar.'}
+          <p style={{ fontSize: 15, fontWeight: 600, color: '#1E1E21' }}>Nenhuma moto encontrada</p>
+          <p style={{ marginTop: 4, fontSize: 13, color: '#A1A1AA' }}>
+            {searchParams.q ? 'Tente outros termos de busca.' : 'Clique em + Nova Moto para começar.'}
           </p>
         </div>
       )}
@@ -149,7 +149,7 @@ export default async function CarrosPage({ searchParams }: { searchParams: SP })
                   overflow: 'hidden', borderRadius: 20,
                   background: '#fff',
                   border: '1px solid #E8ECF0',
-                  boxShadow: '0 2px 8px rgba(10,25,41,0.06)',
+                  boxShadow: '0 2px 8px rgba(13,13,15,0.06)',
                 }}
               >
                 {/* ── Foto ── */}
@@ -163,8 +163,8 @@ export default async function CarrosPage({ searchParams }: { searchParams: SP })
                     />
                   ) : (
                     <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-                      <Car size={40} color="#C8D8EC" />
-                      <p style={{ fontSize: 11, color: '#A0BADC' }}>Sem foto</p>
+                      <Car size={40} color="#E4E4E7" />
+                      <p style={{ fontSize: 11, color: '#A1A1AA' }}>Sem foto</p>
                     </div>
                   )}
 
@@ -173,7 +173,7 @@ export default async function CarrosPage({ searchParams }: { searchParams: SP })
                     position: 'absolute', top: 10, left: 10,
                     borderRadius: 999, padding: '4px 10px',
                     fontSize: 10, fontWeight: 700, color: '#fff',
-                    background: 'rgba(10,25,41,0.65)',
+                    background: 'rgba(13,13,15,0.65)',
                     boxShadow: '0 1px 4px rgba(0,0,0,0.15)',
                   }}>
                     {catLabel}
@@ -197,25 +197,25 @@ export default async function CarrosPage({ searchParams }: { searchParams: SP })
                   {/* Nome + Preço — adaptado por categoria */}
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
                     <div style={{ minWidth: 0, flex: 1 }}>
-                      <p style={{ fontSize: 14, fontWeight: 700, color: '#0A1929', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', lineHeight: 1.3 }}>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: '#0D0D0F', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', lineHeight: 1.3 }}>
                         {String(car.brand)} {String(car.model)}
                       </p>
                       {car.category === 'entregas' ? (
                         !!car.entrega_cliente_nome && (
-                          <p style={{ marginTop: 2, fontSize: 11, color: '#A0BADC', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          <p style={{ marginTop: 2, fontSize: 11, color: '#A1A1AA', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             Cliente: {String(car.entrega_cliente_nome)}
                           </p>
                         )
                       ) : (
                         !!car.version && (
-                          <p style={{ marginTop: 2, fontSize: 11, color: '#A0BADC', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          <p style={{ marginTop: 2, fontSize: 11, color: '#A1A1AA', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             {String(car.version)}
                           </p>
                         )
                       )}
                     </div>
                     {car.category !== 'entregas' && (
-                      <p style={{ flexShrink: 0, fontSize: 14, fontWeight: 700, color: '#0A1929', fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.01em' }}>
+                      <p style={{ flexShrink: 0, fontSize: 14, fontWeight: 700, color: '#0D0D0F', fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}>
                         {car.category === 'consorcio' && car.consorcio_valor_parcela
                           ? `${formatPrice(Number(car.consorcio_valor_parcela))}/mês`
                           : formatPrice(Number(car.price))}
@@ -226,29 +226,29 @@ export default async function CarrosPage({ searchParams }: { searchParams: SP })
                   {/* Specs — adaptado por categoria */}
                   <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
                     {car.category === 'consorcio' ? (
-                      <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
-                        <Calendar size={12} color="#A0BADC" strokeWidth={1.8} />
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#6B6B70' }}>
+                        <Calendar size={12} color="#A1A1AA" strokeWidth={1.8} />
                         {String(car.year)}
                       </span>
                     ) : car.category === 'entregas' ? (
-                      <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
-                        <Calendar size={12} color="#A0BADC" strokeWidth={1.8} />
+                      <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#6B6B70' }}>
+                        <Calendar size={12} color="#A1A1AA" strokeWidth={1.8} />
                         {car.entrega_data
                           ? new Date(String(car.entrega_data)).toLocaleDateString('pt-BR')
                           : 'Data não definida'}
                       </span>
                     ) : (
                       <>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
-                          <Gauge size={12} color="#A0BADC" strokeWidth={1.8} />
+                        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#6B6B70' }}>
+                          <Gauge size={12} color="#A1A1AA" strokeWidth={1.8} />
                           {formatKm(Number(car.km))}
                         </span>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
-                          <Settings2 size={12} color="#A0BADC" strokeWidth={1.8} />
+                        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#6B6B70' }}>
+                          <Settings2 size={12} color="#A1A1AA" strokeWidth={1.8} />
                           {car.transmission ? (TRANSMISSION_LABELS[String(car.transmission)] ?? '—') : '—'}
                         </span>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#486581' }}>
-                          <Calendar size={12} color="#A0BADC" strokeWidth={1.8} />
+                        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: '#6B6B70' }}>
+                          <Calendar size={12} color="#A1A1AA" strokeWidth={1.8} />
                           {String(car.year)}
                         </span>
                       </>
@@ -262,7 +262,7 @@ export default async function CarrosPage({ searchParams }: { searchParams: SP })
                       style={{
                         flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
                         borderRadius: 12, padding: '9px 0', fontSize: 12, fontWeight: 700,
-                        color: '#fff', background: '#0A1929', textDecoration: 'none',
+                        color: '#fff', background: '#0D0D0F', textDecoration: 'none',
                       }}
                     >
                       <Pencil size={12} />

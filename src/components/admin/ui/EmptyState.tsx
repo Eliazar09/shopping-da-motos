@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from 'react'
+﻿import type { ElementType, ReactNode } from 'react'
 
 interface Props {
   icon: ElementType
@@ -14,11 +14,11 @@ export default function EmptyState({ icon: Icon, title, description, action }: P
         className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl"
         style={{ background: '#F1F5F9', border: '1px solid #E4E7EB' }}
       >
-        <Icon size={28} className="text-marine-300" strokeWidth={1.5} color="#A0BADC" />
+        <Icon size={28} className="text-marine-300" strokeWidth={1.5} color="#A1A1AA" />
       </div>
       <p
         className="text-[16px] font-bold text-marine-800"
-        style={{ fontFamily: 'var(--font-fraunces)' }}
+        style={{ fontFamily: 'var(--font-oswald)' }}
       >
         {title}
       </p>

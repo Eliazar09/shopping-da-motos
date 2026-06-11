@@ -1,8 +1,8 @@
-import { notFound } from 'next/navigation'
+﻿import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
-  ChevronRight, Gauge, Calendar, Fuel, Settings, Palette, DoorOpen,
+  ChevronRight, Gauge, Calendar, Fuel, Settings, Palette, Zap,
   Check, ArrowRight, MapPin, CreditCard, Gift, CalendarDays,
 } from 'lucide-react'
 import type { Metadata } from 'next'
@@ -22,23 +22,23 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (car.category === 'consorcio') {
     const title = car.consorcioTipoGrupo ?? car.model
     return {
-      title: `Consórcio ${title} | Rafael Mota - Toyolex Roraima`,
-      description: `Consórcio Toyota ${title}. Parcela a partir de ${car.consorcioValorParcela ? `R$ ${car.consorcioValorParcela.toLocaleString('pt-BR')}` : 'consulte'}. Fale com Rafael Mota.`,
+      title: `Consórcio ${title} | Shopping das Motos — Boa Vista, Roraima`,
+      description: `Consórcio de moto ${title}. Parcela a partir de ${car.consorcioValorParcela ? `R$ ${car.consorcioValorParcela.toLocaleString('pt-BR')}` : 'consulte'}. Fale com a gente!`,
     }
   }
 
   if (car.category === 'entregas') {
     return {
-      title: `${car.entregaVeiculo ?? car.model} — Entregue para ${car.entregaClienteNome} | Rafael Mota`,
-      description: `Entrega do ${car.entregaVeiculo ?? car.model} para ${car.entregaClienteNome}. Sonho realizado com Rafael Mota Toyolex.`,
+      title: `${car.entregaVeiculo ?? car.model} — Entregue para ${car.entregaClienteNome} | Shopping das Motos`,
+      description: `Entrega da ${car.entregaVeiculo ?? car.model} para ${car.entregaClienteNome}. Sonho realizado no Shopping das Motos — Boa Vista, Roraima.`,
       openGraph: { images: [{ url: car.coverImage }] },
     }
   }
 
   const name = buildCarName(car)
   return {
-    title: car.metaTitle ?? `${name} ${car.year} | Rafael Mota - Toyolex Roraima`,
-    description: car.metaDescription ?? `${name} ${car.year} com ${car.km === 0 ? '0km' : car.km.toLocaleString('pt-BR') + 'km'}. ${car.shortDescription} Fale com Rafael Mota.`,
+    title: car.metaTitle ?? `${name} ${car.year} | Shopping das Motos — Boa Vista, Roraima`,
+    description: car.metaDescription ?? `${name} ${car.year} com ${car.km === 0 ? '0km' : car.km.toLocaleString('pt-BR') + 'km'}. ${car.shortDescription} Fale com a gente!`,
     openGraph: { images: [{ url: car.coverImage }] },
   }
 }
@@ -79,8 +79,8 @@ const categoryHref: Record<string, string> = {
 }
 
 const BADGE_STYLES: Record<string, React.CSSProperties> = {
-  novo:           { background: '#0A1929', color: '#fff' },
-  seminovo:       { background: '#ffffff', color: '#0A1929', border: '1px solid #E4E7EB' },
+  novo:           { background: '#0D0D0F', color: '#fff' },
+  seminovo:       { background: '#ffffff', color: '#0D0D0F', border: '1px solid #E4E7EB' },
   'venda-direta': { background: '#1a6b3c', color: '#fff' },
   consorcio:      { background: '#1a4d8f', color: '#fff' },
   repasse:        { background: '#B8860B', color: '#fff' },
@@ -114,7 +114,7 @@ export default async function CarPage({ params }: { params: { slug: string } }) 
     { icon: Fuel,      label: 'Combustível',   value: car.fuel ? (FUEL_LABELS[car.fuel] ?? car.fuel) : '—' },
     { icon: Settings,  label: 'Câmbio',        value: car.transmission ? (TRANSMISSION_LABELS[car.transmission] ?? car.transmission) : '—' },
     { icon: Palette,   label: 'Cor',           value: car.color ?? '—' },
-    { icon: DoorOpen,  label: 'Portas',        value: car.doors != null ? String(car.doors) : '—' },
+    { icon: Zap,       label: 'Cilindradas',    value: car.doors != null ? `${car.doors} cc` : '—' },
   ] : []
 
   return (
@@ -139,13 +139,13 @@ export default async function CarPage({ params }: { params: { slug: string } }) 
           {isCar && car.status === 'vendido' && (
             <div className="mb-5 flex items-center gap-2 rounded-xl border border-red-100 bg-red-50 px-4 py-3">
               <div className="h-2 w-2 rounded-full bg-accent" />
-              <p className="text-[13px] font-medium text-accent">Este veículo foi vendido. Veja outros disponíveis no estoque.</p>
+              <p className="text-[13px] font-medium text-accent">Esta moto foi vendida. Veja outras disponíveis no estoque.</p>
             </div>
           )}
           {isCar && car.status === 'reservado' && (
             <div className="mb-5 flex items-center gap-2 rounded-xl border border-yellow-100 bg-yellow-50 px-4 py-3">
               <div className="h-2 w-2 rounded-full bg-reserved" />
-              <p className="text-[13px] font-medium text-yellow-700">Este veículo está reservado.</p>
+              <p className="text-[13px] font-medium text-yellow-700">Esta moto está reservada.</p>
             </div>
           )}
 
@@ -196,7 +196,7 @@ export default async function CarPage({ params }: { params: { slug: string } }) 
 
                   {car.description && (
                     <section className="mt-10">
-                      <p className="section-label mb-4">Sobre este veículo</p>
+                      <p className="section-label mb-4">Sobre esta moto</p>
                       <div className="rounded-2xl p-6" style={{ background: '#FAFBFC', border: '1px solid #E4E7EB' }}>
                         <p className="text-[14px] leading-relaxed text-marine-600">{car.description}</p>
                       </div>
@@ -234,7 +234,7 @@ export default async function CarPage({ params }: { params: { slug: string } }) 
           <section style={{ background: '#F2F4F7' }} className="py-12 md:py-16">
             <Container>
               <div className="mb-7 flex flex-wrap items-center justify-between gap-3">
-                <h2 className="text-[20px] font-bold text-marine-900 md:text-[24px]" style={{ fontFamily: 'var(--font-jakarta)', letterSpacing: '-0.01em' }}>
+                <h2 className="text-[20px] font-bold text-marine-900 md:text-[24px]" style={{ fontFamily: 'var(--font-jakarta)', letterSpacing: '0.01em' }}>
                   {isConsorcio ? 'Outros consórcios' : isEntrega ? 'Outras entregas' : 'Você também pode gostar'}
                 </h2>
                 <Link href="/estoque" className="flex items-center gap-1 text-[12px] font-semibold text-accent transition-colors hover:text-accent-hover">
@@ -264,7 +264,7 @@ function TitlePriceBlock({ car, carName }: { car: Car; carName: string }) {
           <span className="rounded-full border border-accent/30 bg-accent-light px-3 py-1 text-[10px] font-bold tracking-[0.08em] uppercase text-accent">Destaque</span>
         )}
       </div>
-      <h1 className="text-[26px] font-bold leading-tight text-marine-900 md:text-[34px]" style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}>
+      <h1 className="text-[26px] font-bold leading-tight text-marine-900 md:text-[34px]" style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}>
         {carName}
       </h1>
       <p className="mt-1.5 text-[13px] font-medium text-marine-500">
@@ -279,7 +279,7 @@ function TitlePriceBlock({ car, carName }: { car: Car; carName: string }) {
         </div>
       )}
       <div className="mt-5 flex items-baseline gap-3">
-        <span className="text-[34px] font-bold text-marine-900 md:text-[38px]" style={{ fontFamily: 'var(--font-fraunces)', fontFeatureSettings: "'tnum' 1", letterSpacing: '-0.02em' }}>
+        <span className="text-[34px] font-bold text-marine-900 md:text-[38px]" style={{ fontFamily: 'var(--font-oswald)', fontFeatureSettings: "'tnum' 1", letterSpacing: '0.01em' }}>
           {formatPrice(car.price)}
         </span>
         {car.oldPrice && <span className="text-[15px] text-marine-400 line-through">{formatPrice(car.oldPrice)}</span>}
@@ -296,16 +296,16 @@ function ConsorcioTitleBlock({ car }: { car: Car }) {
     <div>
       <div className="mb-3">
         <span className="rounded-full bg-[#1a4d8f] px-3 py-1 text-[10px] font-bold tracking-[0.08em] uppercase text-white">
-          Consórcio Toyota
+          Consórcio
         </span>
       </div>
-      <h1 className="text-[26px] font-bold leading-tight text-marine-900 md:text-[34px]" style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}>
+      <h1 className="text-[26px] font-bold leading-tight text-marine-900 md:text-[34px]" style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}>
         {title}
       </h1>
       {car.consorcioValorParcela && (
         <div className="mt-4">
           <div className="flex items-baseline gap-1">
-            <span className="text-[34px] font-bold text-marine-900 md:text-[38px]" style={{ fontFamily: 'var(--font-fraunces)', fontFeatureSettings: "'tnum' 1", letterSpacing: '-0.02em' }}>
+            <span className="text-[34px] font-bold text-marine-900 md:text-[38px]" style={{ fontFamily: 'var(--font-oswald)', fontFeatureSettings: "'tnum' 1", letterSpacing: '0.01em' }}>
               {formatPrice(car.consorcioValorParcela)}
             </span>
             <span className="text-[15px] text-marine-400">/mês</span>
@@ -332,7 +332,7 @@ function EntregaTitleBlock({ car }: { car: Car }) {
           Entregue com sucesso!
         </span>
       </div>
-      <h1 className="text-[26px] font-bold leading-tight text-marine-900 md:text-[34px]" style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}>
+      <h1 className="text-[26px] font-bold leading-tight text-marine-900 md:text-[34px]" style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}>
         {veiculo}
       </h1>
       {(cliente || data) && (
@@ -356,7 +356,7 @@ function ConsorcioDetailsSection({ car }: { car: Car }) {
     car.consorcioFundoReserva && ['Fundo de reserva',     car.consorcioFundoReserva],
     car.consorcioAssembleia   && ['Assembleia',           car.consorcioAssembleia],
     car.consorcioDiaVencimento && ['1º vencimento',       car.consorcioDiaVencimento],
-    car.consorcioCashback     && ['Cashback Toyota',      formatPrice(car.consorcioCashback!)],
+    car.consorcioCashback     && ['Cashback',              formatPrice(car.consorcioCashback!)],
   ].filter(Boolean) as [string, string][]
 
   return (
@@ -373,7 +373,7 @@ function ConsorcioDetailsSection({ car }: { car: Car }) {
       <div className="mt-6 flex items-center gap-2 rounded-xl bg-blue-50 px-4 py-3" style={{ border: '1px solid #bfdbfe' }}>
         <CreditCard size={16} className="flex-shrink-0 text-blue-600" />
         <p className="text-[13px] font-medium text-blue-700">
-          Entre em contato com Rafael Mota para obter todas as condições e realizar sua adesão.
+          Entre em contato conosco para obter todas as condições e realizar sua adesão.
         </p>
       </div>
     </section>
@@ -421,7 +421,7 @@ function EntregaDetailsSection({ car }: { car: Car }) {
       <div className="mt-6 flex items-center gap-2 rounded-xl bg-purple-50 px-4 py-3" style={{ border: '1px solid #e9d5ff' }}>
         <CalendarDays size={16} className="flex-shrink-0 text-purple-600" />
         <p className="text-[13px] font-medium text-purple-700">
-          Quer realizar o seu sonho também? Fale com Rafael Mota e encontre o Toyota ideal para você.
+          Quer realizar o seu sonho também? Fale conosco e encontre a moto ideal para você.
         </p>
       </div>
     </>
@@ -442,7 +442,7 @@ function SimilarCarCard({ car }: { car: Car }) {
     <Link
       href={`/carros/${car.slug}`}
       className="group flex-shrink-0 overflow-hidden rounded-xl bg-white transition-shadow hover:shadow-lg"
-      style={{ width: 'clamp(220px, 55vw, 280px)', scrollSnapAlign: 'start', border: '1px solid #E4E9F0', boxShadow: '0 1px 4px rgba(16,42,67,0.06)' }}
+      style={{ width: 'clamp(220px, 55vw, 280px)', scrollSnapAlign: 'start', border: '1px solid #E4E9F0', boxShadow: '0 1px 4px rgba(13,13,15,0.06)' }}
     >
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: '4/3' }}>
         <Image
@@ -468,7 +468,7 @@ function SimilarCarCard({ car }: { car: Car }) {
 
         {isConsorcio && car.consorcioValorParcela ? (
           <div className="mt-2">
-            <p className="text-[18px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-fraunces)', fontFeatureSettings: "'tnum' 1" }}>
+            <p className="text-[18px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-oswald)', fontFeatureSettings: "'tnum' 1" }}>
               {formatPrice(car.consorcioValorParcela)}<span className="text-[11px] text-marine-400 font-normal">/mês</span>
             </p>
             {car.consorcioPrazo && <p className="text-[11px] text-marine-400">{car.consorcioPrazo} meses</p>}
@@ -480,7 +480,7 @@ function SimilarCarCard({ car }: { car: Car }) {
           </div>
         ) : (
           <>
-            <p className="mt-3 text-[20px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em', fontFeatureSettings: "'tnum' 1" }}>
+            <p className="mt-3 text-[20px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em', fontFeatureSettings: "'tnum' 1" }}>
               {car.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })}
             </p>
             <div className="mt-2 flex items-center justify-between text-[11px] text-marine-400">

@@ -8,16 +8,16 @@ import CarCard from '@/components/home/CarCard'
 import { getCarsByCategory } from '@/lib/queries/cars'
 
 export const metadata: Metadata = {
-  title: 'Carros Seminovos | Rafael Mota - Toyolex Roraima',
+  title: 'Motos Seminovas | Shopping das Motos — Boa Vista, Roraima',
   description:
-    'Seminovos revisados e com procedência garantida em Roraima. Vistoria cautelar aprovada, IPVA pago e garantia de loja. Fale com Rafael Mota.',
+    'Motos seminovas revisadas e com procedência garantida em Boa Vista, Roraima. Vistoria cautelar aprovada, IPVA pago e garantia de loja. Fale conosco!',
 }
 
 const benefits = [
   {
     icon: ClipboardCheck,
     title: 'Laudo Cautelar',
-    desc: 'Todos os veículos passam por vistoria cautelar completa com laudo aprovado.',
+    desc: 'Todas as motos passam por vistoria cautelar completa com laudo aprovado.',
   },
   {
     icon: BadgeCheck,
@@ -27,12 +27,12 @@ const benefits = [
   {
     icon: Percent,
     title: 'Melhor Negócio',
-    desc: 'Veículos com excelente custo-benefício, muitas vezes abaixo da tabela FIPE.',
+    desc: 'Motos com excelente custo-benefício, muitas vezes abaixo da tabela FIPE.',
   },
   {
     icon: Clock,
     title: 'Garantia de Loja',
-    desc: 'Garantia adicional no motor e câmbio por 90 dias em todos os seminovos.',
+    desc: 'Garantia adicional no motor por 90 dias em todas as seminovas.',
   },
 ]
 
@@ -44,21 +44,21 @@ export default async function SeminovosPage() {
       <section className="border-b border-gray-200 py-16 md:py-24" style={{ background: '#FAFBFC' }}>
         <Container>
           <div className="max-w-2xl">
-            <p className="section-label mb-4">Seminovos Certificados</p>
+            <p className="section-label mb-4">Seminovas Certificadas</p>
             <h1
               className="font-bold leading-none text-marine-900"
               style={{
-                fontFamily: 'var(--font-fraunces)',
+                fontFamily: 'var(--font-oswald)',
                 fontSize: 'clamp(40px, 6vw, 68px)',
-                letterSpacing: '-0.03em',
+                letterSpacing: '0.01em',
                 lineHeight: 1.05,
               }}
             >
-              Seminovos com<br />
+              Seminovas com<br />
               <span style={{ color: 'var(--marine-600)' }}>procedência.</span>
             </h1>
             <p className="mt-5 text-[15px] leading-relaxed text-marine-600 md:text-[17px]">
-              Veículos revisados, com laudo cautelar aprovado e histórico verificado. A qualidade que você merece com o preço que cabe no seu bolso.
+              Motos revisadas, com laudo cautelar aprovado e histórico verificado. A qualidade que você merece com o preço que cabe no seu bolso.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
@@ -69,7 +69,7 @@ export default async function SeminovosPage() {
                 style={{ boxShadow: '0 12px 32px rgba(227,30,36,0.15)' }}
               >
                 <WhatsAppIcon className="h-4 w-4" />
-                Falar com Rafael
+                Falar no WhatsApp
               </a>
               <Link
                 href="/estoque"
@@ -106,33 +106,33 @@ export default async function SeminovosPage() {
         </Container>
       </section>
 
-      {/* Cars grid */}
+      {/* Motos grid */}
       <section className="py-14 md:py-20">
         <Container>
           <div className="mb-8">
             <p className="section-label mb-2">Disponíveis</p>
             <h2
               className="text-[28px] font-bold text-marine-900 md:text-[40px]"
-              style={{ fontFamily: 'var(--font-jakarta)', letterSpacing: '-0.02em' }}
+              style={{ fontFamily: 'var(--font-jakarta)', letterSpacing: '0.01em' }}
             >
-              {seminovos.length} {seminovos.length === 1 ? 'Veículo Disponível' : 'Veículos Disponíveis'}
+              {seminovos.length} {seminovos.length === 1 ? 'Moto Disponível' : 'Motos Disponíveis'}
             </h2>
           </div>
 
           {seminovos.length === 0 ? (
             <p className="text-[15px] text-marine-500">
-              Nenhum veículo disponível no momento.{' '}
+              Nenhuma moto disponível no momento.{' '}
               <a
                 href={defaultWhatsAppLink()}
                 className="font-semibold text-accent hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Consulte o Rafael no WhatsApp.
+                Consulte-nos no WhatsApp.
               </a>
             </p>
           ) : (
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {seminovos.map((car, i) => (
                 <CarCard key={car.id} car={car} index={i} />
               ))}

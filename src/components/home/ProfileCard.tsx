@@ -12,16 +12,16 @@ export default function ProfileCard({ dark = false }: ProfileCardProps) {
   return (
     <div className={`${styles.card} ${dark ? styles.dark : ''}`}>
       <img
-        src="/images/carros/sw4preta.jpg"
-        alt="Rafael Mota — Consultor Toyota Toyolex"
+        src="/images/motos/moto-6.png"
+        alt="Shopping das Motos — Boa Vista, Roraima"
       />
       <section>
-        <h2>Rafael Mota</h2>
-        <p>Gerente de Negócios · Toyolex Roraima · 15+ anos realizando sonhos.</p>
+        <h2>Shopping das Motos</h2>
+        <p>Compra · Vende · Financia · Boa Vista, Roraima · Financiamento sem entrada!</p>
         <div>
-          <div className={styles.tag} aria-label="Mais de 2000 famílias atendidas">
+          <div className={styles.tag} aria-label="Mais de 1000 clientes satisfeitos">
             <Users size={13} />
-            2k+ famílias
+            1k+ clientes
           </div>
           <a
             href={defaultWhatsAppLink()}

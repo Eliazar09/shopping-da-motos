@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
@@ -12,7 +12,7 @@ function PhotoCard({ photo }: { photo: typeof clientPhotos[0] }) {
   return (
     <div
       className="group relative flex-shrink-0 overflow-hidden rounded-2xl"
-      style={{ width: '220px', height: '160px', background: '#F1F3F5' }}
+      style={{ width: '220px', height: '160px', background: '#E5E7EB' }}
     >
       <Image
         src={photo.image}
@@ -24,7 +24,7 @@ function PhotoCard({ photo }: { photo: typeof clientPhotos[0] }) {
       />
       <div
         className="absolute inset-0 flex flex-col justify-end p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{ background: 'linear-gradient(to top, rgba(10,25,41,0.85) 0%, transparent 60%)' }}
+        style={{ background: 'linear-gradient(to top, rgba(13,13,15,0.85) 0%, transparent 60%)' }}
       >
         <p className="text-[12px] font-semibold text-white leading-tight">{photo.carModel}</p>
       </div>
@@ -34,7 +34,7 @@ function PhotoCard({ photo }: { photo: typeof clientPhotos[0] }) {
 
 export default function ClientsGallery() {
   return (
-    <section className="overflow-hidden py-16 md:py-24" style={{ background: '#FAFBFC' }}>
+    <section className="overflow-hidden py-16 md:py-24" style={{ background: '#F5F5F6' }}>
       {/* Header */}
       <Container>
         <motion.div
@@ -46,10 +46,10 @@ export default function ClientsGallery() {
         >
           <div>
             <p className="section-label mb-2">Estoque</p>
-            <h2 className="text-section-title">Veículos disponíveis</h2>
+            <h2 className="text-section-title">Motos disponíveis</h2>
           </div>
-          <p className="max-w-xs text-[14px] leading-relaxed text-marine-400">
-            Novos, seminovos e repasse. Consulte Rafael e encontre o ideal para você.
+          <p className="max-w-xs text-[14px] leading-relaxed text-marine-500">
+            Novas e seminovas. Fale pelo WhatsApp e encontre a moto ideal para você.
           </p>
         </motion.div>
       </Container>

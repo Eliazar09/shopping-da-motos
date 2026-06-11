@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -230,7 +230,7 @@ export function DefaultFanCard({ item }: { item: CardStackItem; active: boolean 
   return (
     <div
       className="relative h-full w-full"
-      style={{ background: 'linear-gradient(160deg, #0f1f35 0%, #1a3050 60%, #0a1929 100%)' }}
+      style={{ background: 'linear-gradient(160deg, #0f1f35 0%, #1a3050 60%, #0D0D0F 100%)' }}
     >
       {/* Subtle grid texture */}
       <div

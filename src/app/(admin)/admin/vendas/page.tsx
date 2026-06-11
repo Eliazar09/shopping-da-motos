@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
@@ -140,7 +140,7 @@ export default function VendasPage() {
           <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-marine-400">Negócios</p>
           <h1
             className="mt-0.5 text-[28px] font-bold text-marine-900"
-            style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}
+            style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}
           >
             Vendas
           </h1>
@@ -170,7 +170,7 @@ export default function VendasPage() {
             className="rounded-xl px-4 py-2 text-[12px] font-semibold transition-all"
             style={
               period === p
-                ? { background: '#0A1929', color: '#fff' }
+                ? { background: '#0D0D0F', color: '#fff' }
                 : { background: '#F1F5F9', color: '#64748B' }
             }
           >
@@ -226,7 +226,7 @@ export default function VendasPage() {
                 >
                 <div
                   className="flex items-start gap-4 rounded-2xl bg-white px-5 py-4 transition-shadow hover:shadow-lg"
-                  style={{ border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(10,25,41,0.06)' }}
+                  style={{ border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(13,13,15,0.06)' }}
                 >
                   {/* Icon */}
                   <div
@@ -240,12 +240,12 @@ export default function VendasPage() {
                     {/* Row 1: car + price */}
                     <div className="flex items-start justify-between gap-3">
                       <p className="text-[14px] font-bold text-marine-900 leading-tight">
-                        {sale.car_name ?? 'Carro não informado'}
+                        {sale.car_name ?? 'Moto não informada'}
                       </p>
                       {sale.sale_price > 0 && (
                         <p
                           className="shrink-0 text-[16px] font-bold text-marine-900"
-                          style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.01em' }}
+                          style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}
                         >
                           {fmtBRL(sale.sale_price)}
                         </p>
@@ -306,7 +306,7 @@ export default function VendasPage() {
       <ConfirmDialog
         open={!!confirmDelete}
         title="Excluir venda?"
-        message={`A venda${confirmDelete?.car_name ? ` de "${confirmDelete.car_name}"` : ''} será removida permanentemente${confirmDelete?.car_id ? ' e o carro voltará para disponível' : ''}.`}
+        message={`A venda${confirmDelete?.car_name ? ` de "${confirmDelete.car_name}"` : ''} será removida permanentemente${confirmDelete?.car_id ? ' e a moto voltará para disponível' : ''}.`}
         confirmLabel="Excluir"
         loading={deleting}
         onConfirm={() => confirmDelete && handleDeleteSale(confirmDelete)}
@@ -333,7 +333,7 @@ export default function VendasPage() {
               style={{ boxShadow: '0 24px 64px rgba(0,0,0,0.18)' }}
             >
               <div className="mb-5 flex items-center justify-between">
-                <h3 className="text-[17px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-fraunces)' }}>
+                <h3 className="text-[17px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-oswald)' }}>
                   Detalhes da Venda
                 </h3>
                 <button
@@ -345,7 +345,7 @@ export default function VendasPage() {
               </div>
 
               <div className="space-y-3">
-                <Row icon={Car}      label="Carro"    value={selected.car_name ?? '—'} />
+                <Row icon={Car}      label="Moto"     value={selected.car_name ?? '—'} />
                 <Row icon={User}     label="Cliente"  value={selected.client_name ?? '—'} />
                 <Row icon={Calendar} label="Data"     value={format(parseISO(selected.sale_date), "d 'de' MMMM, yyyy", { locale: ptBR })} />
                 <Row icon={ShoppingBag} label="Status" value={selected.status === 'concluida' ? 'Concluída' : 'Em negociação'} green={selected.status === 'concluida'} />
@@ -399,7 +399,7 @@ function Row({
       </div>
       <p
         className={`text-right font-semibold ${big ? 'text-[16px]' : 'text-[13px]'} ${green ? 'text-emerald-700' : 'text-marine-900'}`}
-        style={big ? { fontFamily: 'var(--font-fraunces)' } : {}}
+        style={big ? { fontFamily: 'var(--font-oswald)' } : {}}
       >
         {value}
       </p>

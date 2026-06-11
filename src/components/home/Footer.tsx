@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, Clock, Instagram, ArrowUpRight } from 'lucide-react'
 import { defaultWhatsAppLink } from '@/lib/whatsapp'
@@ -6,13 +6,12 @@ import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
 
 const navLinks = [
   { label: 'Estoque Completo', href: '/estoque' },
-  { label: 'Carros Novos',     href: '/novos' },
-  { label: 'Seminovos',        href: '/seminovos' },
-  { label: 'Repasse',          href: '/repasse' },
+  { label: 'Motos Novas',      href: '/estoque?categoria=novo' },
+  { label: 'Seminovas',        href: '/estoque?categoria=seminovo' },
 ]
 
 const anchors = [
-  { label: 'Sobre Rafael', href: '/#sobre' },
+  { label: 'Sobre nós',    href: '/#sobre' },
   { label: 'Depoimentos',  href: '/#depoimentos' },
   { label: 'FAQ',          href: '/#faq' },
   { label: 'Contato',      href: '/#contato' },
@@ -20,22 +19,22 @@ const anchors = [
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#06111E' }}>
+    <footer style={{ background: '#0A0A0C' }}>
 
       {/* ── Top CTA strip ── */}
       <div
         className="border-b"
-        style={{ borderColor: '#0F2236' }}
+        style={{ borderColor: '#101012' }}
       >
         <div className="mx-auto max-w-7xl px-4 py-14 md:px-8 lg:px-12">
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <h2
               className="max-w-lg text-[36px] font-bold leading-[1.05] text-white md:text-[52px]"
-              style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.03em' }}
+              style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}
             >
-              O carro certo<br />
+              A moto certa<br />
               para{' '}
-              <span style={{ color: 'var(--accent)' }}>sua família.</span>
+              <span style={{ color: 'var(--accent)' }}>você.</span>
             </h2>
 
             <div className="flex flex-col gap-3">
@@ -47,10 +46,10 @@ export default function Footer() {
                 style={{ boxShadow: '0 8px 32px rgba(37,211,102,0.25)' }}
               >
                 <WhatsAppIcon className="h-4 w-4" />
-                Falar com Rafael agora
+                Falar com a gente agora
               </a>
               <p className="text-center text-[11px] text-marine-500">
-                Resposta em até 15 minutos · Seg–Sab 8h–19h
+                Resposta em até 15 minutos · Seg–Sab 8h–18h
               </p>
             </div>
           </div>
@@ -64,14 +63,14 @@ export default function Footer() {
           {/* Col 1 — Brand */}
           <div className="col-span-2 md:col-span-1">
             <Image
-              src="/images/RAFAEL MOTA LOGO PRETA SEM FUNDO.png"
-              alt="Rafael Mota"
-              width={150}
-              height={50}
-              className="mb-5 h-9 w-auto object-contain brightness-0 invert opacity-80"
+              src="/images/image/image.png"
+              alt="Shopping das Motos"
+              width={160}
+              height={56}
+              className="mb-5 h-14 w-auto object-contain"
             />
             <p className="text-[13px] leading-relaxed text-marine-400" style={{ maxWidth: '260px' }}>
-              Gerente de Negócios na Toyolex, Boa Vista. Mais de 15 anos realizando sonhos em Roraima.
+              Shopping das Motos — motos novas e seminovas com as melhores condições do mercado.
             </p>
 
             {/* Social proof */}
@@ -98,19 +97,19 @@ export default function Footer() {
                     </svg>
                   ))}
                 </div>
-                <p className="mt-0.5 text-[11px] text-marine-500">+2.000 famílias atendidas</p>
+                <p className="mt-0.5 text-[11px] text-marine-500">+1.000 clientes satisfeitos</p>
               </div>
             </div>
 
             {/* Socials */}
             <div className="mt-6 flex gap-2">
               <a
-                href="https://www.instagram.com/rafaelmotatoyolex/"
+                href="https://www.instagram.com/shopping.dasmotos"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
                 className="flex h-9 w-9 items-center justify-center rounded-full border text-marine-400 transition-all hover:border-marine-500 hover:bg-marine-800 hover:text-white"
-                style={{ borderColor: '#1B3A57' }}
+                style={{ borderColor: '#1E1E21' }}
               >
                 <Instagram size={15} />
               </a>
@@ -120,7 +119,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
                 className="flex h-9 w-9 items-center justify-center rounded-full border text-marine-400 transition-all hover:border-marine-500 hover:bg-marine-800 hover:text-white"
-                style={{ borderColor: '#1B3A57' }}
+                style={{ borderColor: '#1E1E21' }}
               >
                 <WhatsAppIcon className="h-3.5 w-3.5" />
               </a>
@@ -175,15 +174,16 @@ export default function Footer() {
               Contato
             </p>
             <ul className="flex flex-col gap-4">
-              <li className="flex items-start gap-2.5">
+                      <li className="flex items-start gap-2.5">
                 <MapPin size={14} className="mt-0.5 flex-shrink-0 text-accent" />
                 <span className="text-[13px] leading-snug text-marine-400">
-                  Toyolex, Boa Vista<br />Roraima
+                  Av. Gen. Ataíde Teive, 4063<br />
+                  Asa Branca — Boa Vista, RR
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Clock size={14} className="flex-shrink-0 text-accent" />
-                <span className="text-[13px] text-marine-400">Seg–Sab: 8h – 19h</span>
+                <span className="text-[13px] text-marine-400">Seg–Sab: 8h – 18h</span>
               </li>
             </ul>
 
@@ -202,10 +202,10 @@ export default function Footer() {
       </div>
 
       {/* ── Bottom bar ── */}
-      <div style={{ borderTop: '1px solid #0F2236' }}>
+      <div style={{ borderTop: '1px solid #101012' }}>
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 md:flex-row md:items-center md:justify-between md:px-8 lg:px-12">
           <p className="text-[11px] text-marine-600">
-            &copy; {new Date().getFullYear()} Rafael Mota. Todos os direitos reservados.
+            &copy; {new Date().getFullYear()} Shopping das Motos. Todos os direitos reservados.
           </p>
           <a
             href="https://arvexagency.online"

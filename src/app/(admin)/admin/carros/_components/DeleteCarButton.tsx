@@ -32,7 +32,7 @@ export default function DeleteCarButton({ id, label }: Props) {
       <button
         onClick={() => setOpen(true)}
         className="flex h-8 w-8 items-center justify-center rounded-lg text-marine-400 transition-colors hover:bg-red-50 hover:text-accent"
-        title="Excluir carro"
+        title="Excluir moto"
       >
         <Trash2 size={14} />
       </button>
@@ -48,7 +48,7 @@ export default function DeleteCarButton({ id, label }: Props) {
             style={{ boxShadow: '0 24px 64px rgba(0,0,0,0.2)' }}
             onClick={e => e.stopPropagation()}
           >
-            <h3 className="text-[16px] font-bold text-marine-900">Excluir carro</h3>
+            <h3 className="text-[16px] font-bold text-marine-900">Excluir moto</h3>
             <p className="mt-2 text-[13px] leading-relaxed text-marine-600">
               Tem certeza que deseja excluir <strong>{label}</strong>?{' '}
               Todas as fotos também serão removidas. Esta ação não pode ser desfeita.

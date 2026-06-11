@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { motion } from 'framer-motion'
 import type { CarCategory } from '@/types'
@@ -6,13 +6,9 @@ import type { CarCategory } from '@/types'
 type Filter = CarCategory | 'todos'
 
 const filters: { id: Filter; label: string }[] = [
-  { id: 'todos',        label: 'Todos'        },
-  { id: 'novo',         label: 'Novos'        },
-  { id: 'seminovo',     label: 'Seminovos'    },
-  { id: 'venda-direta', label: 'Venda Direta' },
-  { id: 'consorcio',    label: 'Consórcio'    },
-  { id: 'repasse',      label: 'Repasse'      },
-  { id: 'entregas',     label: 'Entregas'     },
+  { id: 'todos',    label: 'Todos'     },
+  { id: 'novo',     label: 'Novas'     },
+  { id: 'seminovo', label: 'Seminovas' },
 ]
 
 interface Props {
@@ -24,7 +20,7 @@ export default function CategoryFilter({ active, onChange }: Props) {
   return (
     <motion.div
       className="relative z-10 backdrop-blur-md"
-      style={{ background: 'rgba(255,255,255,0.94)', borderBottom: '1px solid rgba(10,25,41,0.08)' }}
+      style={{ background: 'rgba(255,255,255,0.94)', borderBottom: '1px solid rgba(13,13,15,0.08)' }}
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
@@ -49,11 +45,11 @@ export default function CategoryFilter({ active, onChange }: Props) {
                   minHeight: 36,
                   borderRadius: 999,
                   color: isActive ? '#ffffff' : '#4A5568',
-                  fontFamily: 'var(--font-fraunces)',
+                  fontFamily: 'var(--font-oswald)',
                   fontSize: 'clamp(13px, 3.5vw, 17px)',
                   fontWeight: 700,
-                  letterSpacing: '-0.02em',
-                  border: isActive ? 'none' : '1.5px solid rgba(10,25,41,0.12)',
+                  letterSpacing: '0.01em',
+                  border: isActive ? 'none' : '1.5px solid rgba(13,13,15,0.12)',
                 }}
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -65,7 +61,7 @@ export default function CategoryFilter({ active, onChange }: Props) {
                   <motion.span
                     layoutId="cat-pill"
                     className="absolute inset-0 rounded-full"
-                    style={{ background: '#0A1929' }}
+                    style={{ background: '#0D0D0F' }}
                     transition={{ type: 'spring', stiffness: 380, damping: 34 }}
                   />
                 )}

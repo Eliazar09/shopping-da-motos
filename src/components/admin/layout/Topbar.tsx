@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Bell } from 'lucide-react'
+import { createDynamicClient } from '@/lib/supabase/client'
 
 function greeting() {
   const h = new Date().getHours()
@@ -14,10 +15,24 @@ function greeting() {
 
 export default function Topbar() {
   const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
+  const [name, setName] = useState('Admin')
+  const [initial, setInitial] = useState('A')
 
-  const greet  = mounted ? greeting() : 'Olá'
-  const date   = mounted ? format(new Date(), "EEEE, d 'de' MMMM", { locale: ptBR }) : ''
+  useEffect(() => {
+    setMounted(true)
+    const supabase = createDynamicClient()
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        const raw = user.user_metadata?.display_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Admin'
+        const pretty = raw.charAt(0).toUpperCase() + raw.slice(1)
+        setName(pretty)
+        setInitial(pretty.charAt(0).toUpperCase())
+      }
+    })
+  }, [])
+
+  const greet = mounted ? greeting() : 'Olá'
+  const date  = mounted ? format(new Date(), "EEEE, d 'de' MMMM", { locale: ptBR }) : ''
 
   return (
     <header style={{
@@ -30,16 +45,16 @@ export default function Topbar() {
       {/* Left: greeting */}
       <div className="pl-14 md:pl-0" style={{ minWidth: 0, overflow: 'hidden' }}>
         <p style={{
-          fontSize: 16, fontWeight: 700, color: '#0A1929',
+          fontSize: 16, fontWeight: 700, color: '#0D0D0F',
           whiteSpace: 'nowrap', lineHeight: 1.25,
-          fontFamily: 'var(--font-fraunces)',
-          letterSpacing: '-0.01em',
+          fontFamily: 'var(--font-oswald)',
+          letterSpacing: '0.01em',
           overflow: 'hidden', textOverflow: 'ellipsis',
         }}>
-          {greet}, Rafael!
+          {greet}, {name}!
         </p>
         {date && (
-          <p className="hidden md:block" style={{ fontSize: 11, color: '#A0BADC', textTransform: 'capitalize', marginTop: 1 }}>
+          <p className="hidden md:block" style={{ fontSize: 11, color: '#A1A1AA', textTransform: 'capitalize', marginTop: 1 }}>
             {date}
           </p>
         )}
@@ -51,24 +66,21 @@ export default function Topbar() {
           width: 36, height: 36, borderRadius: 10,
           border: '1px solid #E4E7EB', background: '#fff',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          cursor: 'pointer', color: '#486581', flexShrink: 0,
+          cursor: 'pointer', color: '#6B6B70', flexShrink: 0,
         }}>
           <Bell size={16} />
         </button>
 
-        {/* Avatar — hard-constrained, never overflows */}
+        {/* Avatar — initials */}
         <div style={{
           width: 36, height: 36, flexShrink: 0,
           borderRadius: 10, border: '1px solid #E4E7EB',
-          background: '#fff', padding: 5, overflow: 'hidden',
+          background: '#0D0D0F',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/RAFAEL MOTA LOGO PRETA SEM FUNDO copy.png"
-            alt="RM"
-            style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
-          />
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#fff', lineHeight: 1 }}>
+            {initial}
+          </span>
         </div>
       </div>
     </header>

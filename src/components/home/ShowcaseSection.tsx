@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { motion } from 'framer-motion'
 import { ShieldCheck, Puzzle, Zap } from 'lucide-react'
@@ -8,18 +8,18 @@ import type { Car } from '@/types'
 const benefits = [
   {
     icon: ShieldCheck,
-    title: 'Veículos revisados',
-    desc: 'Todo carro passa por inspeção completa antes da venda',
+    title: 'Motos revisadas',
+    desc: 'Toda moto passa por inspeção completa antes da venda',
   },
   {
     icon: Puzzle,
-    title: 'Financiamento facilitado',
-    desc: 'Parcele em até 60x com as melhores taxas do mercado',
+    title: 'Financiamento sem entrada',
+    desc: 'Aprovação na hora com as melhores taxas do mercado',
   },
   {
     icon: Zap,
     title: 'Atendimento ágil',
-    desc: 'Resposta rápida no WhatsApp e entrega em Roraima',
+    desc: 'Resposta rápida no WhatsApp. Saia de moto no mesmo dia!',
   },
 ]
 
@@ -64,18 +64,18 @@ export default function ShowcaseSection({ cars }: Props) {
           className="mx-auto max-w-3xl text-center"
         >
           <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-accent">
-            Por que escolher Rafael Mota
+            Por que escolher o Shopping das Motos
           </p>
           <h2
             className="text-[28px] font-bold leading-tight text-marine-900 md:text-[40px]"
-            style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}
+            style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}
           >
-            Cada carro conta uma história.{' '}
+            Cada moto conta uma história.{' '}
             <span className="text-accent">A sua começa aqui.</span>
           </h2>
           <p className="mt-4 text-[15px] leading-relaxed text-marine-500 md:text-[17px]">
-            Atendimento exclusivo de quem conhece cada detalhe dos veículos,
-            do primeiro contato à entrega na sua porta, em qualquer lugar de Roraima.
+            Atendimento especializado em motos, do primeiro contato ao financiamento aprovado.
+            Venha sair de moto hoje mesmo em Boa Vista, Roraima.
           </p>
         </motion.div>
 
@@ -91,7 +91,7 @@ export default function ShowcaseSection({ cars }: Props) {
             <div key={title} className="flex flex-col items-center gap-2 text-center">
               <div
                 className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{ background: 'rgba(10,25,41,0.07)' }}
+                style={{ background: 'rgba(13,13,15,0.07)' }}
               >
                 <Icon size={22} className="text-marine-700" strokeWidth={1.5} />
               </div>
@@ -138,7 +138,7 @@ export default function ShowcaseSection({ cars }: Props) {
                   />
                   <div
                     className="absolute inset-0"
-                    style={{ background: 'linear-gradient(to top, rgba(10,25,41,0.55) 0%, transparent 55%)' }}
+                    style={{ background: 'linear-gradient(to top, rgba(13,13,15,0.55) 0%, transparent 55%)' }}
                   />
                   <p className="absolute bottom-3 left-3 right-3 truncate text-[10px] font-semibold text-white/90 drop-shadow">
                     {photo.label}

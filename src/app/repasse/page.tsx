@@ -8,21 +8,21 @@ import CarCard from '@/components/home/CarCard'
 import { getCarsByCategory } from '@/lib/queries/cars'
 
 export const metadata: Metadata = {
-  title: 'Repasse de Veículos | Rafael Mota - Toyolex Roraima',
+  title: 'Repasse de Motos | Shopping das Motos — Boa Vista, Roraima',
   description:
-    'Quer vender seu carro? Rafael Mota faz o repasse com avaliação justa e processo rápido. Envie fotos pelo WhatsApp e receba proposta em minutos.',
+    'Quer vender sua moto? Shopping das Motos faz o repasse com avaliação justa e processo rápido. Envie fotos pelo WhatsApp e receba proposta em minutos.',
 }
 
 const steps = [
   {
     num: '01',
     title: 'Envie as fotos',
-    desc: 'Mande fotos do seu carro pelo WhatsApp. Exterior, interior e painel.',
+    desc: 'Mande fotos da sua moto pelo WhatsApp. Exterior, painel e motor.',
   },
   {
     num: '02',
     title: 'Avaliação justa',
-    desc: 'Rafael analisa e envia uma proposta baseada na tabela FIPE e mercado local.',
+    desc: 'Nossa equipe analisa e envia uma proposta baseada na tabela FIPE e mercado local.',
   },
   {
     num: '03',
@@ -45,7 +45,7 @@ const benefits = [
   {
     icon: TrendingUp,
     title: 'Avaliação Justa',
-    desc: 'Preço baseado em FIPE e mercado local, sem abaixar o valor do seu carro.',
+    desc: 'Preço baseado em FIPE e mercado local, sem abaixar o valor da sua moto.',
   },
   {
     icon: Zap,
@@ -67,13 +67,13 @@ export default async function RepassePage() {
       <section className="border-b border-gray-200 py-16 md:py-24" style={{ background: '#FAFBFC' }}>
         <Container>
           <div className="max-w-2xl">
-            <p className="section-label mb-4">Quer vender seu carro?</p>
+            <p className="section-label mb-4">Quer vender sua moto?</p>
             <h1
               className="font-bold leading-none text-marine-900"
               style={{
-                fontFamily: 'var(--font-fraunces)',
+                fontFamily: 'var(--font-oswald)',
                 fontSize: 'clamp(40px, 6vw, 68px)',
-                letterSpacing: '-0.03em',
+                letterSpacing: '0.01em',
                 lineHeight: 1.05,
               }}
             >
@@ -81,7 +81,7 @@ export default async function RepassePage() {
               <span style={{ color: 'var(--marine-600)' }}>avaliação justa.</span>
             </h1>
             <p className="mt-5 text-[15px] leading-relaxed text-marine-600 md:text-[17px]">
-              Avaliação justa, processo rápido e pagamento garantido. Envie as fotos do seu carro agora pelo WhatsApp e receba uma proposta em minutos.
+              Avaliação justa, processo rápido e pagamento garantido. Envie as fotos da sua moto agora pelo WhatsApp e receba uma proposta em minutos.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
@@ -113,7 +113,7 @@ export default async function RepassePage() {
             <p className="section-label mb-2">Simples assim</p>
             <h2
               className="text-[28px] font-bold text-marine-900 md:text-[36px]"
-              style={{ fontFamily: 'var(--font-jakarta)', letterSpacing: '-0.02em' }}
+              style={{ fontFamily: 'var(--font-jakarta)', letterSpacing: '0.01em' }}
             >
               Como funciona o repasse
             </h2>
@@ -130,7 +130,7 @@ export default async function RepassePage() {
                   style={{
                     background: 'var(--marine-50)',
                     color: 'var(--marine-600)',
-                    fontFamily: 'var(--font-fraunces)',
+                    fontFamily: 'var(--font-oswald)',
                   }}
                 >
                   {num}
@@ -175,7 +175,7 @@ export default async function RepassePage() {
             <p className="section-label mb-2">No Estoque</p>
             <h2
               className="text-[28px] font-bold text-marine-900 md:text-[40px]"
-              style={{ fontFamily: 'var(--font-jakarta)', letterSpacing: '-0.02em' }}
+              style={{ fontFamily: 'var(--font-jakarta)', letterSpacing: '0.01em' }}
             >
               {repasses.length === 0
                 ? 'Sem repasses no momento'
@@ -192,11 +192,11 @@ export default async function RepassePage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Fale com o Rafael pelo WhatsApp.
+                Fale conosco pelo WhatsApp.
               </a>
             </p>
           ) : (
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {repasses.map((car, i) => (
                 <CarCard key={car.id} car={car} index={i} />
               ))}

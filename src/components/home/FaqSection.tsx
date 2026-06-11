@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -8,28 +8,28 @@ import { defaultWhatsAppLink } from '@/lib/whatsapp'
 
 const faqs = [
   {
-    q: 'Rafael atende em qual região?',
-    a: 'Atendo em Boa Vista e em todo o interior de Roraima. Grande parte do processo pode ser feito pelo WhatsApp, da escolha do carro até a documentação. A entrega pode ser combinada diretamente com você.',
+    q: 'O Shopping das Motos atende em qual região?',
+    a: 'Estamos localizados na Av. Gen. Ataíde Teive, 4063 — Asa Branca, Boa Vista, Roraima. Também atendemos pelo WhatsApp para quem é do interior do estado. Grande parte do processo pode ser feito online, da escolha da moto até a documentação.',
   },
   {
-    q: 'Como funciona o financiamento?',
-    a: 'Cuido de todo o processo junto ao Banco Toyota e outras financeiras parceiras. Você envia os documentos básicos e eu resolvo o resto. A taxa de aprovação é muito alta e as condições são diferenciadas.',
+    q: 'Como funciona o financiamento sem entrada?',
+    a: 'Trabalhamos com diversas financeiras parceiras para aprovar seu crédito da forma mais fácil possível. Você envia seus documentos básicos e nossa equipe resolve o resto. A aprovação é rápida e as condições são diferenciadas.',
   },
   {
-    q: 'Posso fazer repasse pelo WhatsApp?',
-    a: 'Sim. Envie fotos do exterior, interior e painel do seu carro. Avalio na hora e mando a proposta em minutos. Se fecharmos negócio, cuidamos de toda a papelada: vistoria, transferência e liberação de multas.',
+    q: 'Aceita minha moto usada como parte do pagamento?',
+    a: 'Sim! Avaliamos sua moto e usamos o valor como parte do pagamento da nova. Envie fotos pelo WhatsApp, avaliamos na hora e mandamos a proposta em minutos.',
   },
   {
-    q: 'Os seminovos têm garantia?',
-    a: 'Todos os seminovos passam por vistoria cautelar completa com laudo aprovado. Oferecemos 90 dias de garantia adicional no motor e câmbio, além de histórico verificado sem sinistro ou roubo.',
+    q: 'As motos seminovas têm garantia?',
+    a: 'Todas as motos seminovas passam por vistoria completa antes da venda. Oferecemos garantia no motor e câmbio, além de histórico verificado sem sinistro ou roubo. Você compra com total segurança.',
   },
   {
-    q: 'Aceita carro usado como entrada?',
-    a: 'Sim. Avaliamos o seu carro e usamos o valor como entrada no novo. É uma das formas mais práticas de renovar o veículo sem precisar desembolsar tudo de uma vez.',
+    q: 'Aceita moto usada como entrada?',
+    a: 'Sim! Avaliamos sua moto usada e usamos o valor como parte do pagamento da nova. É uma das formas mais práticas de renovar sem precisar desembolsar tudo de uma vez.',
   },
   {
-    q: 'Quanto tempo demora para entregar?',
-    a: 'Para carros em estoque, a entrega costuma ser feita em 3 a 5 dias úteis após aprovação do financiamento ou confirmação do pagamento.',
+    q: 'Quanto tempo demora para sair com a moto?',
+    a: 'Para motos em estoque com financiamento aprovado, você pode sair no mesmo dia! Em alguns casos, em até 2 dias úteis após a confirmação da documentação.',
   },
 ]
 
@@ -67,7 +67,7 @@ function FaqItem({
         <span
           className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full transition-colors"
           style={{
-            background: open ? '#0A1929' : '#F3F4F6',
+            background: open ? '#0D0D0F' : '#F3F4F6',
             color: open ? '#fff' : '#6B7280',
           }}
         >
@@ -119,14 +119,14 @@ export default function FaqSection() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/carros/faq.jpg"
-                alt="Toyota Corolla GR Sport 2025"
+                src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=800&q=80&auto=format"
+                alt="Shopping das Motos — Boa Vista, Roraima"
                 className="h-full w-full object-cover object-center"
               />
               {/* Bottom gradient */}
               <div
                 className="absolute inset-0"
-                style={{ background: 'linear-gradient(180deg, transparent 45%, rgba(10,25,41,0.55) 100%)' }}
+                style={{ background: 'linear-gradient(180deg, transparent 45%, rgba(13,13,15,0.55) 100%)' }}
               />
               {/* Top-left red accent */}
               <div
@@ -138,7 +138,7 @@ export default function FaqSection() {
             {/* Floating social proof card */}
             <motion.div
               className="absolute bottom-4 left-4 right-4 flex items-center gap-4 rounded-2xl bg-white px-4 py-3.5 sm:bottom-5 sm:left-5 sm:right-5 sm:px-5 sm:py-4"
-              style={{ boxShadow: '0 16px 48px rgba(10,25,41,0.16)' }}
+              style={{ boxShadow: '0 16px 48px rgba(13,13,15,0.16)' }}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -160,9 +160,9 @@ export default function FaqSection() {
               </div>
               <div>
                 <p className="text-[13px] font-bold text-marine-900 sm:text-[14px]" style={{ fontFamily: 'var(--font-jakarta)' }}>
-                  +2.000 famílias atendidas
+                  +1.000 clientes satisfeitos
                 </p>
-                <p className="text-[11px] text-marine-400 sm:text-[12px]">Em Roraima e região</p>
+                <p className="text-[11px] text-marine-400 sm:text-[12px]">Em Boa Vista e Roraima</p>
               </div>
             </motion.div>
           </motion.div>

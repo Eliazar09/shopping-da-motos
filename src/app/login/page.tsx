@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
@@ -415,7 +415,7 @@ export default function LoginPage() {
     >
       {/* Header */}
       <div className="mb-8 text-center lg:text-left">
-        <h1 className="text-[28px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}>
+        <h1 className="text-[28px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}>
           Bem-vindo de volta
         </h1>
         <p className="mt-1.5 text-[14px] text-marine-500">
@@ -437,7 +437,7 @@ export default function LoginPage() {
             onFocus={() => setIsTypingEmail(true)}
             onBlur={() => setIsTypingEmail(false)}
             className="w-full rounded-xl border bg-white px-4 py-3.5 text-[14px] text-marine-900 outline-none transition-all placeholder:text-marine-300 focus:border-marine-400 focus:ring-2 focus:ring-marine-900/8"
-            style={{ borderColor: errors.email ? '#E31E24' : '#E4E7EB', boxShadow: '0 1px 4px rgba(10,25,41,0.06)' }}
+            style={{ borderColor: errors.email ? '#E31E24' : '#E4E7EB', boxShadow: '0 1px 4px rgba(13,13,15,0.06)' }}
           />
           <AnimatePresence>
             {errors.email && (
@@ -462,7 +462,7 @@ export default function LoginPage() {
               autoComplete="current-password"
               placeholder="••••••••"
               className="w-full rounded-xl border bg-white px-4 py-3.5 pr-12 text-[14px] text-marine-900 outline-none transition-all placeholder:text-marine-300 focus:border-marine-400 focus:ring-2 focus:ring-marine-900/8"
-              style={{ borderColor: errors.password ? '#E31E24' : '#E4E7EB', boxShadow: '0 1px 4px rgba(10,25,41,0.06)' }}
+              style={{ borderColor: errors.password ? '#E31E24' : '#E4E7EB', boxShadow: '0 1px 4px rgba(13,13,15,0.06)' }}
             />
             <button
               type="button"
@@ -503,7 +503,7 @@ export default function LoginPage() {
           type="submit"
           disabled={isSubmitting}
           className="w-full rounded-xl bg-marine-900 py-3.5 text-[14px] font-bold text-white transition-all hover:bg-marine-700 disabled:opacity-60"
-          style={{ boxShadow: '0 4px 16px rgba(10,25,41,0.18)' }}
+          style={{ boxShadow: '0 4px 16px rgba(13,13,15,0.18)' }}
         >
           {isSubmitting ? (
             <span className="flex items-center justify-center gap-2">
@@ -524,7 +524,7 @@ export default function LoginPage() {
     <main className="flex min-h-screen flex-col lg:flex-row">
 
       {/* ── Mobile: personagens no topo olhando pra baixo ──── */}
-      <div className="flex justify-center overflow-hidden bg-gradient-to-br from-[#0A1929] to-[#1a3354] pt-10 pb-0 lg:hidden"
+      <div className="flex justify-center overflow-hidden bg-gradient-to-br from-[#0D0D0F] to-[#1a3354] pt-10 pb-0 lg:hidden"
         style={{ minHeight: 160 }}
       >
         <div className="relative" style={{ width: 286, height: 108 }}>
@@ -538,7 +538,7 @@ export default function LoginPage() {
       </div>
 
       {/* ── Desktop: painel esquerdo ─────────────────────── */}
-      <div className="relative hidden w-[52%] flex-shrink-0 overflow-hidden lg:flex flex-col justify-between bg-gradient-to-br from-[#0A1929] via-[#0d2240] to-[#1a3354] p-12">
+      <div className="relative hidden w-[52%] flex-shrink-0 overflow-hidden lg:flex flex-col justify-between bg-gradient-to-br from-[#0D0D0F] via-[#0d2240] to-[#1a3354] p-12">
 
         {/* Logo */}
         <motion.div
@@ -546,19 +546,13 @@ export default function LoginPage() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="flex items-center gap-3"
         >
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl backdrop-blur-sm"
-            style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.15)' }}
-          >
+          <div className="flex h-11 items-center">
             <Image
-              src="/images/RAFAEL MOTA LOGO PRETA SEM FUNDO copy.png"
-              alt="Rafael Mota" width={36} height={36}
+              src="/images/image/image.png"
+              alt="Shopping das Motos" width={140} height={44}
               className="object-contain"
               style={{ filter: 'brightness(0) invert(1)' }}
             />
-          </div>
-          <div>
-            <p className="text-[14px] font-bold text-white" style={{ fontFamily: 'var(--font-jakarta)' }}>Rafael Mota</p>
-            <p className="text-[11px] text-white/50">Consultor Automotivo</p>
           </div>
         </motion.div>
 
@@ -583,9 +577,9 @@ export default function LoginPage() {
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45 }}
             className="text-[34px] font-bold leading-[1.1] text-white"
-            style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.025em' }}
+            style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}
           >
-            Gerencie seu<br />catálogo com<br />
+            Gerencie seu<br />estoque com<br />
             <span className="text-accent">facilidade.</span>
           </motion.h2>
           <motion.p
@@ -593,7 +587,7 @@ export default function LoginPage() {
             transition={{ duration: 0.7, delay: 0.65 }}
             className="mt-3 max-w-xs text-[13px] leading-relaxed text-white/50"
           >
-            Adicione carros, acompanhe vendas e atenda clientes em um só lugar.
+            Adicione motos, acompanhe vendas e atenda clientes em um só lugar.
           </motion.p>
         </div>
 
@@ -614,13 +608,8 @@ export default function LoginPage() {
           className="mb-8 flex items-center gap-2.5 lg:hidden"
           initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-marine-900 p-2">
-            <Image src="/images/RAFAEL MOTA LOGO PRETA SEM FUNDO copy.png" alt="RM" width={28} height={28}
-              className="object-contain" style={{ filter: 'brightness(0) invert(1)' }} />
-          </div>
-          <span className="text-[15px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-jakarta)' }}>
-            Rafael Mota
-          </span>
+          <Image src="/images/image/image.png" alt="Shopping das Motos" width={140} height={44}
+            className="object-contain h-9 w-auto" />
         </motion.div>
 
         <div className="relative z-10 w-full max-w-[400px]">

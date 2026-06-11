@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -202,12 +202,12 @@ export default function NovaVendaPage() {
         </motion.div>
         <h2
           className="text-[22px] font-bold text-marine-900"
-          style={{ fontFamily: 'var(--font-fraunces)' }}
+          style={{ fontFamily: 'var(--font-oswald)' }}
         >
           Venda registrada!
         </h2>
         <p className="mt-2 text-[14px] text-marine-500">
-          {markSold ? 'Carro marcado como vendido no catálogo.' : 'Carro marcado como reservado no catálogo.'}
+          {markSold ? 'Moto marcada como vendida no catálogo.' : 'Moto marcada como reservada no catálogo.'}
         </p>
 
         {/* Resumo financeiro */}
@@ -264,7 +264,7 @@ export default function NovaVendaPage() {
           <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-marine-500">Vendas</p>
           <h1
             className="mt-0.5 text-[24px] font-bold text-marine-900"
-            style={{ fontFamily: 'var(--font-fraunces)' }}
+            style={{ fontFamily: 'var(--font-oswald)' }}
           >
             Nova Venda
           </h1>
@@ -276,14 +276,14 @@ export default function NovaVendaPage() {
         {/* ── Carro ── */}
         <div>
           <label className="label">
-            Carro vendido {markSold && <span className="text-accent">*</span>}
+            Moto vendida {markSold && <span className="text-accent">*</span>}
           </label>
           <select
             value={carId}
             onChange={e => handleCarChange(e.target.value)}
             className="field"
           >
-            <option value="">Selecione um carro disponível…</option>
+            <option value="">Selecione uma moto disponível…</option>
             {cars.map(c => (
               <option key={c.id} value={c.id}>
                 {c.brand} {c.model} {c.year}{c.version ? ` — ${c.version}` : ''}
@@ -291,7 +291,7 @@ export default function NovaVendaPage() {
             ))}
           </select>
           {cars.length === 0 && (
-            <p className="mt-1 text-[11px] text-amber-600">Nenhum carro disponível no catálogo.</p>
+            <p className="mt-1 text-[11px] text-amber-600">Nenhuma moto disponível no catálogo.</p>
           )}
         </div>
 
@@ -448,7 +448,7 @@ export default function NovaVendaPage() {
             className="h-4 w-4 accent-accent"
           />
           <span className="text-[13px] font-medium text-marine-800">
-            Marcar carro como <strong>vendido</strong> no catálogo do site
+            Marcar moto como <strong>vendida</strong> no catálogo do site
           </span>
         </label>
 
@@ -486,7 +486,7 @@ export default function NovaVendaPage() {
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.08em;
-          color: #2A4D75;
+          color: #2D2D30;
         }
         .field {
           width: 100%;
@@ -495,7 +495,7 @@ export default function NovaVendaPage() {
           background: white;
           padding: 10px 14px;
           font-size: 14px;
-          color: #0A1929;
+          color: #0D0D0F;
           outline: none;
           transition: border-color 0.15s;
         }

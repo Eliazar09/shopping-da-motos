@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { AlertTriangle } from 'lucide-react'
@@ -44,7 +44,7 @@ export default function ConfirmDialog({
 
             <h3
               className="text-[17px] font-bold text-marine-900"
-              style={{ fontFamily: 'var(--font-fraunces)' }}
+              style={{ fontFamily: 'var(--font-oswald)' }}
             >
               {title}
             </h3>

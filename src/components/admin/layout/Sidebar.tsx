@@ -1,19 +1,20 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  LayoutDashboard, Car, ShoppingBag, Users, StickyNote,
-  LogOut, Menu, X, CalendarDays,
+  LayoutDashboard, Bike, ShoppingBag, Users, StickyNote,
+  LogOut, Menu, X, CalendarDays, Wallet,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
 const NAV = [
   { label: 'Dashboard',  href: '/admin',            icon: LayoutDashboard },
-  { label: 'Carros',     href: '/admin/carros',     icon: Car },
+  { label: 'Motos',      href: '/admin/carros',     icon: Bike },
   { label: 'Vendas',     href: '/admin/vendas',     icon: ShoppingBag },
+  { label: 'Financeiro', href: '/admin/financeiro', icon: Wallet },
   { label: 'Calendário', href: '/admin/calendario', icon: CalendarDays },
   { label: 'Clientes',   href: '/admin/clientes',   icon: Users },
   { label: 'Anotações',  href: '/admin/anotacoes',  icon: StickyNote },
@@ -22,8 +23,8 @@ const NAV = [
 const LOGO = (
   // eslint-disable-next-line @next/next/no-img-element
   <img
-    src="/images/RAFAEL MOTA LOGO PRETA SEM FUNDO copy.png"
-    alt="RM"
+    src="/images/image/image.png"
+    alt="SDM"
     style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
   />
 )
@@ -49,7 +50,7 @@ function DeskNav({ pathname }: { pathname: string }) {
       <div style={{
         margin: 12,
         borderRadius: 24,
-        background: '#0A1929',
+        background: '#0D0D0F',
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
@@ -60,8 +61,8 @@ function DeskNav({ pathname }: { pathname: string }) {
         {/* Logo */}
         <div style={{
           width: 40, height: 40,
-          background: '#fff', borderRadius: 12,
-          padding: 6, overflow: 'hidden',
+          background: '#0D0D0F', borderRadius: 12,
+          padding: 4, overflow: 'hidden',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           marginBottom: 28, flexShrink: 0,
         }}>
@@ -89,7 +90,7 @@ function DeskNav({ pathname }: { pathname: string }) {
               >
                 <Icon
                   size={19}
-                  style={{ color: active ? '#fff' : '#729CC4', strokeWidth: active ? 2 : 1.8 }}
+                  style={{ color: active ? '#fff' : '#9CA3AF', strokeWidth: active ? 2 : 1.8 }}
                 />
               </Link>
             )
@@ -108,7 +109,7 @@ function DeskNav({ pathname }: { pathname: string }) {
               margin: '0 auto',
             }}
           >
-            <LogOut size={18} style={{ color: '#486581' }} />
+            <LogOut size={18} style={{ color: '#6B6B70' }} />
           </button>
         </div>
       </div>
@@ -128,9 +129,9 @@ function MobileNav({ pathname }: { pathname: string }) {
         style={{
           position: 'fixed', top: 14, left: 14, zIndex: 60,
           width: 40, height: 40, borderRadius: 12,
-          background: '#0A1929', border: 'none', cursor: 'pointer',
+          background: '#0D0D0F', border: 'none', cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: '0 4px 16px rgba(10,25,41,0.25)',
+          boxShadow: '0 4px 16px rgba(13,13,15,0.25)',
         }}
       >
         <Menu size={18} color="#fff" />
@@ -146,7 +147,7 @@ function MobileNav({ pathname }: { pathname: string }) {
               onClick={() => setOpen(false)}
               style={{
                 position: 'fixed', inset: 0, zIndex: 50,
-                background: 'rgba(10,25,41,0.55)', backdropFilter: 'blur(4px)',
+                background: 'rgba(13,13,15,0.55)', backdropFilter: 'blur(4px)',
               }}
             />
 
@@ -157,7 +158,7 @@ function MobileNav({ pathname }: { pathname: string }) {
               transition={{ type: 'spring', stiffness: 320, damping: 30 }}
               style={{
                 position: 'fixed', top: 0, left: 0, bottom: 0, zIndex: 55,
-                width: 264, background: '#0A1929',
+                width: 264, background: '#0D0D0F',
                 display: 'flex', flexDirection: 'column',
                 padding: 20,
               }}
@@ -165,15 +166,15 @@ function MobileNav({ pathname }: { pathname: string }) {
               {/* Header */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{ width: 36, height: 36, background: '#fff', borderRadius: 10, padding: 5, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: 36, height: 36, background: '#0D0D0F', borderRadius: 10, padding: 4, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {LOGO}
                   </div>
                   <div>
-                    <p style={{ color: '#fff', fontSize: 13, fontWeight: 700, lineHeight: 1.2 }}>Rafael Mota</p>
-                    <p style={{ color: '#486581', fontSize: 10 }}>Admin</p>
+                    <p style={{ color: '#fff', fontSize: 13, fontWeight: 700, lineHeight: 1.2 }}>Shopping das Motos</p>
+                    <p style={{ color: '#6B6B70', fontSize: 10 }}>Admin</p>
                   </div>
                 </div>
-                <button onClick={() => setOpen(false)} style={{ color: '#486581', background: 'none', border: 'none', cursor: 'pointer', padding: 4 }}>
+                <button onClick={() => setOpen(false)} style={{ color: '#6B6B70', background: 'none', border: 'none', cursor: 'pointer', padding: 4 }}>
                   <X size={18} />
                 </button>
               </div>
@@ -192,12 +193,12 @@ function MobileNav({ pathname }: { pathname: string }) {
                         display: 'flex', alignItems: 'center', gap: 12,
                         padding: '11px 14px', borderRadius: 12,
                         background: active ? '#E31E24' : 'transparent',
-                        color: active ? '#fff' : '#A0BADC',
+                        color: active ? '#fff' : '#A1A1AA',
                         fontSize: 14, fontWeight: active ? 700 : 500,
                         textDecoration: 'none', transition: 'background 0.15s',
                       }}
                     >
-                      <Icon size={18} style={{ color: active ? '#fff' : '#729CC4', flexShrink: 0 }} />
+                      <Icon size={18} style={{ color: active ? '#fff' : '#9CA3AF', flexShrink: 0 }} />
                       {item.label}
                     </Link>
                   )
@@ -212,10 +213,10 @@ function MobileNav({ pathname }: { pathname: string }) {
                     display: 'flex', alignItems: 'center', gap: 12,
                     padding: '11px 14px', borderRadius: 12,
                     background: 'none', border: 'none', cursor: 'pointer',
-                    color: '#486581', fontSize: 14, width: '100%',
+                    color: '#6B6B70', fontSize: 14, width: '100%',
                   }}
                 >
-                  <LogOut size={18} style={{ color: '#486581', flexShrink: 0 }} />
+                  <LogOut size={18} style={{ color: '#6B6B70', flexShrink: 0 }} />
                   Sair
                 </button>
               </div>

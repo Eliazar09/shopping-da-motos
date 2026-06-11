@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -23,9 +23,9 @@ export default function StatCard({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={href ? { y: -2, boxShadow: '0 8px 24px rgba(10,25,41,0.10)' } : {}}
+      whileHover={href ? { y: -2, boxShadow: '0 8px 24px rgba(13,13,15,0.10)' } : {}}
       className="relative overflow-hidden rounded-2xl bg-white p-5 transition-shadow"
-      style={{ border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(10,25,41,0.06)' }}
+      style={{ border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(13,13,15,0.06)' }}
     >
       {/* Accent strip top-left */}
       <div
@@ -55,7 +55,7 @@ export default function StatCard({
         <>
           <p
             className="mt-3 text-[28px] font-bold leading-none text-marine-900 sm:text-[32px]"
-            style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}
+            style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}
           >
             {value ?? '—'}
           </p>

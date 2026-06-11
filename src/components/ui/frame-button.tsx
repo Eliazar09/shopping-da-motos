@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { cn } from "@/lib/utils";
 import type { ComponentPropsWithoutRef } from "react";
@@ -53,13 +53,13 @@ export function FrameButton({
     "select-none",
 
     variant === "default" && [
-      "bg-[#0A1929] text-white border-[#0A1929]",
+      "bg-[#0D0D0F] text-white border-[#0D0D0F]",
       "hover:bg-[#1a3354] hover:border-[#1a3354]",
     ],
 
     variant === "secondary" && [
-      "bg-transparent text-[#0A1929] border-[#0A1929]/40",
-      "hover:bg-[#0A1929] hover:text-white hover:border-[#0A1929]",
+      "bg-transparent text-[#0D0D0F] border-[#0D0D0F]/40",
+      "hover:bg-[#0D0D0F] hover:text-white hover:border-[#0D0D0F]",
     ],
 
     variant === "outline" && [
@@ -180,7 +180,7 @@ function FrameMarkers({ size = 18, offset = 7.5, hoverOffset = 6, variant }: Fra
   const markerColor =
     variant === "outline" ? "text-white/60 group-hover:text-white" :
     variant === "green"   ? "text-white/60 group-hover:text-white" :
-    variant === "secondary" ? "text-[#0A1929]/40 group-hover:text-white" :
+    variant === "secondary" ? "text-[#0D0D0F]/40 group-hover:text-white" :
     "text-white/50 group-hover:text-white/90";
 
   const base = `pointer-events-none transition-all duration-300 ease-out ${markerColor}`;

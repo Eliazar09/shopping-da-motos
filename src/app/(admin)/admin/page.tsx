@@ -38,7 +38,7 @@ export default async function DashboardPage() {
   ).map(s => ({
     id: `sale-${s.id}`,
     type: 'sale',
-    description: `Venda: ${s.car_name ?? 'Carro'}${s.client_name ? ` para ${s.client_name}` : ''}`,
+    description: `Venda: ${s.car_name ?? 'Moto'}${s.client_name ? ` para ${s.client_name}` : ''}`,
     date: s.sale_date,
   }))
 
@@ -47,7 +47,7 @@ export default async function DashboardPage() {
   ).map(c => ({
     id: `car-${c.id}`,
     type: 'car',
-    description: `Carro cadastrado: ${c.brand} ${c.model}`,
+    description: `Moto cadastrada: ${c.brand} ${c.model}`,
     date: c.created_at,
   }))
 

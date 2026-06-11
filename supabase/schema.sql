@@ -1,14 +1,15 @@
 -- ============================================================
--- Rafael Mota — Supabase Schema
--- Estado real do banco: 2026-05-26
--- Tabelas: activity_log, admin_users, cars, clients, notes, sales, settings
+-- Shopping das Motos — Supabase Schema COMPLETO
+-- Atualizado: 2026-06-11
+-- Tabelas: settings, admin_users, cars, clients, sales, notes, activity_log
 -- Execute no SQL Editor: https://supabase.com/dashboard/project/_/sql/new
+-- ATENÇÃO: Este arquivo é para bancos NOVOS (DROP + CREATE).
+--          Para bancos existentes, use migration.sql
 -- ============================================================
 
 -- ── ENUMs ────────────────────────────────────────────────────
-CREATE TYPE car_category      AS ENUM ('novo', 'seminovo', 'repasse');
+CREATE TYPE car_category      AS ENUM ('novo', 'seminovo', 'repasse', 'venda-direta', 'consorcio', 'entregas');
 CREATE TYPE car_status        AS ENUM ('disponivel', 'reservado', 'vendido');
--- Atualizado 28/05/2026: banco real usa minúsculo — schema.sql alinhado
 CREATE TYPE fuel_type         AS ENUM ('gasolina', 'etanol', 'flex', 'diesel', 'hibrido', 'eletrico');
 CREATE TYPE transmission_type AS ENUM ('manual', 'automatico', 'cvt', 'automatizado');
 CREATE TYPE activity_type     AS ENUM ('sale', 'car', 'client', 'system');
@@ -16,8 +17,8 @@ CREATE TYPE activity_type     AS ENUM ('sale', 'car', 'client', 'system');
 -- ── SETTINGS ─────────────────────────────────────────────────
 CREATE TABLE settings (
   id               UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
-  whatsapp_number  TEXT         NOT NULL DEFAULT '5595999999999',
-  business_name    TEXT         NOT NULL DEFAULT 'Rafael Mota — Consultor Toyota',
+  whatsapp_number  TEXT         NOT NULL DEFAULT '5595984102562',
+  business_name    TEXT         NOT NULL DEFAULT 'Shopping das Motos',
   business_hours   JSONB                 DEFAULT '{"seg_sex":"08:00-18:00","sab":"08:00-12:00"}',
   commission_rate  NUMERIC(5,2)          DEFAULT 3.00,
   updated_at       TIMESTAMPTZ           DEFAULT NOW()
@@ -36,6 +37,8 @@ CREATE TABLE admin_users (
 );
 
 -- ── CARS ─────────────────────────────────────────────────────
+-- Nota: fuel, transmission, color, doors são nullable porque
+-- consórcio e entrega não preenchem esses campos.
 CREATE TABLE cars (
   id                UUID              PRIMARY KEY DEFAULT gen_random_uuid(),
   slug              TEXT              UNIQUE NOT NULL,
@@ -49,12 +52,12 @@ CREATE TABLE cars (
   model_year        INT               NOT NULL,
 
   km                INT               NOT NULL DEFAULT 0,
-  fuel              fuel_type         NOT NULL,
-  transmission      transmission_type NOT NULL,
-  color             TEXT              NOT NULL,
-  doors             INT               NOT NULL DEFAULT 4,
+  fuel              fuel_type,
+  transmission      transmission_type,
+  color             TEXT,
+  doors             INT,
 
-  price             NUMERIC(12,2)     NOT NULL,
+  price             NUMERIC(12,2)     NOT NULL DEFAULT 0,
   old_price         NUMERIC(12,2),
   negotiable        BOOLEAN           NOT NULL DEFAULT false,
 
@@ -69,6 +72,22 @@ CREATE TABLE cars (
   featured          BOOLEAN           NOT NULL DEFAULT false,
   views             INT               NOT NULL DEFAULT 0,
   whatsapp_clicks   INT               NOT NULL DEFAULT 0,
+
+  -- Campos de Consórcio
+  consorcio_tipo_grupo      TEXT,
+  consorcio_valor_carta     NUMERIC(12,2),
+  consorcio_valor_parcela   NUMERIC(12,2),
+  consorcio_prazo           INT,
+  consorcio_taxa_admin      TEXT,
+  consorcio_fundo_reserva   TEXT,
+  consorcio_assembleia      TEXT,
+  consorcio_dia_vencimento  TEXT,
+  consorcio_cashback        NUMERIC(12,2),
+
+  -- Campos de Entrega
+  entrega_data          DATE,
+  entrega_cliente_nome  TEXT,
+  entrega_veiculo       TEXT,
 
   created_at        TIMESTAMPTZ       NOT NULL DEFAULT NOW(),
   sold_at           TIMESTAMPTZ,
@@ -101,6 +120,7 @@ CREATE TABLE sales (
   commission_rate  NUMERIC(5,2)  NOT NULL DEFAULT 3.00,
   commission_value NUMERIC(12,2) NOT NULL DEFAULT 0,
   sale_date        DATE          NOT NULL DEFAULT CURRENT_DATE,
+  status           TEXT          NOT NULL DEFAULT 'concluida',
   notes            TEXT,
   created_at       TIMESTAMPTZ   NOT NULL DEFAULT NOW()
 );
@@ -178,11 +198,11 @@ CREATE TRIGGER sales_calc_commission
   BEFORE INSERT OR UPDATE ON sales
   FOR EACH ROW EXECUTE FUNCTION calc_commission();
 
--- Marca carro como vendido ao registrar venda (on_sale_completed)
+-- Marca carro como vendido ao registrar venda concluída
 CREATE OR REPLACE FUNCTION on_sale_completed()
 RETURNS TRIGGER AS $$
 BEGIN
-  IF NEW.car_id IS NOT NULL THEN
+  IF NEW.car_id IS NOT NULL AND (NEW.status IS NULL OR NEW.status = 'concluida') THEN
     UPDATE cars SET status = 'vendido', sold_at = NOW() WHERE id = NEW.car_id;
   END IF;
   RETURN NEW;
@@ -200,12 +220,12 @@ DECLARE
   v_car_name    TEXT;
   v_client_name TEXT;
 BEGIN
-  v_car_name    := COALESCE(NEW.car_name, 'Carro');
+  v_car_name    := COALESCE(NEW.car_name, 'Moto');
   v_client_name := COALESCE(NEW.client_name, 'Desconhecido');
   INSERT INTO activity_log (type, title, subtitle, entity_id, entity_table)
   VALUES (
     'sale',
-    v_car_name || ' vendido',
+    v_car_name || ' vendida',
     'Cliente: ' || v_client_name || ' · Comissão: R$ ' ||
       TO_CHAR(NEW.commission_value, 'FM999G999D00'),
     NEW.id,
@@ -228,7 +248,7 @@ ALTER TABLE sales        ENABLE ROW LEVEL SECURITY;
 ALTER TABLE notes        ENABLE ROW LEVEL SECURITY;
 ALTER TABLE activity_log ENABLE ROW LEVEL SECURITY;
 
--- Cars: público vê disponíveis; autenticado vê tudo
+-- Cars: público vê disponíveis e reservados; autenticado vê tudo
 CREATE POLICY "cars_public_select" ON cars
   FOR SELECT USING (status IN ('disponivel', 'reservado') OR auth.role() = 'authenticated');
 
@@ -241,7 +261,7 @@ CREATE POLICY "cars_auth_update" ON cars
 CREATE POLICY "cars_auth_delete" ON cars
   FOR DELETE TO authenticated USING (true);
 
--- Admin users: apenas autenticado lê o próprio registro; anon pode chamar get_email_by_username via RPC
+-- Admin users
 CREATE POLICY "admin_users_auth_select" ON admin_users
   FOR SELECT TO authenticated USING (true);
 
@@ -279,5 +299,5 @@ CREATE POLICY "car_photos_auth_delete" ON storage.objects
 
 -- ── SEED: configurações iniciais ─────────────────────────────
 INSERT INTO settings (whatsapp_number, business_name)
-VALUES ('5595999999999', 'Rafael Mota — Consultor Toyota')
+VALUES ('5595984102562', 'Shopping das Motos')
 ON CONFLICT DO NOTHING;

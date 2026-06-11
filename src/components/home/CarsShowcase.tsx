@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useRef, useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -17,12 +17,12 @@ interface Props {
 }
 
 const titles: Record<Filter, string> = {
-  todos:          'Todos os carros',
-  novo:           'Carros novos',
-  seminovo:       'Seminovos',
+  todos:          'Todas as motos',
+  novo:           'Motos novas',
+  seminovo:       'Seminovas',
   'venda-direta': 'Venda Direta',
   consorcio:      'Consórcio',
-  repasse:        'Repasse',
+  repasse:        'Outras',
   entregas:       'Entregas',
 }
 
@@ -68,18 +68,18 @@ export default function CarsShowcase({ activeCategory, cars }: Props) {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 0.05 }}
               className="mb-2 text-[10px] font-bold uppercase tracking-[0.22em]"
-              style={{ color: '#C8973A' }}
+              style={{ color: 'var(--accent)' }}
             >
-              Estoque Rafael Mota
+              Shopping das Motos · Boa Vista RR
             </motion.p>
 
             {/* Main title */}
             <h2
               className="font-bold leading-none text-marine-900"
               style={{
-                fontFamily: 'var(--font-fraunces)',
+                fontFamily: 'var(--font-oswald)',
                 fontSize: 'clamp(36px, 5vw, 60px)',
-                letterSpacing: '-0.035em',
+                letterSpacing: '0.01em',
                 lineHeight: 1.0,
               }}
             >
@@ -95,7 +95,7 @@ export default function CarsShowcase({ activeCategory, cars }: Props) {
             >
               <span
                 className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-bold"
-                style={{ background: 'rgba(10,25,41,0.06)', color: '#486581' }}
+                style={{ background: '#F4F4F5', color: '#52525B' }}
               >
                 {filtered.length} {filtered.length === 1 ? 'veículo disponível' : 'veículos disponíveis'}
               </span>
@@ -113,8 +113,8 @@ export default function CarsShowcase({ activeCategory, cars }: Props) {
               href="/estoque"
               className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[13px] font-semibold text-white transition-all duration-300"
               style={{
-                background: '#0A1929',
-                boxShadow: '0 4px 16px rgba(10,25,41,0.18)',
+                background: '#0D0D0F',
+                boxShadow: '0 4px 16px rgba(13,13,15,0.18)',
               }}
             >
               Ver estoque completo
@@ -185,7 +185,7 @@ export default function CarsShowcase({ activeCategory, cars }: Props) {
           >
             <div
               className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl"
-              style={{ background: 'rgba(10,25,41,0.05)' }}
+              style={{ background: 'rgba(13,13,15,0.05)' }}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-8 w-8 text-marine-400">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0H3" />
@@ -193,11 +193,11 @@ export default function CarsShowcase({ activeCategory, cars }: Props) {
             </div>
             <p
               className="text-[18px] font-bold text-marine-900"
-              style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}
+              style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}
             >
-              Nenhum carro nesta categoria
+              Nenhuma moto nesta categoria
             </p>
-            <p className="mt-2 text-[14px] text-marine-500">Fale com Rafael para saber o que está chegando.</p>
+            <p className="mt-2 text-[14px] text-marine-500">Fale pelo WhatsApp para saber o que está chegando.</p>
           </motion.div>
         )}
       </Container>

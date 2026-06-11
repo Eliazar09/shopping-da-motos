@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
@@ -32,28 +32,28 @@ function useCountUp(target: number, duration: number, active: boolean) {
 
 const stats = [
   {
-    value:    15,
-    display:  (n: number) => `${n}`,
+    value:    1000,
+    display:  (n: number) => n >= 1000 ? `${(n / 1000).toFixed(0)}k` : `${n}`,
     suffix:   '+',
-    label:    'Anos',
-    sub:      'de experiência',
-    duration: 1400,
+    label:    'Clientes',
+    sub:      'satisfeitos',
+    duration: 1800,
   },
   {
-    value:    2000,
-    display:  (n: number) => n >= 1000 ? `${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}k` : `${n}`,
+    value:    500,
+    display:  (n: number) => `${n}`,
     suffix:   '+',
-    label:    'Famílias',
-    sub:      'atendidas',
-    duration: 1800,
+    label:    'Motos',
+    sub:      'vendidas',
+    duration: 1600,
   },
   {
     value:    100,
     display:  (n: number) => `${n}`,
     suffix:   '%',
-    label:    'Confiança',
-    sub:      'garantida',
-    duration: 1600,
+    label:    'Aprovação',
+    sub:      'facilitada',
+    duration: 1400,
   },
 ]
 
@@ -79,17 +79,17 @@ function Stat({
       {/* Number */}
       <div
         className="flex items-start leading-none"
-        style={{ fontFamily: 'var(--font-fraunces)' }}
+        style={{ fontFamily: 'var(--font-oswald)' }}
       >
         <span
           className="text-marine-900"
-          style={{ fontSize: 'clamp(72px, 10vw, 112px)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1 }}
+          style={{ fontSize: 'clamp(72px, 10vw, 112px)', fontWeight: 800, letterSpacing: '0.01em', lineHeight: 1 }}
         >
           {stat.display(count)}
         </span>
         <span
           className="mt-3 text-[32px] font-bold md:mt-4 md:text-[42px]"
-          style={{ color: 'var(--accent)', letterSpacing: '-0.02em' }}
+          style={{ color: 'var(--accent)', letterSpacing: '0.01em' }}
         >
           {stat.suffix}
         </span>
@@ -106,12 +106,12 @@ function Stat({
 
       {/* Label */}
       <p
-        className="text-[11px] font-bold uppercase tracking-[0.14em] text-marine-900"
+        className="text-[11px] font-bold uppercase tracking-[0.14em] text-marine-600"
         style={{ fontFamily: 'var(--font-jakarta)' }}
       >
         {stat.label}
       </p>
-      <p className="mt-1 text-[13px] text-marine-400">{stat.sub}</p>
+      <p className="mt-1 text-[13px] text-marine-500">{stat.sub}</p>
     </motion.div>
   )
 }
@@ -135,58 +135,58 @@ export default function StatsSection() {
         >
           <p className="section-label">Em números</p>
           <p className="hidden text-[14px] font-semibold text-marine-400 md:block" style={{ fontFamily: 'var(--font-jakarta)' }}>
-            15 anos construindo confiança em Roraima
+            Referência em motos em Boa Vista, Roraima
           </p>
         </motion.div>
 
         {/* Stats row */}
-        <div className="flex flex-col divide-y divide-gray-100 md:flex-row md:divide-x md:divide-y-0">
+        <div className="flex flex-col md:flex-row" style={{ borderTop: '1px solid #E4E4E7', borderBottom: '1px solid #E4E4E7' }}>
           {stats.map((s, i) => (
             <Stat key={s.label} stat={s} index={i} />
           ))}
         </div>
 
-        {/* Bottom banner — Yaris GR */}
+        {/* Bottom banner — destaque */}
         <motion.div
           className="relative mb-10 mt-2 overflow-hidden rounded-[28px]"
           initial={{ opacity: 0, y: 32 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.65, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          style={{ background: '#0A1929' }}
+          style={{ background: '#0D0D0F' }}
         >
-          {/* Gold glow */}
-          <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full opacity-20 blur-3xl" style={{ background: '#C8973A' }} />
+          {/* Red glow */}
+          <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full opacity-20 blur-3xl" style={{ background: '#E31E24' }} />
           {/* Grid texture */}
           <div className="pointer-events-none absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
           <div className="relative flex flex-col md:flex-row-reverse md:items-center">
-            {/* Car — direita */}
+            {/* Moto image */}
             <div className="relative h-[200px] w-full flex-shrink-0 md:h-[300px] md:w-[50%]">
               <Image
-                src="/images/carros/yarisgrdelado.png"
-                alt="Toyota Yaris GR 2025"
+                src="/images/motos/moto-8.png"
+                alt="Moto em destaque — Shopping das Motos"
                 fill
                 className="object-contain object-center p-6"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 hidden md:block" style={{ background: 'linear-gradient(to left, transparent 35%, #0A1929 100%)' }} />
-              <div className="absolute inset-0 md:hidden" style={{ background: 'linear-gradient(to bottom, transparent 40%, #0A1929 100%)' }} />
+              <div className="absolute inset-0 hidden md:block" style={{ background: 'linear-gradient(to left, transparent 35%, #0D0D0F 100%)' }} />
+              <div className="absolute inset-0 md:hidden" style={{ background: 'linear-gradient(to bottom, transparent 40%, #0D0D0F 100%)' }} />
             </div>
 
-            {/* Text — esquerda */}
+            {/* Text */}
             <div className="relative z-10 flex flex-col px-8 pb-10 pt-6 md:px-10 md:py-12 lg:px-12">
-              <span className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: '#C8973A' }}>
-                Rafael Mota · Toyota Toyolex
+              <span className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: 'var(--accent)' }}>
+                Shopping das Motos · Boa Vista — RR
               </span>
               <h3
                 className="text-[26px] font-bold leading-tight text-white md:text-[36px] lg:text-[42px]"
-                style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}
+                style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}
               >
-                Quer fazer parte{' '}
-                <span style={{ color: '#C8973A' }}>dessa história?</span>
+                Sua moto te espera{' '}
+                <span style={{ color: 'var(--accent)' }}>agora mesmo.</span>
               </h3>
               <p className="mt-3 max-w-sm text-[14px] leading-relaxed text-gray-400">
-                Mais de 2.000 famílias já realizaram o sonho do carro novo com Rafael. A sua vez pode ser agora.
+                Aprovamos seu financiamento sem entrada e sem burocracia. Venha sair de moto hoje!
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <a
@@ -197,7 +197,7 @@ export default function StatsSection() {
                   style={{ boxShadow: '0 6px 20px rgba(37,211,102,0.30)' }}
                 >
                   <WhatsAppIcon className="h-4 w-4" />
-                  Falar com Rafael
+                  Falar pelo WhatsApp
                 </a>
                 <Link
                   href="/estoque"

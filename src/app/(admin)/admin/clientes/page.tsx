@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -34,7 +34,7 @@ interface SaleRecord {
 }
 
 const AVATAR_COLORS = [
-  '#0A1929', '#1D4ED8', '#7C3AED', '#B45309',
+  '#0D0D0F', '#1D4ED8', '#7C3AED', '#B45309',
   '#0F766E', '#BE123C', '#1E40AF', '#065F46',
 ]
 
@@ -231,7 +231,7 @@ export default function ClientesPage() {
           <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-marine-400">Negócios</p>
           <h1
             className="mt-0.5 text-[28px] font-bold text-marine-900"
-            style={{ fontFamily: 'var(--font-fraunces)', letterSpacing: '-0.02em' }}
+            style={{ fontFamily: 'var(--font-oswald)', letterSpacing: '0.01em' }}
           >
             Clientes
           </h1>
@@ -257,7 +257,7 @@ export default function ClientesPage() {
           className="mb-6 flex flex-wrap gap-2"
         >
           {[
-            { label: `${totalClients} clientes`, color: '#0A1929' },
+            { label: `${totalClients} clientes`, color: '#0D0D0F' },
             { label: `${vipCount} VIP`, color: '#92400E' },
             { label: `${leadCount} leads`, color: '#64748B' },
           ].map(s => (
@@ -321,7 +321,7 @@ export default function ClientesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(i * 0.04, 0.3), ease: [0.16, 1, 0.3, 1] }}
                 className="group flex flex-col rounded-2xl bg-white"
-                style={{ border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(10,25,41,0.06)' }}
+                style={{ border: '1px solid #E4E7EB', boxShadow: '0 2px 8px rgba(13,13,15,0.06)' }}
               >
                 {/* Card top */}
                 <div className="p-5 pb-4">
@@ -465,7 +465,7 @@ export default function ClientesPage() {
               style={{ boxShadow: '0 24px 64px rgba(0,0,0,0.18)' }}
             >
               <div className="mb-5 flex items-center justify-between">
-                <h2 className="text-[18px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-fraunces)' }}>
+                <h2 className="text-[18px] font-bold text-marine-900" style={{ fontFamily: 'var(--font-oswald)' }}>
                   {modal === 'create' ? 'Novo Cliente' : 'Editar Cliente'}
                 </h2>
                 <button onClick={closeModal} className="rounded-xl p-1.5 text-marine-400 transition-colors hover:bg-marine-50 hover:text-marine-700">
@@ -590,7 +590,7 @@ export default function ClientesPage() {
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.08em;
-          color: #2A4D75;
+          color: #2D2D30;
         }
         .field-input {
           width: 100%;
@@ -599,14 +599,14 @@ export default function ClientesPage() {
           background: white;
           padding: 10px 14px;
           font-size: 14px;
-          color: #0A1929;
+          color: #0D0D0F;
           outline: none;
           transition: border-color 0.15s, box-shadow 0.15s;
           appearance: none;
         }
         .field-input:focus {
           border-color: #94A3B8;
-          box-shadow: 0 0 0 3px rgba(10,25,41,0.07);
+          box-shadow: 0 0 0 3px rgba(13,13,15,0.07);
         }
       `}</style>
     </div>
@@ -632,14 +632,14 @@ function FormField({
       <style jsx>{`
         .field-label {
           display: block; margin-bottom: 6px; font-size: 11px; font-weight: 700;
-          text-transform: uppercase; letter-spacing: 0.08em; color: #2A4D75;
+          text-transform: uppercase; letter-spacing: 0.08em; color: #2D2D30;
         }
         .field-input {
           width: 100%; border-radius: 12px; border: 1px solid #E4E7EB; background: white;
-          padding: 10px 14px; font-size: 14px; color: #0A1929; outline: none;
+          padding: 10px 14px; font-size: 14px; color: #0D0D0F; outline: none;
           transition: border-color 0.15s, box-shadow 0.15s;
         }
-        .field-input:focus { border-color: #94A3B8; box-shadow: 0 0 0 3px rgba(10,25,41,0.07); }
+        .field-input:focus { border-color: #94A3B8; box-shadow: 0 0 0 3px rgba(13,13,15,0.07); }
       `}</style>
     </div>
   )

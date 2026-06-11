@@ -12,6 +12,7 @@ const items: TestimonialItem[] = testimonials.map((t) => ({
   role:  `Comprou ${t.car}`,
 }))
 
+
 const col1 = items.slice(0, 2)
 const col2 = items.slice(2, 4)
 const col3 = items.slice(4, 6)
@@ -28,9 +29,9 @@ export default function TestimonialsSection() {
           className="mx-auto mb-12 flex max-w-[540px] flex-col items-center text-center"
         >
           <p className="section-label mb-3">Depoimentos</p>
-          <h2 className="text-section-title">O que dizem sobre mim</h2>
+          <h2 className="text-section-title">O que dizem nossos clientes</h2>
           <p className="mt-4 text-[15px] text-marine-500">
-            Mais de 2.000 famílias em Roraima já compraram com o Rafael.
+            Mais de 1.000 clientes satisfeitos em Boa Vista, Roraima.
           </p>
         </motion.div>
 

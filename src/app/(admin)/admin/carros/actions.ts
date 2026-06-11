@@ -19,7 +19,7 @@ export async function createCar(data: Record<string, unknown>) {
   if (!user) throw new Error('Não autorizado')
 
   const slug = generateSlug(
-    String(data.brand ?? 'carro'),
+    String(data.brand ?? 'moto'),
     String(data.model ?? ''),
     String(data.year ?? new Date().getFullYear()),
   )

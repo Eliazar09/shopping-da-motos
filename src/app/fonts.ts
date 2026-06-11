@@ -1,4 +1,4 @@
-import { Plus_Jakarta_Sans, Inter, Fraunces } from 'next/font/google'
+import { Plus_Jakarta_Sans, Inter, Oswald } from 'next/font/google'
 
 export const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -14,9 +14,9 @@ export const inter = Inter({
   display: 'swap',
 })
 
-export const fraunces = Fraunces({
+export const oswald = Oswald({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-fraunces',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-oswald',
   display: 'swap',
 })

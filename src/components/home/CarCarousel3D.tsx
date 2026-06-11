@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
@@ -10,37 +10,37 @@ import { FrameButton } from '@/components/ui/frame-button'
 const CAR_ITEMS: CardStackItem[] = [
   {
     id: 1,
-    title: 'Toyota Corolla GR Sport 2025',
-    description: 'Esportividade e tecnologia na versão mais desejada',
-    imageSrc: '/images/carros/corolla.png',
+    title: 'Honda CB 600F Hornet',
+    description: 'Potência e estilo — a naked mais desejada do mercado',
+    imageSrc: '/images/motos/moto-5.png',
     href: '/estoque',
   },
   {
     id: 2,
-    title: 'Hyundai Creta 2025',
-    description: 'SUV compacto com design moderno e muito conforto',
-    imageSrc: '/images/carros/creta.png',
+    title: 'Yamaha Fazer 250',
+    description: 'Sport naked com estilo agressivo e ótima performance',
+    imageSrc: '/images/motos/moto-2.png',
     href: '/estoque',
   },
   {
     id: 3,
-    title: 'Toyota Yaris 2025',
-    description: 'Compacto ideal para o dia a dia em Roraima',
-    imageSrc: '/images/carros/yaris.png',
+    title: 'Honda CG 160 Titan',
+    description: 'A moto mais vendida do Brasil — econômica e confiável',
+    imageSrc: '/images/motos/moto-10.png',
     href: '/estoque',
   },
   {
     id: 4,
-    title: 'Ford Ranger Raptor 2025',
-    description: 'A pickup mais robusta para qualquer terreno',
-    imageSrc: '/images/carros/ranger.png',
+    title: 'Yamaha MT-03',
+    description: 'Naked esportiva com design agressivo e motor potente',
+    imageSrc: '/images/motos/moto-1.png',
     href: '/estoque',
   },
   {
     id: 5,
-    title: 'Chevrolet Onix Plus 2025',
-    description: 'Sedan econômico e espaçoso para toda a família',
-    imageSrc: '/images/carros/onixplus.png',
+    title: 'Honda NX 400',
+    description: 'Adventure urbana — versátil, robusta e cheia de estilo',
+    imageSrc: '/images/motos/moto-4.png',
     href: '/estoque',
   },
 ]
@@ -58,7 +58,7 @@ export default function CarCarousel3D() {
   const cardHeight = isMobile ? 200 : 300
 
   return (
-    <section className="relative overflow-hidden bg-white py-20 md:py-28">
+    <section className="relative overflow-hidden py-20 md:py-28 bg-white">
       <div className="relative z-10 mx-auto max-w-6xl px-4 md:px-8">
 
         {/* ── Headline ─────────────────────────────────────────── */}
@@ -74,32 +74,32 @@ export default function CarCarousel3D() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.45, delay: 0.05 }}
-            className="mb-4 text-[13px] font-extrabold uppercase tracking-[0.18em]"
-            style={{ color: '#C8973A', fontFamily: 'var(--font-jakarta)' }}
+            className="mb-4 text-[13px] font-extrabold uppercase tracking-[0.18em] text-accent"
+            style={{ fontFamily: 'var(--font-jakarta)' }}
           >
-            Catálogo exclusivo
+            Catálogo de motos
           </motion.p>
 
           <h2
             className="font-black leading-none text-marine-900"
             style={{
-              fontFamily: 'var(--font-fraunces)',
+              fontFamily: 'var(--font-oswald)',
               fontSize: 'clamp(36px, 6vw, 76px)',
-              letterSpacing: '-0.04em',
+              letterSpacing: '0.01em',
               lineHeight: 0.96,
             }}
           >
-            Encontre o carro{' '}
+            Encontre a moto{' '}
             <em
               className="not-italic"
               style={{
-                background: 'linear-gradient(135deg, #E31E24 0%, #C8973A 100%)',
+                background: 'linear-gradient(135deg, #E31E24 0%, #B8181D 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
               }}
             >
-              perfeito
+              perfeita
             </em>{' '}
             para você
           </h2>
@@ -111,8 +111,8 @@ export default function CarCarousel3D() {
             transition={{ duration: 0.45, delay: 0.15 }}
             className="mx-auto mt-6 max-w-xl text-[15px] leading-relaxed text-marine-500"
           >
-            Novos, seminovos e repasse, selecionados com cuidado para você.
-            Atendimento exclusivo com entrega em toda Roraima.
+            Novas e seminovas, selecionadas com cuidado para você.
+            Financiamento sem entrada e aprovação na hora em Boa Vista, Roraima.
           </motion.p>
         </motion.div>
 
@@ -153,7 +153,7 @@ export default function CarCarousel3D() {
         >
           <FrameButton as="link" href="/estoque" variant="default">Ver estoque completo</FrameButton>
           <FrameButton as="link" href={defaultWhatsAppLink()} target="_blank" rel="noopener noreferrer" variant="green">
-            <WhatsAppIcon className="h-4 w-4 mr-2" />Falar com Rafael
+            <WhatsAppIcon className="h-4 w-4 mr-2" />Falar pelo WhatsApp
           </FrameButton>
         </motion.div>
 

@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+﻿import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { createDynamicServerClient } from '@/lib/supabase/server'
@@ -33,7 +33,7 @@ export default async function EditCarPage({
           <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-marine-500">Catálogo</p>
           <h1
             className="mt-0.5 text-[24px] font-bold text-marine-900"
-            style={{ fontFamily: 'var(--font-fraunces)' }}
+            style={{ fontFamily: 'var(--font-oswald)' }}
           >
             {label}
           </h1>

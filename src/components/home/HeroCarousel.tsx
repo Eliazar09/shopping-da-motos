@@ -1,405 +1,346 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import { defaultWhatsAppLink } from '@/lib/whatsapp'
-import { FrameButton } from '@/components/ui/frame-button'
 import WhatsAppIcon from '@/components/ui/WhatsAppIcon'
+import { ArrowRight, CheckCircle2 } from 'lucide-react'
 
-const AUTOPLAY_MS = 6000
+const MOTO = '/images/motos/moto-hero.png'
+const WA   = defaultWhatsAppLink()
 
-const SLIDES = [
-  {
-    id: 0,
-    image: '/images/rafael/rafael-hero-1.jpg',
-    alt: 'Rafael Mota — Consultor Toyota Toyolex Roraima',
-    eyebrow: 'Consultor Toyota Oficial',
-    title: ['Realizando', 'o sonho', 'da sua família.'],
-    subtitle: 'Mais de 15 anos vendendo confiança em Roraima.',
-  },
-  {
-    id: 1,
-    image: '/images/rafael/rafael-hero-2.jpg',
-    alt: 'Rafael Mota — Atendimento personalizado',
-    eyebrow: 'Atendimento Pessoal',
-    title: ['Cliente', 'vira', 'amigo.'],
-    subtitle: 'Do primeiro contato à entrega, sem pressão.',
-  },
-  {
-    id: 2,
-    image: '/images/rafael/rafael-hero-3.jpg',
-    alt: 'Rafael Mota — Roraima',
-    eyebrow: 'Toyota Toyolex Roraima',
-    title: ['Confiança', 'que move', 'Roraima.'],
-    subtitle: 'Avaliação honesta, entrega garantida. É assim que Rafael trabalha.',
-  },
+function up(delay = 0) {
+  return {
+    hidden: { opacity: 0, y: 22 },
+    show:   { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1], delay } },
+  }
+}
+
+const slideRight = {
+  hidden: { opacity: 0, x: 48, scale: 0.97 },
+  show:   { opacity: 1, x: 0,  scale: 1,    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 } },
+}
+
+const slideUp = {
+  hidden: { opacity: 0, y: 40, scale: 0.97 },
+  show:   { opacity: 1, y: 0,  scale: 1,    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.5 } },
+}
+
+const TRUST = [
+  { icon: <CheckCircle2 size={13} />, text: 'Financiamento sem entrada' },
+  { icon: <CheckCircle2 size={13} />, text: 'Aprovação na hora' },
+  { icon: <CheckCircle2 size={13} />, text: 'Novas e Seminovas' },
 ]
 
-// Word-by-word stagger variants
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.11, delayChildren: 0.1 },
-  },
-  exit: {
-    transition: { staggerChildren: 0.05, staggerDirection: -1 },
-  },
-}
-
-const wordVariants = {
-  hidden: { opacity: 0, y: 22, filter: 'blur(4px)' },
-  visible: {
-    opacity: 1, y: 0, filter: 'blur(0px)',
-    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
-  },
-  exit: {
-    opacity: 0, y: -10, filter: 'blur(2px)',
-    transition: { duration: 0.25, ease: 'easeIn' },
-  },
-}
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (delay: number) => ({
-    opacity: 1, y: 0,
-    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1], delay },
-  }),
-  exit: { opacity: 0, y: -8, transition: { duration: 0.2 } },
-}
-
 export default function HeroCarousel() {
-  const [current, setCurrent] = useState(0)
-  const [paused,  setPaused]  = useState(false)
-  const timerRef    = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const touchStartX = useRef(0)
-  const touchEndX   = useRef(0)
-
-  const goTo = useCallback((idx: number) => {
-    setCurrent((idx + SLIDES.length) % SLIDES.length)
-  }, [])
-  const next = useCallback(() => goTo(current + 1), [current, goTo])
-  const prev = useCallback(() => goTo(current - 1), [current, goTo])
-
-  useEffect(() => {
-    if (paused) return
-    timerRef.current = setTimeout(next, AUTOPLAY_MS)
-    return () => { if (timerRef.current) clearTimeout(timerRef.current) }
-  }, [current, paused, next])
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.changedTouches[0].clientX
-  }
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    touchEndX.current = e.changedTouches[0].clientX
-    const diff = touchStartX.current - touchEndX.current
-    if (Math.abs(diff) > 40) { setPaused(true); diff > 0 ? next() : prev() }
-  }
-
-  const slide = SLIDES[current]
-  const waLink = defaultWhatsAppLink()
-
   return (
-    <section
-      aria-label="Carrossel de apresentação"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      className="relative w-full"
-    >
+    <section className="relative w-full overflow-hidden" style={{ background: '#0D0D0F' }}>
 
-      {/* ══════════════════════════════════════════════════════════
-          MOBILE LAYOUT: Full-image hero with text overlay
-          ══════════════════════════════════════════════════════════ */}
-      <div className="md:hidden">
+      {/* Speed lines texture */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.016]"
+        style={{ backgroundImage: 'repeating-linear-gradient(78deg,#fff 0px,#fff 1px,transparent 1px,transparent 64px)' }}
+      />
 
-        <div className="relative w-full overflow-hidden" style={{ height: '50dvh', minHeight: 300 }}>
-          {/* Image */}
-          <AnimatePresence mode="sync">
-            <motion.div
-              key={current}
-              className="absolute inset-0"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.9, ease: 'easeInOut' }}
+      {/* Red glow — right half */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-0 top-0 h-full w-[55%]"
+        style={{ background: 'radial-gradient(ellipse 70% 80% at 80% 50%, rgba(227,30,36,0.14) 0%, transparent 70%)' }}
+      />
+
+      {/* Accent stripe top */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-accent z-20" />
+
+      {/* ════════════════ DESKTOP ════════════════════ */}
+      <div
+        className="relative hidden md:grid"
+        style={{ gridTemplateColumns: '1fr 1fr', minHeight: '100svh', paddingTop: 80 }}
+      >
+        {/* LEFT — text */}
+        <div className="relative z-10 flex flex-col justify-center px-16 py-16 lg:px-24">
+
+          <motion.h1
+            variants={up(0.1)}
+            initial="hidden"
+            animate="show"
+            style={{
+              fontFamily: 'var(--font-oswald)',
+              fontSize: 'clamp(60px, 7.5vw, 112px)',
+              fontWeight: 800,
+              lineHeight: 0.94,
+              letterSpacing: '-0.01em',
+              color: '#fff',
+            }}
+          >
+            A moto<br />
+            que você<br />
+            <span style={{ color: 'var(--accent)' }}>sempre&nbsp;quis.</span>
+          </motion.h1>
+
+          <motion.p
+            variants={up(0.25)}
+            initial="hidden"
+            animate="show"
+            className="mt-7 text-[15px] leading-[1.75]"
+            style={{ color: 'rgba(255,255,255,0.54)', maxWidth: 400 }}
+          >
+            Financiamento sem entrada e aprovação na hora.
+            Motos novas e seminovas com as melhores
+            condições de Roraima.
+          </motion.p>
+
+          <motion.div
+            variants={up(0.38)}
+            initial="hidden"
+            animate="show"
+            className="mt-10 flex items-center gap-3 flex-wrap"
+          >
+            <Link
+              href="/estoque"
+              className="group inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-[13px] font-bold text-marine-900 transition-all duration-300 hover:brightness-110 active:scale-95"
+              style={{ background: '#fff' }}
             >
-              <motion.div
-                className="absolute inset-0"
-                initial={{ scale: 1.07 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: AUTOPLAY_MS / 1000, ease: 'linear' }}
+              Ver estoque
+              <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+            <a
+              href={WA}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 rounded-full border border-white/20 px-7 py-3.5 text-[13px] font-bold text-white transition-all duration-300 hover:border-white/50 hover:bg-white/5"
+            >
+              <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
+              Falar por WhatsApp
+            </a>
+          </motion.div>
+
+          <motion.div
+            variants={up(0.5)}
+            initial="hidden"
+            animate="show"
+            className="mt-12 flex items-stretch"
+          >
+            {[
+              { value: '1.000+', label: 'Clientes' },
+              { value: '500+',   label: 'Motos vendidas' },
+              { value: '100%',   label: 'Aprovação' },
+            ].map((s, i) => (
+              <div
+                key={s.label}
+                style={{
+                  paddingLeft: i > 0 ? 28 : 0,
+                  paddingRight: 28,
+                  borderRight: i < 2 ? '1px solid rgba(255,255,255,0.09)' : 'none',
+                }}
               >
-                <Image
-                  src={slide.image}
-                  alt={slide.alt}
-                  fill
-                  priority={current === 0}
-                  sizes="100vw"
-                  className="object-cover object-[center_8%]"
-                />
-              </motion.div>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Dark gradient — bottom to top for text legibility */}
-          <div
-            className="absolute inset-x-0 bottom-0 pointer-events-none"
-            style={{ height: '75%', background: 'linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%)' }}
-          />
-
-          {/* Text + CTAs + dots — absolute bottom-left over image */}
-          <div className="absolute bottom-0 left-0 right-0 z-10 px-5 pb-5">
-            <AnimatePresence mode="wait">
-              <motion.div key={current}>
-                {/* Title — word stagger */}
-                <motion.h1
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className="leading-[1.05] tracking-[-0.03em]"
-                  style={{
-                    fontFamily: 'var(--font-fraunces)',
-                    fontSize: 'clamp(26px, 8vw, 40px)',
-                    fontWeight: 700,
-                    color: '#ffffff',
-                  }}
-                >
-                  {slide.title.map((line, li) => (
-                    <span key={li} className="block">
-                      {line.split(' ').map((word, wi) => (
-                        <motion.span
-                          key={`${li}-${wi}`}
-                          variants={wordVariants}
-                          className="inline-block"
-                          style={{ marginRight: wi < line.split(' ').length - 1 ? '0.28em' : 0 }}
-                        >
-                          {word}
-                        </motion.span>
-                      ))}
-                    </span>
-                  ))}
-                </motion.h1>
-
-                {/* Subtitle */}
-                <motion.p
-                  variants={fadeUp}
-                  custom={0.35}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className="mt-1.5 leading-relaxed"
-                  style={{ fontSize: 13, color: 'rgba(255,255,255,0.78)' }}
-                >
-                  {slide.subtitle}
-                </motion.p>
-
-                {/* CTAs */}
-                <motion.div
-                  variants={fadeUp}
-                  custom={0.5}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className="mt-3 flex flex-row gap-2"
-                >
-                  <FrameButton as="link" href="/estoque" variant="outline" size={12} offset={5} hoverOffset={4} className="px-4 py-2 text-[10px] tracking-[0.14em]">Ver estoque</FrameButton>
-                  <FrameButton as="link" href={waLink} target="_blank" rel="noopener noreferrer" variant="green" size={12} offset={5} hoverOffset={4} className="px-4 py-2 text-[10px] tracking-[0.14em]">
-                    <WhatsAppIcon className="h-3 w-3 mr-1.5" />Falar com Rafael
-                  </FrameButton>
-                </motion.div>
-
-                {/* Dots */}
-                <div className="mt-3 flex items-center gap-1.5">
-                  {SLIDES.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => { setPaused(true); goTo(idx) }}
-                      aria-label={`Slide ${idx + 1}`}
-                      className="flex items-center justify-center p-2 -m-2"
-                    >
-                      <motion.span
-                        className="block h-[4px] rounded-full"
-                        animate={{
-                          width: current === idx ? 22 : 6,
-                          backgroundColor: current === idx ? '#ffffff' : 'rgba(255,255,255,0.40)',
-                        }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    </button>
-                  ))}
+                <div className="text-[26px] font-black leading-none text-white" style={{ fontFamily: 'var(--font-oswald)' }}>
+                  {s.value}
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+                <div className="mt-1 text-[9px] font-bold uppercase tracking-[0.15em]" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </motion.div>
         </div>
+
+        {/* RIGHT — moto */}
+        <motion.div
+          variants={slideRight}
+          initial="hidden"
+          animate="show"
+          className="relative flex items-center justify-center"
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-[10%] left-[15%] right-[15%] h-[22%] rounded-full blur-[72px]"
+            style={{ background: 'rgba(227,30,36,0.28)' }}
+          />
+          <div className="relative w-full h-full" style={{ maxHeight: 'calc(100svh - 80px)' }}>
+            <Image
+              src={MOTO}
+              alt="Shopping das Motos — Boa Vista, Roraima"
+              fill
+              priority
+              sizes="50vw"
+              className="object-contain object-center"
+              style={{ padding: '32px 20px 64px', filter: 'drop-shadow(0 40px 80px rgba(0,0,0,0.55))' }}
+            />
+          </div>
+        </motion.div>
       </div>
 
-      {/* ══════════════════════════════════════════════════════════
-          DESKTOP LAYOUT: Fullscreen with overlay text
-          ══════════════════════════════════════════════════════════ */}
-      <div
-        className="relative hidden md:flex"
-        style={{ height: '100svh', minHeight: 620, overflow: 'hidden' }}
-      >
-        {/* Photos */}
-        <AnimatePresence mode="sync">
-          <motion.div
-            key={current}
-            className="absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.9, ease: 'easeInOut' }}
-          >
-            <motion.div
-              className="absolute inset-0"
-              initial={{ scale: 1.07 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: AUTOPLAY_MS / 1000, ease: 'linear' }}
-            >
-              <Image
-                src={slide.image}
-                alt={slide.alt}
-                fill
-                priority={current === 0}
-                sizes="100vw"
-                className="object-cover object-[center_8%]"
-              />
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
+      {/* ════════════════ MOBILE ══════════════════════ */}
+      <div className="relative flex flex-col md:hidden" style={{ paddingTop: 72, minHeight: '100svh' }}>
 
-        {/* Dark gradient overlay */}
+        {/* Red glow mobile */}
         <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'linear-gradient(105deg, rgba(5,15,28,0.82) 0%, rgba(5,15,28,0.55) 50%, rgba(5,15,28,0.18) 100%)',
-          }}
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{ background: 'radial-gradient(ellipse 90% 50% at 50% 20%, rgba(227,30,36,0.11) 0%, transparent 60%)' }}
         />
 
-        {/* Content left-aligned */}
-        <div className="relative z-10 flex h-full items-center px-16 lg:px-24 max-w-7xl w-full mx-auto">
-          <AnimatePresence mode="wait">
-            <motion.div key={current} className="max-w-2xl">
+        {/* Text block */}
+        <div className="relative z-10 flex flex-col px-6 pt-8 pb-4">
 
-              {/* Title — word-by-word stagger */}
-              <motion.h1
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="text-white leading-[1.03] tracking-[-0.035em]"
-                style={{
-                  fontFamily: 'var(--font-fraunces)',
-                  fontSize: 'clamp(52px, 7vw, 92px)',
-                  fontWeight: 700,
-                }}
-              >
-                {slide.title.map((line, li) => (
-                  <span key={li} className="block">
-                    {line.split(' ').map((word, wi) => (
-                      <motion.span
-                        key={`${li}-${wi}`}
-                        variants={wordVariants}
-                        className="inline-block"
-                        style={{ marginRight: wi < line.split(' ').length - 1 ? '0.28em' : 0 }}
-                      >
-                        {word}
-                      </motion.span>
-                    ))}
-                  </span>
-                ))}
-              </motion.h1>
+          <motion.h1
+            variants={up(0.1)}
+            initial="hidden"
+            animate="show"
+            style={{
+              fontFamily: 'var(--font-oswald)',
+              fontSize: 'clamp(50px, 15vw, 78px)',
+              fontWeight: 800,
+              lineHeight: 0.93,
+              letterSpacing: '-0.015em',
+              color: '#fff',
+            }}
+          >
+            A moto<br />
+            que você<br />
+            <span style={{ color: 'var(--accent)' }}>sempre quis.</span>
+          </motion.h1>
 
-              {/* Subtitle */}
-              <motion.p
-                variants={fadeUp}
-                custom={0.4}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="mt-5 text-white/75 leading-relaxed max-w-md"
-                style={{ fontSize: 17 }}
-              >
-                {slide.subtitle}
-              </motion.p>
+          <motion.p
+            variants={up(0.22)}
+            initial="hidden"
+            animate="show"
+            className="mt-5 text-[14px] leading-[1.72]"
+            style={{ color: 'rgba(255,255,255,0.52)' }}
+          >
+            Financiamento sem entrada — aprovação na hora. Motos novas e seminovas em Boa Vista, Roraima.
+          </motion.p>
 
-              {/* CTAs */}
-              <motion.div
-                variants={fadeUp}
-                custom={0.55}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="mt-9 flex flex-row gap-4 flex-wrap"
-              >
-                <FrameButton as="link" href="/estoque" variant="outline">Ver estoque</FrameButton>
-                <FrameButton as="link" href={waLink} target="_blank" rel="noopener noreferrer" variant="green">
-                  <WhatsAppIcon className="h-4 w-4 mr-2" />Falar com Rafael
-                </FrameButton>
-              </motion.div>
-            </motion.div>
-          </AnimatePresence>
+          <motion.div
+            variants={up(0.34)}
+            initial="hidden"
+            animate="show"
+            className="mt-7 flex flex-col gap-3"
+          >
+            <Link
+              href="/estoque"
+              className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-[14px] font-bold text-marine-900"
+              style={{ background: '#fff' }}
+            >
+              Ver estoque <ArrowRight size={14} />
+            </Link>
+            <a
+              href={WA}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/20 px-6 py-4 text-[14px] font-bold text-white"
+            >
+              <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
+              Falar por WhatsApp
+            </a>
+          </motion.div>
         </div>
 
-        {/* Desktop arrows */}
-        <motion.button
-          onClick={() => { setPaused(true); prev() }}
-          aria-label="Slide anterior"
-          className="absolute left-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center rounded-full"
-          style={{ width: 56, height: 56, background: 'rgba(255,255,255,0.93)', boxShadow: '0 4px 20px rgba(0,0,0,0.30)' }}
-          whileHover={{ scale: 1.08, background: '#ffffff' }}
-          whileTap={{ scale: 0.93 }}
+        {/* Moto image — BELOW text on mobile */}
+        <motion.div
+          variants={slideUp}
+          initial="hidden"
+          animate="show"
+          className="relative w-full flex-1"
+          style={{ minHeight: 260, maxHeight: '42dvh' }}
         >
-          <ChevronLeft size={26} style={{ color: '#0A1929' }} strokeWidth={2.5} />
-        </motion.button>
-        <motion.button
-          onClick={() => { setPaused(true); next() }}
-          aria-label="Próximo slide"
-          className="absolute right-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center rounded-full"
-          style={{ width: 56, height: 56, background: 'rgba(255,255,255,0.93)', boxShadow: '0 4px 20px rgba(0,0,0,0.30)' }}
-          whileHover={{ scale: 1.08, background: '#ffffff' }}
-          whileTap={{ scale: 0.93 }}
-        >
-          <ChevronRight size={26} style={{ color: '#0A1929' }} strokeWidth={2.5} />
-        </motion.button>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute top-[5%] left-[15%] right-[15%] h-[30%] rounded-full blur-[60px]"
+            style={{ background: 'rgba(227,30,36,0.26)' }}
+          />
+          <Image
+            src={MOTO}
+            alt="Shopping das Motos"
+            fill
+            priority
+            sizes="100vw"
+            className="object-contain"
+            style={{ padding: '0 16px 8px', filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))' }}
+          />
+        </motion.div>
 
-        {/* Desktop dots */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
-          {SLIDES.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => { setPaused(true); goTo(idx) }}
-              aria-label={`Slide ${idx + 1}`}
-              className="flex items-center justify-center p-3 -m-3"
+        {/* Stats mobile */}
+        <motion.div
+          variants={up(0.65)}
+          initial="hidden"
+          animate="show"
+          className="mx-6 mb-8 grid grid-cols-3 rounded-2xl px-4 py-5"
+          style={{ border: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.03)' }}
+        >
+          {[
+            { value: '1.000+', label: 'Clientes' },
+            { value: '500+',   label: 'Motos' },
+            { value: '100%',   label: 'Aprovação' },
+          ].map((s, i) => (
+            <div
+              key={s.label}
+              className="flex flex-col items-center text-center"
+              style={{ borderRight: i < 2 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}
             >
-              <motion.span
-                className="block h-[5px] rounded-full"
-                animate={{
-                  width: current === idx ? 28 : 8,
-                  backgroundColor: current === idx ? '#ffffff' : 'rgba(255,255,255,0.4)',
-                }}
-                transition={{ duration: 0.3 }}
-              />
-            </button>
+              <span className="text-[22px] font-black leading-none text-white" style={{ fontFamily: 'var(--font-oswald)' }}>
+                {s.value}
+              </span>
+              <span className="mt-1 text-[8px] font-bold uppercase tracking-[0.12em]" style={{ color: 'rgba(255,255,255,0.34)' }}>
+                {s.label}
+              </span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* ════ TRUST BAR ══════════════════════════════ */}
+      <motion.div
+        variants={up(0.72)}
+        initial="hidden"
+        animate="show"
+        className="relative z-10 flex flex-wrap items-center justify-between gap-3 px-6 py-4 md:px-16 lg:px-24"
+        style={{ borderTop: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.025)' }}
+      >
+        <div className="flex items-center gap-3">
+          <div className="flex -space-x-2">
+            {[2, 5, 8].map((n) => (
+              <div key={n} className="h-7 w-7 overflow-hidden rounded-full border-2 border-[#0D0D0F]" style={{ background: '#1A1A1E' }}>
+                <Image src={`/images/motos/moto-${n}.png`} alt="" width={28} height={28} className="h-full w-full object-contain" />
+              </div>
+            ))}
+          </div>
+          <div>
+            <div className="flex items-center gap-0.5">
+              {[1,2,3,4,5].map(i => (
+                <svg key={i} className="h-3 w-3" viewBox="0 0 12 12" fill="#E31E24">
+                  <path d="M6 1l1.3 3.9H11L8 7.3l1 3.9L6 9l-3 2.2 1-3.9L1 4.9h3.7z" />
+                </svg>
+              ))}
+            </div>
+            <p className="text-[10px] font-bold text-white/40">
+              <span className="text-white/65">+1.000</span> clientes satisfeitos
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-5">
+          {TRUST.map((t) => (
+            <div key={t.text} className="flex items-center gap-1.5 text-[11px] font-semibold text-white/45">
+              <span style={{ color: 'var(--accent)' }}>{t.icon}</span>
+              {t.text}
+            </div>
           ))}
         </div>
 
-        {/* Progress bar */}
-        {!paused && (
-          <motion.div
-            key={`bar-${current}`}
-            className="absolute bottom-0 left-0 z-20 h-[2px] bg-white/50"
-            initial={{ width: '0%' }}
-            animate={{ width: '100%' }}
-            transition={{ duration: AUTOPLAY_MS / 1000, ease: 'linear' }}
-          />
-        )}
-      </div>
+        <a
+          href={WA}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-white/45 transition-colors hover:text-white md:flex"
+        >
+          FALAR NO WHATSAPP <ArrowRight size={11} />
+        </a>
+      </motion.div>
+
     </section>
   )
 }

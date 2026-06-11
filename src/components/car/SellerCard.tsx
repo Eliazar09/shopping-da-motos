@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { Share2, Check } from 'lucide-react'
@@ -37,32 +37,10 @@ export default function SellerCard({ car }: Props) {
   return (
     <div
       className="rounded-2xl p-6"
-      style={{ background: '#FAFBFC', border: '1px solid #E4E7EB', boxShadow: '0 2px 4px rgba(16,42,67,0.06)' }}
+      style={{ background: '#FAFBFC', border: '1px solid #E4E7EB', boxShadow: '0 2px 4px rgba(13,13,15,0.06)' }}
     >
-      {/* Seller info */}
-      <div className="flex items-center gap-3 border-b border-gray-200 pb-4">
-        <div
-          className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl text-[16px] font-bold text-white"
-          style={{ background: '#0A1929', fontFamily: 'var(--font-jakarta)' }}
-        >
-          RM
-        </div>
-        <div>
-          <p className="text-[14px] font-semibold text-marine-900" style={{ fontFamily: 'var(--font-jakarta)' }}>
-            Rafael Mota
-          </p>
-          <p className="text-[11px] font-medium text-marine-500">
-            Gerente de Negócios · Toyolex Roraima
-          </p>
-          <div className="mt-0.5 flex items-center gap-1">
-            <div className="h-1.5 w-1.5 rounded-full bg-whatsapp" />
-            <span className="text-[10px] font-medium text-whatsapp">Online agora</span>
-          </div>
-        </div>
-      </div>
-
       {/* Availability */}
-      <div className="my-4 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between">
         <span className="text-[12px] font-medium text-marine-600">Disponibilidade</span>
         {car.category === 'entregas' ? (
           <span className="rounded-full px-3 py-1 text-[10px] font-bold tracking-wide text-white" style={{ background: '#6C3FF5', border: '1px solid #5a32d0' }}>

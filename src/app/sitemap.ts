@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getAllCars } from '@/lib/queries/cars'
 
-const BASE_URL = 'https://rafaelmota.com.br'
+const BASE_URL = 'https://shoppingdasmotos.com.br'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const cars = await getAllCars()

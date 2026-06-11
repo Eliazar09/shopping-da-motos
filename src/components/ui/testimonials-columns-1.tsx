@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import React from 'react'
 import { motion } from 'framer-motion'
@@ -33,7 +33,7 @@ export const TestimonialsColumn = (props: {
               <div
                 key={i}
                 className="max-w-xs w-full rounded-3xl border border-gray-200 bg-white p-8"
-                style={{ boxShadow: '0 8px 32px rgba(10,25,41,0.07)' }}
+                style={{ boxShadow: '0 8px 32px rgba(13,13,15,0.07)' }}
               >
                 <p className="text-[14px] leading-relaxed text-marine-700" style={{ fontFamily: 'var(--font-jakarta)' }}>
                   &ldquo;{text}&rdquo;

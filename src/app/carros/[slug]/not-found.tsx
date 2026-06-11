@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { Search, ArrowLeft } from 'lucide-react'
 import Navbar from '@/components/home/Navbar'
 import Footer from '@/components/home/Footer'
@@ -23,9 +23,9 @@ export default function CarNotFound() {
           <h1
             className="font-bold leading-none text-marine-900"
             style={{
-              fontFamily: 'var(--font-fraunces)',
+              fontFamily: 'var(--font-oswald)',
               fontSize: 'clamp(80px, 14vw, 140px)',
-              letterSpacing: '-0.04em',
+              letterSpacing: '0.01em',
               lineHeight: 1,
             }}
           >
