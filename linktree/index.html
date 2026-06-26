@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping das Motos — Boa Vista, Roraima</title>
+  <meta name="description" content="Sua loja de motos em Boa Vista, RR. Honda, Yamaha, Suzuki e muito mais. Fale no WhatsApp!">
+  <meta property="og:title" content="Shopping das Motos">
+  <meta property="og:description" content="Sua loja de motos em Boa Vista, Roraima.">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:      10, 10, 12;
+      --ink-2:    18, 16, 20;
+      --cream:    250, 248, 243;
+      --cream-dim:210, 205, 196;
+      --cream-soft:165,160,150;
+      --red:      227, 30, 36;
+      --red-dim:  180, 22, 27;
+      --green:    37, 211, 102;
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: rgb(var(--ink));
+      color: rgb(var(--cream));
+      font-family: 'Manrope', sans-serif;
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    #bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    #bg canvas { width: 100% !important; height: 100% !important; display: block; }
+
+    .ov-grad {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(to bottom,
+        rgba(var(--ink),.9) 0%,
+        rgba(var(--ink),.55) 35%,
+        rgba(var(--ink),.65) 65%,
+        rgba(var(--ink),.97) 100%);
+    }
+
+    .ov-noise {
+      position: fixed; inset: 0; z-index: 2; pointer-events: none;
+      opacity: .032; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 256px;
+    }
+
+    main {
+      position: relative; z-index: 10;
+      width: 100%; max-width: 580px;
+      margin: 0 auto; padding: 0 0 80px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    .pad { padding: 0 22px; width: 100%; }
+
+    .sec {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .2em;
+      color: rgba(var(--red), .85);
+      margin-bottom: 12px;
+    }
+
+    .div { width: 100%; height: 1px; background: rgba(var(--cream),.055); margin: 36px 0; }
+
+    /* ══ HERO ══ */
+    .hero {
+      width: 100%; position: relative; overflow: hidden;
+      min-height: 58dvh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      margin-bottom: 40px;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg,
+        rgba(var(--red),.12) 0%,
+        rgba(var(--ink),.0) 60%);
+      pointer-events: none;
+    }
+
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 50%,
+        rgba(var(--ink),.82) 82%,
+        rgba(var(--ink),.98) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 22px 36px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: .22em;
+      color: rgba(var(--red), .9);
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(3.2rem, 18vw, 6rem);
+      font-weight: 700;
+      line-height: .92; letter-spacing: .04em;
+      color: rgb(var(--cream));
+      margin-bottom: 14px;
+    }
+
+    .hero h1 .red { color: rgb(var(--red)); }
+
+    .hero-sub {
+      font-size: .875rem; font-weight: 400;
+      color: rgba(var(--cream-dim), .8);
+      line-height: 1.6; max-width: 28ch;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: .17em;
+      color: rgb(var(--cream));
+      border: 1px solid rgba(var(--red),.3);
+      border-radius: 999px;
+      background: rgba(var(--red),.08);
+      backdrop-filter: blur(12px);
+      padding: 7px 16px; margin-bottom: 26px;
+    }
+
+    .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgb(var(--red));
+      animation: blink 2.2s ease-in-out infinite;
+    }
+    .dot.green { background: rgb(var(--green)); }
+
+    @keyframes blink { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+    .cta-row { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+    @media(min-width:440px){ .cta-row { flex-direction: row; } }
+
+    .btn {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: 9px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 15px; letter-spacing: .1em; font-weight: 500;
+      padding: 15px 22px; text-decoration: none;
+      cursor: pointer; border: none;
+      transition: transform .35s var(--ease), box-shadow .35s, background .25s;
+      position: relative; overflow: hidden; border-radius: 6px;
+    }
+    .btn::after { content:''; position:absolute; inset:0; background:rgba(255,255,255,0); transition:background .25s; }
+    .btn:hover::after { background:rgba(255,255,255,.06); }
+    .btn:hover { transform: translateY(-3px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-red {
+      background: rgb(var(--red)); color: #fff;
+      box-shadow: 0 0 36px rgba(var(--red),.22);
+    }
+    .btn-red:hover { box-shadow: 0 0 56px rgba(var(--red),.45), 0 16px 40px rgba(0,0,0,.4); }
+
+    .btn-wa {
+      background: rgba(var(--green),.12); color: rgb(var(--green));
+      border: 1px solid rgba(var(--green),.28); backdrop-filter: blur(8px);
+    }
+    .btn-wa:hover { background: rgba(var(--green),.2); box-shadow: 0 0 40px rgba(var(--green),.18); }
+
+    /* ══ SOBRE ══ */
+    .about {
+      width: 100%;
+      border: 1px solid rgba(var(--red),.18);
+      border-radius: 14px;
+      background: rgba(var(--ink-2),.65);
+      backdrop-filter: blur(18px);
+      padding: 22px;
+      position: relative; overflow: hidden;
+    }
+    .about::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background: linear-gradient(90deg, rgb(var(--red)), rgba(var(--red),.3) 55%, transparent 80%);
+    }
+
+    .about-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1.4rem, 5.5vw, 2rem);
+      font-weight: 600; letter-spacing: .04em; line-height: 1;
+      color: rgb(var(--cream)); margin-bottom: 10px;
+    }
+
+    .about-text {
+      font-size: .875rem; font-weight: 400;
+      color: rgb(var(--cream-dim)); line-height: 1.7; margin-bottom: 18px;
+    }
+
+    .about-addr {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .8rem; color: rgba(var(--cream-dim),.7);
+      line-height: 1.5;
+      padding: 12px 14px;
+      border: 1px solid rgba(var(--cream),.07);
+      border-radius: 10px;
+      background: rgba(var(--ink),.4);
+      margin-bottom: 18px;
+    }
+    .about-addr svg { flex-shrink: 0; margin-top: 2px; }
+
+    .about-stats {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 12px; border-top: 1px solid rgba(var(--cream),.06); padding-top: 16px;
+    }
+    .stat { display: flex; flex-direction: column; gap: 3px; }
+    .stat-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.9rem; font-weight: 700;
+      color: rgb(var(--red)); line-height: 1;
+    }
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px; font-weight: 400;
+      text-transform: uppercase; letter-spacing: .14em;
+      color: rgba(var(--cream-soft),.6);
+    }
+
+    /* ══ VIDEO ══ */
+    .video-wrap {
+      width: 100%;
+      border: 1px solid rgba(var(--red),.14);
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(var(--ink-2),.7);
+      position: relative;
+    }
+    .video-wrap iframe {
+      width: 100%;
+      min-height: 600px;
+      border: none;
+      display: block;
+    }
+
+    /* ══ LINK CARDS ══ */
+    .links { width: 100%; display: flex; flex-direction: column; gap: 5px; }
+
+    .lnk {
+      position: relative;
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 14px;
+      padding: 16px 18px;
+      border: 1px solid rgba(var(--cream),.07);
+      border-radius: 12px;
+      background: rgba(var(--ink-2),.55); backdrop-filter: blur(14px);
+      text-decoration: none; color: inherit;
+      transition: border-color .3s, background .3s, transform .3s var(--ease);
+      overflow: hidden;
+    }
+    .lnk::before {
+      content:''; position:absolute; left:0; top:0;
+      width: 3px; height: 0;
+      transition: height .45s var(--ease);
+    }
+    .lnk.hi    { border-color: rgba(var(--red),.24); background: rgba(var(--red),.07); }
+    .lnk.hi::before   { background: rgb(var(--red)); }
+    .lnk.mid::before  { background: rgba(var(--cream),.4); }
+    .lnk.wa::before   { background: rgb(var(--green)); }
+    .lnk.ig::before   { background: linear-gradient(#f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+
+    .lnk:hover::before { height: 100%; }
+    .lnk:hover { transform: translateX(5px); background: rgba(var(--ink-2),.85); }
+    .lnk.hi:hover { border-color: rgba(var(--red),.45); }
+    .lnk.wa:hover { border-color: rgba(var(--green),.32); }
+    .lnk.ig:hover { border-color: rgba(220, 39, 67, .35); }
+
+    .lnk-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      border: 1px solid rgba(var(--cream),.1);
+      border-radius: 11px;
+      background: rgba(var(--ink),.55);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .35s var(--ease), background .25s;
+    }
+    .lnk:hover .lnk-icon { transform: scale(1.09) rotate(4deg); }
+    .lnk.hi .lnk-icon { border-color: rgba(var(--red),.28); background: rgba(var(--red),.1); }
+    .lnk.wa .lnk-icon { border-color: rgba(var(--green),.24); background: rgba(var(--green),.07); }
+    .lnk-icon svg { width: 20px; height: 20px; }
+
+    .lnk-body { min-width: 0; }
+    .lnk-name { font-weight: 700; font-size: .95rem; color: rgb(var(--cream)); line-height: 1.2; margin-bottom: 2px; }
+    .lnk-desc { font-size: .78rem; color: rgb(var(--cream-dim)); line-height: 1.4; }
+
+    .lnk-arr {
+      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+      border: 1px solid rgba(var(--cream),.1);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .3s, border-color .3s, transform .35s var(--ease);
+    }
+    .lnk:hover .lnk-arr { background: rgb(var(--red)); border-color: rgb(var(--red)); transform: rotate(45deg); }
+    .lnk.wa:hover .lnk-arr { background: rgb(var(--green)); border-color: rgb(var(--green)); }
+    .lnk-arr svg { width: 12px; height: 12px; }
+    .lnk:hover .lnk-arr svg { color: #fff; }
+
+    /* ══ CONTATO ══ */
+    .contacts { width: 100%; display: flex; flex-direction: column; gap: 4px; }
+    .ct {
+      display: grid; grid-template-columns: 20px 1fr 14px;
+      align-items: center; gap: 14px; padding: 14px 18px;
+      border: 1px solid rgba(var(--cream),.08);
+      border-radius: 10px;
+      background: rgba(var(--ink),.4); backdrop-filter: blur(8px);
+      text-decoration: none; color: rgba(var(--cream-dim),.85);
+      font-size: .875rem; font-weight: 400;
+      transition: color .25s, border-color .25s, background .25s, transform .3s var(--ease);
+    }
+    .ct:hover { color: rgb(var(--cream)); border-color: rgba(var(--red),.28); background: rgba(var(--ink-2),.7); transform: translateX(4px); }
+    .ct svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .ct .arr { opacity: 0; transform: translateX(-4px); transition: opacity .3s, transform .3s; }
+    .ct:hover .arr { opacity: .45; transform: translateX(0); }
+
+    /* ══ FINAL CTA ══ */
+    .final {
+      width: 100%;
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(var(--red),.28);
+      border-radius: 16px;
+      background: rgba(var(--ink-2),.72); backdrop-filter: blur(18px);
+      padding: 40px 26px 36px; text-align: center;
+    }
+    .final::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background: linear-gradient(90deg, transparent 0%, rgb(var(--red)) 50%, transparent 100%);
+    }
+    .final-glow {
+      position:absolute; top:-55px; left:50%; transform:translateX(-50%);
+      width:320px; height:160px;
+      background:radial-gradient(ellipse, rgba(var(--red),.12) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .final-badge {
+      display:inline-flex; align-items:center; gap:7px;
+      font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:500;
+      text-transform:uppercase; letter-spacing:.17em;
+      color:rgba(var(--red),.9); border:1px solid rgba(var(--red),.24);
+      background:rgba(var(--red),.06); padding:6px 14px;
+      border-radius: 4px; margin-bottom:22px;
+    }
+    .final h2 {
+      font-family:'Oswald',sans-serif; font-weight:700;
+      font-size:clamp(2rem,8vw,3.2rem); line-height:.95;
+      letter-spacing:.05em; color:rgb(var(--cream)); margin-bottom:10px;
+    }
+    .final h2 em { font-style:normal; color:rgb(var(--red)); }
+    .final p { font-size:.875rem; color:rgba(var(--cream-dim),.85); margin-bottom:26px; line-height:1.65; }
+
+    .final-btn {
+      display:inline-flex; align-items:center; gap:10px;
+      font-family:'Oswald',sans-serif; font-size:15px; font-weight:500; letter-spacing:.12em;
+      background:rgb(var(--green)); color:#fff;
+      padding:16px 36px; text-decoration:none;
+      width:100%; max-width:360px; justify-content:center;
+      border-radius:6px;
+      box-shadow:0 0 40px rgba(var(--green),.22);
+      transition: transform .35s var(--ease), box-shadow .35s;
+    }
+    .final-btn:hover { transform:translateY(-3px); box-shadow:0 0 60px rgba(var(--green),.38),0 20px 40px rgba(0,0,0,.5); }
+    .final-btn:active { transform:translateY(0); }
+
+    footer {
+      margin-top:38px;
+      font-family:'JetBrains Mono',monospace;
+      font-size:9px; letter-spacing:.18em; text-transform:uppercase;
+      color:rgba(var(--cream-soft),.22); text-align:center;
+    }
+
+    /* Reveal */
+    .r { opacity:0; transform:translateY(22px); animation:up .7s var(--ease) forwards; }
+    @keyframes up { to { opacity:1; transform:translateY(0); } }
+    .r1{animation-delay:.04s} .r2{animation-delay:.12s} .r3{animation-delay:.20s}
+    .r4{animation-delay:.28s} .r5{animation-delay:.36s} .r6{animation-delay:.44s}
+    .r7{animation-delay:.52s} .r8{animation-delay:.60s}
+  </style>
+</head>
+
+<body>
+
+<div id="bg" aria-hidden="true"></div>
+<div class="ov-grad" aria-hidden="true"></div>
+<div class="ov-noise" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero r r1">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+
+      <span class="hero-eyebrow">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Boa Vista · Roraima
+      </span>
+
+      <h1>SHOPPING<br>DAS <span class="red">MOTOS</span></h1>
+      <p class="hero-sub">As melhores motos de Boa Vista. Honda, Yamaha, Suzuki e muito mais.</p>
+
+      <div class="badge">
+        <span class="dot"></span>
+        Estoque disponível — consulte agora
+      </div>
+
+      <div class="cta-row">
+        <a href="https://shopping-da-motos.vercel.app/estoque" target="_blank" rel="noopener noreferrer" class="btn btn-red">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m5 12 7-7 7 7"/><path d="M12 5v14"/>
+          </svg>
+          Ver Motos
+        </a>
+        <a href="https://wa.me/5595984102562?text=Oi!%20Vi%20o%20perfil%20do%20Shopping%20das%20Motos%20e%20quero%20saber%20mais%20sobre%20as%20motos!"
+           target="_blank" rel="noopener noreferrer" class="btn btn-wa">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ SOBRE ═══ -->
+  <div class="pad r r2" style="margin-bottom:40px">
+    <div class="sec">A loja</div>
+    <div class="about">
+      <p class="about-title">Sua loja de motos em Boa Vista</p>
+      <p class="about-text">
+        No Shopping das Motos você encontra as melhores marcas com atendimento de qualidade e condições facilitadas de financiamento. Motos novas, seminovas e muito mais — tudo em um só lugar, aqui em Boa Vista, Roraima.
+      </p>
+
+      <a href="https://maps.google.com/?q=Av.+Gen.+Ataíde+Teive,+4063+-+Asa+Branca,+Boa+Vista+-+RR,+69312-244"
+         target="_blank" rel="noopener noreferrer" class="about-addr">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(227,30,36,.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        <span>Av. Gen. Ataíde Teive, 4063 — Asa Branca<br>Boa Vista – RR, 69312-244 · Ver no Maps →</span>
+      </a>
+
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-num">+100</span>
+          <span class="stat-label">motos</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">15+</span>
+          <span class="stat-label">anos no mercado</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">BV</span>
+          <span class="stat-label">Boa Vista, RR</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ VÍDEO DO INSTAGRAM ═══ -->
+  <div class="pad r r3" style="margin-bottom:40px">
+    <div class="sec">Em destaque</div>
+    <div class="video-wrap">
+      <iframe
+        src="https://www.instagram.com/p/DaAx8m5O_nZ/embed/"
+        scrolling="no"
+        allowtransparency="true"
+        loading="lazy"
+        title="Shopping das Motos no Instagram"
+      ></iframe>
+    </div>
+  </div>
+
+  <!-- ═══ LINKS ═══ -->
+  <div class="pad r r4" style="margin-bottom:40px">
+    <div class="sec">Links</div>
+    <div class="links">
+
+      <!-- Site -->
+      <a href="https://shopping-da-motos.vercel.app/estoque" target="_blank" rel="noopener noreferrer" class="lnk hi">
+        <div class="lnk-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgb(227,30,36)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m5 12 7-7 7 7"/><path d="M12 5v14"/>
+            <path d="M5 19h14"/>
+          </svg>
+        </div>
+        <div class="lnk-body">
+          <div class="lnk-name">Ver Estoque de Motos</div>
+          <div class="lnk-desc">Novas, seminovas e venda direta</div>
+        </div>
+        <div class="lnk-arr">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10M17 7v10H7"/></svg>
+        </div>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/shopping.dasmotos/" target="_blank" rel="noopener noreferrer" class="lnk ig">
+        <div class="lnk-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgb(220,39,67)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="rgb(220,39,67)" stroke="none"/>
+          </svg>
+        </div>
+        <div class="lnk-body">
+          <div class="lnk-name">Instagram</div>
+          <div class="lnk-desc">@shopping.dasmotos</div>
+        </div>
+        <div class="lnk-arr">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10M17 7v10H7"/></svg>
+        </div>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/5595984102562?text=Oi!%20Vim%20pelo%20linktree%20do%20Shopping%20das%20Motos%20e%20quero%20saber%20mais%20sobre%20as%20motos!"
+         target="_blank" rel="noopener noreferrer" class="lnk wa">
+        <div class="lnk-icon">
+          <svg viewBox="0 0 24 24" fill="rgb(37,211,102)" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </div>
+        <div class="lnk-body">
+          <div class="lnk-name">Falar no WhatsApp</div>
+          <div class="lnk-desc">Tire dúvidas e consulte preços</div>
+        </div>
+        <div class="lnk-arr">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10M17 7v10H7"/></svg>
+        </div>
+      </a>
+
+      <!-- Maps -->
+      <a href="https://maps.google.com/?q=Av.+Gen.+Ataíde+Teive,+4063+-+Asa+Branca,+Boa+Vista+-+RR,+69312-244"
+         target="_blank" rel="noopener noreferrer" class="lnk mid">
+        <div class="lnk-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgb(250,248,243)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="lnk-body">
+          <div class="lnk-name">Como chegar</div>
+          <div class="lnk-desc">Av. Gen. Ataíde Teive, 4063 — Asa Branca</div>
+        </div>
+        <div class="lnk-arr">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10M17 7v10H7"/></svg>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ═══ CONTATO DIRETO ═══ -->
+  <div class="pad r r5" style="margin-bottom:40px">
+    <div class="sec">Contato</div>
+    <div class="contacts">
+
+      <a href="https://wa.me/5595984102562?text=Oi!%20Vim%20pelo%20linktree%20do%20Shopping%20das%20Motos." target="_blank" rel="noopener noreferrer" class="ct">
+        <svg viewBox="0 0 24 24" fill="rgb(37,211,102)" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <span>(95) 98410-2562 — WhatsApp</span>
+        <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10M17 7v10H7"/></svg>
+      </a>
+
+      <a href="https://www.instagram.com/shopping.dasmotos/" target="_blank" rel="noopener noreferrer" class="ct">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        <span>@shopping.dasmotos — Instagram</span>
+        <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10M17 7v10H7"/></svg>
+      </a>
+
+      <a href="https://maps.google.com/?q=Av.+Gen.+Ataíde+Teive,+4063+-+Asa+Branca,+Boa+Vista+-+RR,+69312-244" target="_blank" rel="noopener noreferrer" class="ct">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        <span>Asa Branca, Boa Vista — RR</span>
+        <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10M17 7v10H7"/></svg>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ═══ FINAL CTA ═══ -->
+  <div class="pad r r6">
+    <div class="final">
+      <div class="final-glow"></div>
+      <div class="final-badge">
+        <span class="dot green"></span>
+        Online agora — resposta rápida
+      </div>
+      <h2>SUA MOTO<br><em>TE ESPERA</em></h2>
+      <p>Fale direto no WhatsApp e tire todas as suas dúvidas.<br>Financiamento facilitado, sem burocracia.</p>
+      <a href="https://wa.me/5595984102562?text=Oi!%20Quero%20saber%20mais%20sobre%20as%20motos%20do%20Shopping%20das%20Motos!"
+         target="_blank" rel="noopener noreferrer" class="final-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Falar no WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <footer class="r r8">
+    <span>&copy; <span id="yr"></span> Shopping das Motos · Boa Vista, Roraima</span>
+  </footer>
+
+</main>
+
+<!-- WebGL fundo animado — vermelho/preto -->
+<script type="module">
+  import { Renderer, Program, Mesh, Triangle } from 'https://esm.sh/ogl@1.0.11';
+
+  const vert = `
+    attribute vec2 uv; attribute vec2 position; varying vec2 vUv;
+    void main(){ vUv=uv; gl_Position=vec4(position,0,1); }
+  `;
+  const frag = `
+    precision highp float;
+    uniform float uTime; uniform vec3 uRes;
+    uniform float uSpeed,uIn,uOut,uWarp,uRot,uEdge,uCycle,uBright;
+    uniform vec3 uC1,uC2,uC3; uniform vec2 uMouse; uniform float uMInf;
+    #define HP 1.5707963
+    float hf(float n){return fract(sin(n*127.1)*43758.5453);}
+    float sn(float x){float i=floor(x),f=fract(x),u=f*f*(3.-2.*f);return mix(hf(i),hf(i+1.),u);}
+    float dA(float c,float t){return sin(c*2.123)*.2+sin(c*3.234+t*4.345)*.1+sin(c*.589+t*.934)*.5;}
+    float dB(float c,float t){return sin(c*1.345)*.3+sin(c*2.734+t*3.345)*.2+sin(c*.189+t*.934)*.3;}
+    vec2 rot(vec2 p,float a){return vec2(p.x*cos(a)-p.y*sin(a),p.x*sin(a)+p.y*cos(a));}
+    void main(){
+      vec2 co=gl_FragCoord.xy/uRes.xy*2.-1.; co=rot(co,uRot);
+      float ht=uTime*uSpeed*.5, ft=uTime*uSpeed;
+      vec2 mp=rot(uMouse*2.-1.,uRot);
+      float mw=uMInf*exp(-dot(co-mp,co-mp)*4.);
+      float ax=co.x+dA(co.y,ht)*uWarp+mw, ay=co.y-dA(co.x*cos(ft)*1.235,ht)*uWarp;
+      float bx=co.x+dB(co.y,ht)*uWarp+mw, by=co.y-dB(co.x*sin(ft)*1.235,ht)*uWarp;
+      vec2 fa=vec2(ax,ay),fb=vec2(bx,by),bl=mix(fa,fb,mix(fa,fb,.5));
+      float vm=1.-max(smoothstep(uEdge,uEdge+.4,bl.y),smoothstep(-uEdge,-(uEdge+.4),bl.y));
+      float sy=bl.y*mix(uOut,uIn,vm), ny=sn(abs(sy));
+      float ridge=pow(step(abs(ny-bl.x)*2.,HP)*cos(2.*(ny-bl.x)),5.);
+      float lines=0.; for(float i=1.;i<3.;i+=1.) lines+=pow(max(fract(sy),fract(-sy)),i*2.);
+      float pat=vm*lines, ct=ft*uCycle;
+      float r=(pat+lines*ridge)*(cos(bl.y+ct*.234)*.5+1.);
+      float g=(pat+vm*ridge)*(sin(bl.x+ct*1.745)*.5+1.);
+      float b=(pat+lines*ridge)*(cos(bl.x+ct*.534)*.5+1.);
+      vec3 col=(r*uC1+g*uC2+b*uC3)*uBright;
+      gl_FragColor=vec4(col,clamp(length(col),0.,1.));
+    }
+  `;
+
+  function h2v(hex){
+    const h=hex.replace('#','');
+    return[parseInt(h.slice(0,2),16)/255,parseInt(h.slice(2,4),16)/255,parseInt(h.slice(4,6),16)/255];
+  }
+
+  const wrap = document.getElementById('bg');
+  const renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
+  const gl = renderer.gl;
+  gl.clearColor(0,0,0,0);
+  Object.assign(gl.canvas.style,{position:'absolute',inset:'0',width:'100%',height:'100%'});
+  wrap.appendChild(gl.canvas);
+
+  const mouse = new Float32Array([.5,.5]);
+  let target = [.5,.5];
+  const DEG = -28 * Math.PI / 180;
+
+  const prog = new Program(gl, {
+    vertex: vert, fragment: frag, uniforms: {
+      uTime:   { value: 0 },
+      uRes:    { value: [0,0,1] },
+      uSpeed:  { value: .18 },
+      uIn:     { value: 30 }, uOut: { value: 34 },
+      uWarp:   { value: .9 },
+      uRot:    { value: DEG },
+      uEdge:   { value: 0 },
+      uCycle:  { value: 1 },
+      uBright: { value: .14 },
+      uC1: { value: h2v('#3d0305') },
+      uC2: { value: h2v('#e31e24') },
+      uC3: { value: h2v('#1a0002') },
+      uMouse:  { value: mouse },
+      uMInf:   { value: 1.1 },
+    }
+  });
+
+  const mesh = new Mesh(gl, { geometry: new Triangle(gl), program: prog });
+
+  function resize(){
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    prog.uniforms.uRes.value = [gl.canvas.width, gl.canvas.height, gl.canvas.width/gl.canvas.height];
+  }
+  window.addEventListener('resize', resize); resize();
+
+  window.addEventListener('mousemove', e => {
+    target = [e.clientX/window.innerWidth, 1-e.clientY/window.innerHeight];
+  });
+  window.addEventListener('touchmove', e => {
+    const t = e.touches[0];
+    target = [t.clientX/window.innerWidth, 1-t.clientY/window.innerHeight];
+  }, { passive: true });
+
+  function tick(t){
+    requestAnimationFrame(tick);
+    prog.uniforms.uTime.value = t*.001;
+    mouse[0] += .05*(target[0]-mouse[0]);
+    mouse[1] += .05*(target[1]-mouse[1]);
+    renderer.render({ scene: mesh });
+  }
+  requestAnimationFrame(tick);
+</script>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+
+</body>
+</html>
