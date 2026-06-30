@@ -65,7 +65,7 @@ function DefaultCarCard({ car, index }: Props) {
       whileHover={!isSold ? { y: -4, boxShadow: '0 16px 36px rgba(13,13,15,0.12)' } : {}}
     >
       {/* Image */}
-      <Link href={`/carros/${car.slug}`} className="relative block aspect-[4/3] w-full overflow-hidden bg-gray-100">
+      <Link href={`/motos/${car.slug}`} className="relative block aspect-[4/3] w-full overflow-hidden bg-gray-100">
         <CarImage
           src={car.coverImage}
           alt={`${carName} ${car.year}`}
@@ -127,7 +127,7 @@ function DefaultCarCard({ car, index }: Props) {
 
         <div className="mt-4 grid grid-cols-2 gap-2">
           <Link
-            href={`/carros/${car.slug}`}
+            href={`/motos/${car.slug}`}
             className="flex items-center justify-center rounded-xl border py-2.5 text-[12px] font-semibold text-marine-700 transition-all"
             style={{ borderColor: '#E4E7EB', background: 'transparent' }}
           >
@@ -170,7 +170,7 @@ function ConsorcioCard({ car, index }: Props) {
       whileHover={{ y: -4, boxShadow: '0 16px 36px rgba(26,77,143,0.14)' }}
     >
       {/* Image */}
-      <Link href={`/carros/${car.slug}`} className="relative block aspect-[4/3] w-full overflow-hidden bg-[#0d2547]">
+      <Link href={`/motos/${car.slug}`} className="relative block aspect-[4/3] w-full overflow-hidden bg-[#0d2547]">
         {car.coverImage && !car.coverImage.includes('placeholder') ? (
           <Image
             src={car.coverImage}
@@ -217,7 +217,7 @@ function ConsorcioCard({ car, index }: Props) {
 
         <div className="mt-4 grid grid-cols-2 gap-2">
           <Link
-            href={`/carros/${car.slug}`}
+            href={`/motos/${car.slug}`}
             className="flex items-center justify-center rounded-xl border py-2.5 text-[12px] font-semibold text-marine-700 transition-all"
             style={{ borderColor: '#E4E7EB', background: 'transparent' }}
           >
@@ -256,7 +256,7 @@ function EntregaCard({ car, index }: Props) {
       whileHover={{ y: -4, boxShadow: '0 16px 36px rgba(108,63,245,0.14)' }}
     >
       {/* Image */}
-      <Link href={`/carros/${car.slug}`} className="relative block aspect-[4/3] w-full overflow-hidden bg-[#1a0d40]">
+      <Link href={`/motos/${car.slug}`} className="relative block aspect-[4/3] w-full overflow-hidden bg-[#1a0d40]">
         {car.coverImage && !car.coverImage.includes('placeholder') ? (
           <Image
             src={car.coverImage}
@@ -285,7 +285,7 @@ function EntregaCard({ car, index }: Props) {
 
         <div className="mt-4 grid grid-cols-2 gap-2">
           <Link
-            href={`/carros/${car.slug}`}
+            href={`/motos/${car.slug}`}
             className="flex items-center justify-center rounded-xl border py-2.5 text-[12px] font-semibold text-marine-700 transition-all"
             style={{ borderColor: 'rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.04)' }}
           >

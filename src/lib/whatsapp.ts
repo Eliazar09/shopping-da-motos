@@ -7,7 +7,7 @@ export function buildWhatsAppLink(message: string): string {
 
 export function carWhatsAppLink(carName: string, carYear: number, carSlug: string): string {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://shoppingdasmotos.com.br'
-  const message = `Olá, Shopping das Motos! Tenho interesse no ${carName} ${carYear}\nLink: ${siteUrl}/carros/${carSlug}`
+  const message = `Olá, Shopping das Motos! Tenho interesse no ${carName} ${carYear}\nLink: ${siteUrl}/motos/${carSlug}`
   return buildWhatsAppLink(message)
 }
 
@@ -24,14 +24,14 @@ export function repaseWhatsAppLink(): string {
 export function carWhatsAppLinkDynamic(carName: string, carYear: number, carSlug: string): string {
   const origin =
     typeof window !== 'undefined' ? window.location.origin : 'https://shoppingdasmotos.com.br'
-  const message = `Olá, Shopping das Motos! Tenho interesse no ${carName} ${carYear}\nLink: ${origin}/carros/${carSlug}`
+  const message = `Olá, Shopping das Motos! Tenho interesse no ${carName} ${carYear}\nLink: ${origin}/motos/${carSlug}`
   return buildWhatsAppLink(message)
 }
 
 export function consorcioWhatsAppLinkDynamic(tipoGrupo: string, slug: string): string {
   const origin =
     typeof window !== 'undefined' ? window.location.origin : 'https://shoppingdasmotos.com.br'
-  const message = `Olá, Shopping das Motos! Tenho interesse no consórcio ${tipoGrupo}\nLink: ${origin}/carros/${slug}`
+  const message = `Olá, Shopping das Motos! Tenho interesse no consórcio ${tipoGrupo}\nLink: ${origin}/motos/${slug}`
   return buildWhatsAppLink(message)
 }
 

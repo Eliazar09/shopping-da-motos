@@ -6,7 +6,7 @@ const BASE_URL = 'https://shoppingdasmotos.com.br'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const cars = await getAllCars()
   const carRoutes = cars.map((car) => ({
-    url: `${BASE_URL}/carros/${car.slug}`,
+    url: `${BASE_URL}/motos/${car.slug}`,
     lastModified: new Date(car.createdAt),
     changeFrequency: 'weekly' as const,
     priority: 0.8,

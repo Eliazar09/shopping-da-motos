@@ -294,7 +294,7 @@ export default function CalendarioPage() {
                       fontSize: 13, fontWeight: 600, color: '#0D0D0F',
                       overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                     }}>
-                      {sale.car_name ?? 'Carro não informado'}
+                      {sale.car_name ?? 'Moto não informada'}
                     </p>
                     {sale.client_name && (
                       <p style={{

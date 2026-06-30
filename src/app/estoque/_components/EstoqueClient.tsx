@@ -287,7 +287,7 @@ function EmptyResults({ onReset }: { onReset: () => void }) {
       <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-marine-50">
         <Search size={26} className="text-marine-400" />
       </div>
-      <p className="text-[16px] font-semibold text-marine-900">Nenhum veículo encontrado</p>
+      <p className="text-[16px] font-semibold text-marine-900">Nenhuma moto encontrada</p>
       <p className="mt-2 text-[13px] text-marine-500">Tente ajustar os filtros de busca.</p>
       <button
         onClick={onReset}
@@ -401,7 +401,7 @@ export default function EstoqueClient({ cars, brands }: Props) {
               }}
             >
               Todos os{' '}
-              <span style={{ color: '#E31E24' }}>Veículos</span>
+              <span style={{ color: '#E31E24' }}>Motos</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 10 }}
@@ -409,7 +409,7 @@ export default function EstoqueClient({ cars, brands }: Props) {
               transition={{ duration: 0.45, delay: 0.18 }}
               className="mt-3 text-[13px] text-white/50"
             >
-              {displayed.length} {displayed.length === 1 ? 'veículo encontrado' : 'veículos encontrados'}
+              {displayed.length} {displayed.length === 1 ? 'moto encontrada' : 'motos encontradas'}
             </motion.p>
           </div>
         </Container>
@@ -582,7 +582,7 @@ export default function EstoqueClient({ cars, brands }: Props) {
                 onClick={() => setMobileFilterOpen(false)}
                 className="mt-8 w-full rounded-full bg-accent py-3.5 text-[13px] font-bold text-white"
               >
-                Ver {displayed.length} veículos
+                Ver {displayed.length} motos
               </button>
             </motion.div>
           </>

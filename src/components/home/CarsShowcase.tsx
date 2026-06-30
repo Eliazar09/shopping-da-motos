@@ -97,7 +97,7 @@ export default function CarsShowcase({ activeCategory, cars }: Props) {
                 className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-bold"
                 style={{ background: '#F4F4F5', color: '#52525B' }}
               >
-                {filtered.length} {filtered.length === 1 ? 'veículo disponível' : 'veículos disponíveis'}
+                {filtered.length} {filtered.length === 1 ? 'moto disponível' : 'motos disponíveis'}
               </span>
             </motion.div>
           </motion.div>

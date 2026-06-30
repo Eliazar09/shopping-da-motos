@@ -25,6 +25,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/carros/:slug',
+        destination: '/motos/:slug',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {

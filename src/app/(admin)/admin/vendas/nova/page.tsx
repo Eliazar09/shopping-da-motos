@@ -104,7 +104,7 @@ export default function NovaVendaPage() {
     if (!clientName.trim()) { setError('Nome do cliente é obrigatório.'); return }
     if (!clientPhone.trim()) { setError('Telefone do cliente é obrigatório para vincular a venda ao cadastro.'); return }
     if (!salePrice || Number(salePrice) <= 0) { setError('Valor da venda é obrigatório e deve ser maior que zero.'); return }
-    if (markSold && !carId) { setError('Selecione o carro para marcar como vendido.'); return }
+    if (markSold && !carId) { setError('Selecione a moto para marcar como vendida.'); return }
 
     setSaving(true)
     const supabase = createDynamicClient()
